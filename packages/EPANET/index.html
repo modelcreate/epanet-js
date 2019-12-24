@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+Open the console to see the output from the wasm module.
+<script type="module">
+  import wasmModule from "./my-module.js";
+  const instance = wasmModule({
+    onRuntimeInitialized() {
+      //instance.sayHello();
+      var result = instance.ccall(
+        "netbuilder", // name of C function
+        "number", // return type
+        ["number"], // argument types
+        [28]
+      );
+      console.log(result);
+    }
+  });
+</script>

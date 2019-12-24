@@ -1,0 +1,19 @@
+{
+  "name": "EPANET",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dockerimage": "docker build -t mydockerimage .",
+    "build:emscripten": "docker run --rm -v \"$(pwd):/src\" mydockerimage ./build.sh",
+    "build:app": "cp index.html dist/index.html",
+    "build": "yarn run build:emscripten && yarn run build:app",
+    "serve": "http-server -c0 dist"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "http-server": "*"
+  },
+  "author": "",
+  "license": "ISC"
+}
