@@ -25,7 +25,8 @@ echo "============================================="
     -s MALLOC=emmalloc \
     -s MODULARIZE=1 \
     -s EXPORT_ES6=1 \
-    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "intArrayToString"]'
+    -s FORCE_FILESYSTEM=1 \
+    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "intArrayToString","FS"]'
     
     
 
