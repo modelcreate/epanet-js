@@ -202,6 +202,30 @@ wall reactions are included.
   const returnValue = instance.getValue(intPointer, "i32");
   console.log(returnValue);
 
+  const FS = instance.FS;
+  FS.writeFile("/net1.inp", net1);
+  const EN = new instance.Epanet();
+
+  const runError = EN.runproject("net1.inp", "net1.rpt", "net1.hyd");
+  console.log(`Open Error: ${runError}`);
+
+  console.log(instance.intArrayToString(FS.readFile("net1.rpt")));
+
+  //const title1Ptr = instance._malloc(1);
+  //const title2Ptr = instance._malloc(1);
+  //const title3Ptr = instance._malloc(1);
+  //
+  //const openError = EN.open("net1.inp", "", "");
+  //console.log(`Open Error: ${openError}`);
+  //
+  //var result = EN.gettitle(title1Ptr, title2Ptr, title3Ptr);
+  //console.log(instance.UTF8ToString(title1Ptr));
+  //console.log(instance.UTF8ToString(title2Ptr));
+  //console.log(instance.UTF8ToString(title3Ptr));
+  //
+  //EN.gettitle(title1Ptr, title2Ptr, title3Ptr);
+  //EN.gettitle(title1Ptr, title2Ptr, title3Ptr);
+
   //console.log(instance.intArrayToString(FS.readFile("/net1.rpt")));
   //console.log(result);
   //console.log(instance);

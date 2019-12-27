@@ -28,7 +28,7 @@ echo "============================================="
     -s EXPORT_ES6=1 \
     -s FORCE_FILESYSTEM=1 \
     -s WASM=0 \
-    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "intArrayToString","FS"]'
+    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]'
     
     
 
