@@ -9,6 +9,12 @@ int getversion(uintptr_t i)
   return EN_getversion(ptr);
 }
 
+int geterror(int errcode, intptr_t out_errmsg)
+{
+  char *ptr1 = reinterpret_cast<char *>(out_errmsg);
+  return EN_geterror(errcode, ptr1, EN_MAXMSG);
+}
+
 class Epanet
 {
 private:
@@ -244,11 +250,85 @@ public:
   {
     return EN_closeQ(ph);
   }
+
+  // Reporting Functions
+
+  int writeline(std::string line)
+  {
+    int errcode;
+
+    char *l1 = new char[line.length() + 1];
+    strcpy(l1, line.c_str());
+
+    errcode = EN_writeline(ph, l1);
+    delete[] l1;
+
+    return errcode;
+  }
+
+  int report()
+  {
+    return EN_report(ph);
+  }
+
+  int copyreport(std::string filename)
+  {
+    int errcode;
+
+    char *fname = new char[filename.length() + 1];
+    strcpy(fname, filename.c_str());
+
+    errcode = EN_copyreport(ph, fname);
+    delete[] fname;
+
+    return errcode;
+  }
+
+  int clearreport()
+  {
+    return EN_clearreport(ph);
+  }
+
+  int resetreport()
+  {
+    return EN_resetreport(ph);
+  }
+
+  int setreport(std::string format)
+  {
+    int errcode;
+
+    char *f = new char[format.length() + 1];
+    strcpy(f, format.c_str());
+
+    errcode = EN_copyreport(ph, f);
+    delete[] f;
+
+    return errcode;
+  }
+
+  int setstatusreport(int level)
+  {
+    return EN_setstatusreport(ph, level);
+  }
+
+  int getstatistic(int type, intptr_t value)
+  {
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_getstatistic(ph, type, ptr1);
+  }
+
+  int getresultindex(int type, int index, intptr_t value)
+  {
+    int *ptr1 = reinterpret_cast<int *>(value);
+    return EN_getresultindex(ph, type, index, ptr1);
+  }
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
 {
   function("getversion", &getversion);
+  function("geterror", &geterror);
 
   class_<Epanet>("Epanet")
       .constructor<>()
@@ -277,5 +357,15 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("openQ", &Epanet::openQ)
       .function("runQ", &Epanet::runQ)
       .function("solveQ", &Epanet::solveQ)
-      .function("stepQ", &Epanet::stepQ);
+      .function("stepQ", &Epanet::stepQ)
+      // Reporting Functions
+      .function("clearreport", &Epanet::clearreport)
+      .function("copyreport", &Epanet::copyreport)
+      .function("getresultindex", &Epanet::getresultindex)
+      .function("getstatistic", &Epanet::getstatistic)
+      .function("report", &Epanet::report)
+      .function("resetreport", &Epanet::resetreport)
+      .function("setreport", &Epanet::setreport)
+      .function("setstatusreport", &Epanet::setstatusreport)
+      .function("writeline", &Epanet::writeline);
 }
