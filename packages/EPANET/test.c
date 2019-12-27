@@ -17,6 +17,12 @@ int netbuilder()
   return i;
 }
 
+EMSCRIPTEN_KEEPALIVE
+int getversion2(int *i)
+{
+  return EN_getversion(i);
+}
+
 void writeConsole(char *s)
 {
   fprintf(stdout, "\n%s", s);

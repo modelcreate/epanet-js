@@ -180,19 +180,38 @@ wall reactions are included.
  OFFSET         	0.00            	0.00            
 
 [END]`;
-  const instance = wasmModule({
-    onRuntimeInitialized() {
-      const FS = instance.FS;
-      FS.writeFile("/net1.inp", net1);
+  const instance = wasmModule();
 
-      var result = instance.ccall(
-        "runEpanet", // name of C function
-        "number", // return type
-        ["string", "string", "string"], // argument types
-        ["/net1.inp", "/net1.rpt", "/net1.bin"]
-      );
-      console.log(instance.intArrayToString(FS.readFile("/net1.rpt")));
-      console.log(result);
-    }
-  });
+  const intPointer = instance._malloc(4);
+
+  ////onRuntimeInitialized() {
+  //const FS = instance.FS;
+  //FS.writeFile("/net1.inp", net1);
+  //console.log(instance.add(1, 2.3));
+  var result = instance.getversion(intPointer);
+  //console.log(instance.exclaim("hello world"));
+  //
+  //var result = instance.ccall(
+  //  "getversion2", // name of C function
+  //  "number", // return type
+  //  ["number"], // argument types
+  //  [intPointer]
+  //);
+  //
+  console.log(result);
+  const returnValue = instance.getValue(intPointer, "i32");
+  console.log(returnValue);
+
+  //console.log(instance.intArrayToString(FS.readFile("/net1.rpt")));
+  //console.log(result);
+  //console.log(instance);
+  //const c = new instance.Epanet(22, 2);
+  //console.log(c.getProject());
+  //console.log(c.getcount(0, intPointer));
+
+  //const nodeLength = instance.getValue(intPointer, "i32");
+  //console.log(nodeLength);
+
+  //}
+  //});
 </script>

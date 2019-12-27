@@ -16,6 +16,7 @@ echo "============================================="
     /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
+    epanet.cpp \
     --bind \
     -s EXPORTED_FUNCTIONS="['_EN_geterror','_EN_getversion']" \
     -s STRICT=1 \
@@ -26,14 +27,15 @@ echo "============================================="
     -s MODULARIZE=1 \
     -s EXPORT_ES6=1 \
     -s FORCE_FILESYSTEM=1 \
-    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "intArrayToString","FS"]'
+    -s WASM=0 \
+    -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "intArrayToString","FS"]'
     
     
 
   # Create output folder
   mkdir -p dist
   # Move artifacts
-  mv my-module.{js,wasm} dist
+  mv my-module.js dist
 )
 echo "============================================="
 echo "Compiling wasm bindings done"
