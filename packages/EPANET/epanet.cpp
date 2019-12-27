@@ -25,6 +25,8 @@ public:
     EN_deleteproject(ph);
   }
 
+  // Project Functions
+
   int open(std::string inputFile, std::string reportFile, std::string outputFile)
   {
 
@@ -136,6 +138,73 @@ public:
 
     return errcode;
   }
+
+  // Hydraulic Analysis Functions
+
+  int solveH()
+  {
+    return EN_solveH(ph);
+  }
+
+  int usehydfile(std::string filename)
+  {
+    int errcode;
+    char *fName = new char[filename.length() + 1];
+
+    strcpy(fName, filename.c_str());
+
+    errcode = EN_usehydfile(ph, fName);
+
+    delete[] fName;
+
+    return errcode;
+  }
+
+  int openH()
+  {
+    return EN_openH(ph);
+  }
+
+  int initH(int initFlag)
+  {
+    return EN_initH(ph, initFlag);
+  }
+
+  int runH(uintptr_t currentTime)
+  {
+    long *ptr = reinterpret_cast<long *>(currentTime);
+    return EN_runH(ph, ptr);
+  }
+
+  int nextH(uintptr_t tStep)
+  {
+    long *ptr = reinterpret_cast<long *>(tStep);
+    return EN_nextH(ph, ptr);
+  }
+
+  int saveH()
+  {
+    return EN_saveH(ph);
+  }
+
+  int savehydfile(std::string filename)
+  {
+    int errcode;
+    char *fName = new char[filename.length() + 1];
+
+    strcpy(fName, filename.c_str());
+
+    errcode = EN_savehydfile(ph, fName);
+
+    delete[] fName;
+
+    return errcode;
+  }
+
+  int closeH()
+  {
+    return EN_closeH(ph);
+  }
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -151,5 +220,15 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("getcount", &Epanet::getcount)
       .function("gettitle", &Epanet::gettitle)
       .function("settitle", &Epanet::settitle)
-      .function("saveinpfile", &Epanet::saveinpfile);
+      // Hydraulic Analysis Functions
+      .function("saveinpfile", &Epanet::saveinpfile)
+      .function("solveH", &Epanet::solveH)
+      .function("usehydfile", &Epanet::usehydfile)
+      .function("openH", &Epanet::openH)
+      .function("initH", &Epanet::initH)
+      .function("runH", &Epanet::runH)
+      .function("nextH", &Epanet::nextH)
+      .function("saveH", &Epanet::saveH)
+      .function("savehydfile", &Epanet::savehydfile)
+      .function("closeH", &Epanet::closeH);
 }
