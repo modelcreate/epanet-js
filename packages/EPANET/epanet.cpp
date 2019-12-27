@@ -205,6 +205,45 @@ public:
   {
     return EN_closeH(ph);
   }
+
+  //Water Quality Analysis Functions
+
+  int solveQ()
+  {
+    return EN_solveQ(ph);
+  }
+  int openQ()
+  {
+    return EN_openQ(ph);
+  }
+
+  int initQ(int initFlag)
+  {
+    return EN_initQ(ph, initFlag);
+  }
+
+  int runQ(uintptr_t currentTime)
+  {
+    long *ptr = reinterpret_cast<long *>(currentTime);
+    return EN_runQ(ph, ptr);
+  }
+
+  int nextQ(uintptr_t tStep)
+  {
+    long *ptr = reinterpret_cast<long *>(tStep);
+    return EN_nextQ(ph, ptr);
+  }
+
+  int stepQ(uintptr_t timeLeft)
+  {
+    long *ptr = reinterpret_cast<long *>(timeLeft);
+    return EN_stepQ(ph, ptr);
+  }
+
+  int closeQ()
+  {
+    return EN_closeQ(ph);
+  }
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -230,5 +269,13 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("nextH", &Epanet::nextH)
       .function("saveH", &Epanet::saveH)
       .function("savehydfile", &Epanet::savehydfile)
-      .function("closeH", &Epanet::closeH);
+      .function("closeH", &Epanet::closeH)
+      //Water Quality Analysis Functions
+      .function("closeQ", &Epanet::closeQ)
+      .function("initQ", &Epanet::initQ)
+      .function("nextQ", &Epanet::nextQ)
+      .function("openQ", &Epanet::openQ)
+      .function("runQ", &Epanet::runQ)
+      .function("solveQ", &Epanet::solveQ)
+      .function("stepQ", &Epanet::stepQ);
 }
