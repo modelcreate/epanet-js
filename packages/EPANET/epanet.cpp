@@ -710,162 +710,281 @@ public:
     double *ptr2 = reinterpret_cast<double *>(y);
     return EN_setvertices(ph, index, ptr1, ptr2, count);
   }
-  //  // Time Pattern Functions
-  //  int addpattern(char *id)
-  //  {
-  //    return EN_addpattern(id);
-  //  }
-  //  int deletepattern(int index)
-  //  {
-  //    return EN_deletepattern(index);
-  //  }
-  //  int getpatternindex(char *id, int *index)
-  //  {
-  //    return EN_getpatternindex(id, index);
-  //  }
-  //  int getpatternid(int index, char *out_id)
-  //  {
-  //    return EN_getpatternid(index, out_id);
-  //  }
-  //  int setpatternid(int index, char *id)
-  //  {
-  //    return EN_setpatternid(index, id);
-  //  }
-  //  int getpatternlen(int index, int *len)
-  //  {
-  //    return EN_getpatternlen(index, len);
-  //  }
-  //  int getpatternvalue(int index, int period, double *value)
-  //  {
-  //    return EN_getpatternvalue(index, period, value);
-  //  }
-  //  int setpatternvalue(int index, int period, double value)
-  //  {
-  //    return EN_setpatternvalue(index, period, value);
-  //  }
-  //  int getaveragepatternvalue(int index, double *value)
-  //  {
-  //    return EN_getaveragepatternvalue(index, value);
-  //  }
-  //  int setpattern(int index, double *values, int len)
-  //  {
-  //    return EN_setpattern(index, values, len);
-  //  }
-  //  // Data Curve Functions
-  //  int addcurve(char *id)
-  //  {
-  //    return EN_addcurve(id);
-  //  }
-  //  int deletecurve(int index)
-  //  {
-  //    return EN_deletecurve(index);
-  //  }
-  //  int getcurveindex(char *id, int *index)
-  //  {
-  //    return EN_getcurveindex(id, index);
-  //  }
-  //  int getcurveid(int index, char *out_id)
-  //  {
-  //    return EN_getcurveid(index, out_id);
-  //  }
-  //  int setcurveid(int index, char *id)
-  //  {
-  //    return EN_setcurveid(index, id);
-  //  }
-  //  int getcurvelen(int index, int *len)
-  //  {
-  //    return EN_getcurvelen(index, len);
-  //  }
-  //  int getcurvetype(int index, int *type)
-  //  {
-  //    return EN_getcurvetype(index, type);
-  //  }
-  //  int getcurvevalue(int curveIndex, int pointIndex, double *x, double *y)
-  //  {
-  //    return EN_getcurvevalue(curveIndex, pointIndex, x, y);
-  //  }
-  //  int setcurvevalue(int curveIndex, int pointIndex, double x, double y)
-  //  {
-  //    return EN_setcurvevalue(curveIndex, pointIndex, x, y);
-  //  }
-  //  int setcurve(int index, double *xValues, double *yValues, int nPoints)
-  //  {
-  //    return EN_setcurve(index, xValues, yValues, nPoints);
-  //  }
-  //  // Simple Control Functions
-  //  int addcontrol(int type, int linkIndex, double setting, int nodeIndex, double level, int *index)
-  //  {
-  //    return EN_addcontrol(type, linkIndex, setting, nodeIndex, level, index);
-  //  }
-  //  int deletecontrol(int index)
-  //  {
-  //    return EN_deletecontrol(index);
-  //  }
-  //  int getcontrol(int index, int *type, int *linkIndex, double *setting, int *nodeIndex, double *level)
-  //  {
-  //    return EN_getcontrol(index, type, linkIndex, setting, nodeIndex, level);
-  //  }
-  //  int setcontrol(int index, int type, int linkIndex, double setting, int nodeIndex, double level)
-  //  {
-  //    return EN_setcontrol(index, type, linkIndex, setting, nodeIndex, level);
-  //  }
-  //  // Rule-Based Control Functions
-  //  int addrule(char *rule)
-  //  {
-  //    return EN_addrule(rule);
-  //  }
-  //  int deleterule(int index)
-  //  {
-  //    return EN_deleterule(index);
-  //  }
-  //  int getrule(int index, int *nPremises, int *nThenActions, int *nElseActions, double *priority)
-  //  {
-  //    return EN_getrule(index, nPremises, nThenActions, nElseActions, priority);
-  //  }
-  //  int getruleID(int index, char *out_id)
-  //  {
-  //    return EN_getruleID(index, out_id);
-  //  }
-  //  int getpremise(int ruleIndex, int premiseIndex, int *logop, int *object, int *objIndex, int *variable, int *relop, int *status, double *value)
-  //  {
-  //    return EN_getpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
-  //  }
-  //  int setpremise(int ruleIndex, int premiseIndex, int logop, int object, int objIndex, int variable, int relop, int status, double value)
-  //  {
-  //    return EN_setpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
-  //  }
-  //  int setpremiseindex(int ruleIndex, int premiseIndex, int objIndex)
-  //  {
-  //    return EN_setpremiseindex(ruleIndex, premiseIndex, objIndex);
-  //  }
-  //  int setpremisestatus(int ruleIndex, int premiseIndex, int status)
-  //  {
-  //    return EN_setpremisestatus(ruleIndex, premiseIndex, status);
-  //  }
-  //  int setpremisevalue(int ruleIndex, int premiseIndex, double value)
-  //  {
-  //    return EN_setpremisevalue(ruleIndex, premiseIndex, value);
-  //  }
-  //  int getthenaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
-  //  {
-  //    return EN_getthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  //  }
-  //  int setthenaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
-  //  {
-  //    return EN_setthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  //  }
-  //  int getelseaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
-  //  {
-  //    return EN_getelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  //  }
-  //  int setelseaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
-  //  {
-  //    return EN_setelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  //  }
-  //  int setrulepriority(int index, double priority)
-  //  {
-  //    return EN_setrulepriority(index, priority);
-  //  }
+  // Time Pattern Functions
+  int addpattern(std::string id)
+  {
+    int errcode;
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_addpattern(ph, idChar);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int deletepattern(int index)
+  {
+    return EN_deletepattern(ph, index);
+  }
+
+  int getpatternindex(std::string id, intptr_t index)
+  {
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_getpatternindex(ph, idChar, ptr1);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int getpatternid(int index, intptr_t out_id)
+  {
+    char *ptr1 = reinterpret_cast<char *>(out_id);
+
+    return EN_getpatternid(ph, index, ptr1);
+  }
+
+  int setpatternid(int index, std::string id)
+  {
+    int errcode;
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_setpatternid(ph, index, idChar);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int getpatternlen(int index, intptr_t len)
+  {
+    int *ptr1 = reinterpret_cast<int *>(len);
+    return EN_getpatternlen(ph, index, ptr1);
+  }
+
+  int getpatternvalue(int index, int period, intptr_t value)
+  {
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_getpatternvalue(ph, index, period, ptr1);
+  }
+
+  int setpatternvalue(int index, int period, double value)
+  {
+    return EN_setpatternvalue(ph, index, period, value);
+  }
+
+  int getaveragepatternvalue(int index, intptr_t value)
+  {
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_getaveragepatternvalue(ph, index, ptr1);
+  }
+  int setpattern(int index, intptr_t values, int len)
+  {
+    double *ptr1 = reinterpret_cast<double *>(values);
+    return EN_setpattern(ph, index, ptr1, len);
+  }
+
+  // Data Curve Functions
+  int addcurve(std::string id)
+  {
+    int errcode;
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_addcurve(ph, idChar);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int deletecurve(int index)
+  {
+    return EN_deletecurve(ph, index);
+  }
+
+  int getcurveindex(std::string id, intptr_t index)
+  {
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_getcurveindex(ph, idChar, ptr1);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int getcurveid(int index, intptr_t out_id)
+  {
+    char *ptr1 = reinterpret_cast<char *>(out_id);
+    return EN_getcurveid(ph, index, ptr1);
+  }
+
+  int setcurveid(int index, std::string id)
+  {
+    int errcode;
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_setcurveid(ph, index, idChar);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int getcurvelen(int index, intptr_t len)
+  {
+    int *ptr1 = reinterpret_cast<int *>(len);
+    return EN_getcurvelen(ph, index, ptr1);
+  }
+
+  int getcurvetype(int index, intptr_t type)
+  {
+    int *ptr1 = reinterpret_cast<int *>(type);
+    return EN_getcurvetype(ph, index, ptr1);
+  }
+  int getcurvevalue(int curveIndex, int pointIndex, intptr_t x, intptr_t y)
+  {
+    double *ptr1 = reinterpret_cast<double *>(x);
+    double *ptr2 = reinterpret_cast<double *>(y);
+    return EN_getcurvevalue(ph, curveIndex, pointIndex, ptr1, ptr2);
+  }
+
+  int setcurvevalue(int curveIndex, int pointIndex, double x, double y)
+  {
+    return EN_setcurvevalue(ph, curveIndex, pointIndex, x, y);
+  }
+
+  int setcurve(int index, intptr_t xValues, intptr_t yValues, int nPoints)
+  {
+    double *ptr1 = reinterpret_cast<double *>(xValues);
+    double *ptr2 = reinterpret_cast<double *>(yValues);
+    return EN_setcurve(ph, index, ptr1, ptr2, nPoints);
+  }
+
+  // Simple Control Functions
+  int addcontrol(int type, int linkIndex, double setting, int nodeIndex, double level, intptr_t index)
+  {
+    int *ptr1 = reinterpret_cast<int *>(index);
+    return EN_addcontrol(ph, type, linkIndex, setting, nodeIndex, level, ptr1);
+  }
+  int deletecontrol(int index)
+  {
+    return EN_deletecontrol(ph, index);
+  }
+  int getcontrol(int index, intptr_t type, intptr_t linkIndex, intptr_t setting, intptr_t nodeIndex, intptr_t level)
+  {
+    int *ptr1 = reinterpret_cast<int *>(type);
+    int *ptr2 = reinterpret_cast<int *>(linkIndex);
+    double *ptr3 = reinterpret_cast<double *>(setting);
+    int *ptr4 = reinterpret_cast<int *>(nodeIndex);
+    double *ptr5 = reinterpret_cast<double *>(level);
+    return EN_getcontrol(ph, index, ptr1, ptr2, ptr3, ptr4, ptr5);
+  }
+  int setcontrol(int index, int type, int linkIndex, double setting, int nodeIndex, double level)
+  {
+    return EN_setcontrol(ph, index, type, linkIndex, setting, nodeIndex, level);
+  }
+  // Rule-Based Control Functions
+  int addrule(std::string rule)
+  {
+    int errcode;
+    char *ruleChar = new char[rule.length() + 1];
+    strcpy(ruleChar, rule.c_str());
+
+    errcode = EN_addrule(ph, ruleChar);
+
+    delete[] ruleChar;
+    return errcode;
+  }
+
+  int deleterule(int index)
+  {
+    return EN_deleterule(ph, index);
+  }
+
+  int getrule(int index, intptr_t nPremises, intptr_t nThenActions, intptr_t nElseActions, intptr_t priority)
+  {
+    int *ptr1 = reinterpret_cast<int *>(nPremises);
+    int *ptr2 = reinterpret_cast<int *>(nThenActions);
+    int *ptr3 = reinterpret_cast<int *>(nElseActions);
+    double *ptr4 = reinterpret_cast<double *>(priority);
+    return EN_getrule(ph, index, ptr1, ptr2, ptr3, ptr4);
+  }
+
+  int getruleID(int index, intptr_t out_id)
+  {
+    char *ptr1 = reinterpret_cast<char *>(out_id);
+    return EN_getruleID(ph, index, ptr1);
+  }
+
+  int getpremise(int ruleIndex, int premiseIndex, intptr_t logop, intptr_t object, intptr_t objIndex, intptr_t variable, intptr_t relop, intptr_t status, intptr_t value)
+  {
+    int *ptr1 = reinterpret_cast<int *>(logop);
+    int *ptr2 = reinterpret_cast<int *>(object);
+    int *ptr3 = reinterpret_cast<int *>(objIndex);
+    int *ptr4 = reinterpret_cast<int *>(variable);
+    int *ptr5 = reinterpret_cast<int *>(relop);
+    int *ptr6 = reinterpret_cast<int *>(status);
+    double *ptr7 = reinterpret_cast<double *>(value);
+    return EN_getpremise(ph, ruleIndex, premiseIndex, ptr1, ptr2, ptr3, ptr4, ptr5, ptr6, ptr7);
+  }
+
+  int setpremise(int ruleIndex, int premiseIndex, int logop, int object, int objIndex, int variable, int relop, int status, double value)
+  {
+    return EN_setpremise(ph, ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
+  }
+
+  int setpremiseindex(int ruleIndex, int premiseIndex, int objIndex)
+  {
+    return EN_setpremiseindex(ph, ruleIndex, premiseIndex, objIndex);
+  }
+
+  int setpremisestatus(int ruleIndex, int premiseIndex, int status)
+  {
+    return EN_setpremisestatus(ph, ruleIndex, premiseIndex, status);
+  }
+
+  int setpremisevalue(int ruleIndex, int premiseIndex, double value)
+  {
+    return EN_setpremisevalue(ph, ruleIndex, premiseIndex, value);
+  }
+
+  int getthenaction(int ruleIndex, int actionIndex, intptr_t linkIndex, intptr_t status, intptr_t setting)
+  {
+    int *ptr1 = reinterpret_cast<int *>(linkIndex);
+    int *ptr2 = reinterpret_cast<int *>(status);
+    double *ptr3 = reinterpret_cast<double *>(setting);
+    return EN_getthenaction(ph, ruleIndex, actionIndex, ptr1, ptr2, ptr3);
+  }
+
+  int setthenaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
+  {
+    return EN_setthenaction(ph, ruleIndex, actionIndex, linkIndex, status, setting);
+  }
+
+  int getelseaction(int ruleIndex, int actionIndex, intptr_t linkIndex, intptr_t status, intptr_t setting)
+  {
+    int *ptr1 = reinterpret_cast<int *>(linkIndex);
+    int *ptr2 = reinterpret_cast<int *>(status);
+    double *ptr3 = reinterpret_cast<double *>(setting);
+    return EN_getelseaction(ph, ruleIndex, actionIndex, ptr1, ptr2, ptr3);
+  }
+
+  int setelseaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
+  {
+    return EN_setelseaction(ph, ruleIndex, actionIndex, linkIndex, status, setting);
+  }
+  int setrulepriority(int index, double priority)
+  {
+    return EN_setrulepriority(ph, index, priority);
+  }
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -966,47 +1085,46 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("setlinkvalue", &Epanet::setlinkvalue)
       .function("setpipedata", &Epanet::setpipedata)
       .function("setvertices", &Epanet::setvertices)
-      //      // Time Pattern Functions
-      //      .function("addpattern", &Epanet::addpattern)
-      //      .function("deletepattern", &Epanet::deletepattern)
-      //      .function("getaveragepatternvalue", &Epanet::getaveragepatternvalue)
-      //      .function("getpatternid", &Epanet::getpatternid)
-      //      .function("getpatternindex", &Epanet::getpatternindex)
-      //      .function("getpatternlen", &Epanet::getpatternlen)
-      //      .function("getpatternvalue", &Epanet::getpatternvalue)
-      //      .function("setpattern", &Epanet::setpattern)
-      //      .function("setpatternid", &Epanet::setpatternid)
-      //      .function("setpatternvalue", &Epanet::setpatternvalue)
-      //      // Data Curve Functions
-      //      .function("addcurve", &Epanet::addcurve)
-      //      .function("deletecurve", &Epanet::deletecurve)
-      //      .function("getcurveid", &Epanet::getcurveid)
-      //      .function("getcurveindex", &Epanet::getcurveindex)
-      //      .function("getcurvelen", &Epanet::getcurvelen)
-      //      .function("getcurvetype", &Epanet::getcurvetype)
-      //      .function("getcurvevalue", &Epanet::getcurvevalue)
-      //      .function("setcurve", &Epanet::setcurve)
-      //      .function("setcurveid", &Epanet::setcurveid)
-      //      .function("setcurvevalue", &Epanet::setcurvevalue)
-      //      // Simple Control Functions
-      //      .function("addcontrol", &Epanet::addcontrol)
-      //      .function("deletecontrol", &Epanet::deletecontrol)
-      //      .function("getcontrol", &Epanet::getcontrol)
-      //      .function("setcontrol", &Epanet::setcontrol)
-      //      // Rule-Based Control Functions
-      //      .function("addrule", &Epanet::addrule)
-      //      .function("deleterule", &Epanet::deleterule)
-      //      .function("getelseaction", &Epanet::getelseaction)
-      //      .function("getpremise", &Epanet::getpremise)
-      //      .function("getrule", &Epanet::getrule)
-      //      .function("getruleID", &Epanet::getruleID)
-      //      .function("getthenaction", &Epanet::getthenaction)
-      //      .function("setelseaction", &Epanet::setelseaction)
-      //      .function("setpremise", &Epanet::setpremise)
-      //      .function("setpremiseindex", &Epanet::setpremiseindex)
-      //      .function("setpremisestatus", &Epanet::setpremisestatus)
-      //      .function("setpremisevalue", &Epanet::setpremisevalue)
-      //      .function("setrulepriority", &Epanet::setrulepriority)
-      //      .function("setthenaction", &Epanet::setthenaction)
-      ;
+      // Time Pattern Functions
+      .function("addpattern", &Epanet::addpattern)
+      .function("deletepattern", &Epanet::deletepattern)
+      .function("getaveragepatternvalue", &Epanet::getaveragepatternvalue)
+      .function("getpatternid", &Epanet::getpatternid)
+      .function("getpatternindex", &Epanet::getpatternindex)
+      .function("getpatternlen", &Epanet::getpatternlen)
+      .function("getpatternvalue", &Epanet::getpatternvalue)
+      .function("setpattern", &Epanet::setpattern)
+      .function("setpatternid", &Epanet::setpatternid)
+      .function("setpatternvalue", &Epanet::setpatternvalue)
+      // Data Curve Functions
+      .function("addcurve", &Epanet::addcurve)
+      .function("deletecurve", &Epanet::deletecurve)
+      .function("getcurveid", &Epanet::getcurveid)
+      .function("getcurveindex", &Epanet::getcurveindex)
+      .function("getcurvelen", &Epanet::getcurvelen)
+      .function("getcurvetype", &Epanet::getcurvetype)
+      .function("getcurvevalue", &Epanet::getcurvevalue)
+      .function("setcurve", &Epanet::setcurve)
+      .function("setcurveid", &Epanet::setcurveid)
+      .function("setcurvevalue", &Epanet::setcurvevalue)
+      // Simple Control Functions
+      .function("addcontrol", &Epanet::addcontrol)
+      .function("deletecontrol", &Epanet::deletecontrol)
+      .function("getcontrol", &Epanet::getcontrol)
+      .function("setcontrol", &Epanet::setcontrol)
+      // Rule-Based Control Functions
+      .function("addrule", &Epanet::addrule)
+      .function("deleterule", &Epanet::deleterule)
+      .function("getelseaction", &Epanet::getelseaction)
+      .function("getpremise", &Epanet::getpremise)
+      .function("getrule", &Epanet::getrule)
+      .function("getruleID", &Epanet::getruleID)
+      .function("getthenaction", &Epanet::getthenaction)
+      .function("setelseaction", &Epanet::setelseaction)
+      .function("setpremise", &Epanet::setpremise)
+      .function("setpremiseindex", &Epanet::setpremiseindex)
+      .function("setpremisestatus", &Epanet::setpremisestatus)
+      .function("setpremisevalue", &Epanet::setpremisevalue)
+      .function("setrulepriority", &Epanet::setrulepriority)
+      .function("setthenaction", &Epanet::setthenaction);
 }
