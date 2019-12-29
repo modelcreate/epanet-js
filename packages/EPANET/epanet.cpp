@@ -482,128 +482,234 @@ public:
   {
     return EN_setcoord(ph, index, x, y);
   }
-  //  // Nodal Demand Functions
-  //  int adddemand(int nodeIndex, double baseDemand, char *demandPattern, char *demandName)
-  //  {
-  //    return EN_adddemand(nodeIndex, baseDemand, demandPattern, demandName);
-  //  }
-  //  int deletedemand(int nodeIndex, int demandIndex)
-  //  {
-  //    return EN_deletedemand(nodeIndex, demandIndex);
-  //  }
-  //  int getbasedemand(int nodeIndex, int demandIndex, double *baseDemand)
-  //  {
-  //    return EN_getbasedemand(nodeIndex, demandIndex, baseDemand);
-  //  }
-  //  int getdemandindex(int nodeIndex, char *demandName, int *demandIndex)
-  //  {
-  //    return EN_getdemandindex(nodeIndex, demandName, demandIndex);
-  //  }
-  //  int getdemandmodel(int *type, double *pmin, double *preq, double *pexp)
-  //  {
-  //    return EN_getdemandmodel(type, pmin, preq, pexp);
-  //  }
-  //  int getdemandname(int nodeIndex, int demandIndex, char *out_demandName)
-  //  {
-  //    return EN_getdemandname(nodeIndex, demandIndex, out_demandName);
-  //  }
-  //  int getdemandpattern(int nodeIndex, int demandIndex, int *patIndex)
-  //  {
-  //    return EN_getdemandpattern(nodeIndex, demandIndex, patIndex);
-  //  }
-  //  int getnumdemands(int nodeIndex, int *numDemands)
-  //  {
-  //    return EN_getnumdemands(nodeIndex, numDemands);
-  //  }
-  //  int setbasedemand(int nodeIndex, int demandIndex, double baseDemand)
-  //  {
-  //    return EN_setbasedemand(nodeIndex, demandIndex, baseDemand);
-  //  }
-  //  int setdemandmodel(int type, double pmin, double preq, double pexp)
-  //  {
-  //    return EN_setdemandmodel(type, pmin, preq, pexp);
-  //  }
-  //  int setdemandname(int nodeIndex, int demandIdx, char *demandName)
-  //  {
-  //    return EN_setdemandname(nodeIndex, demandIdx, demandName);
-  //  }
-  //  int setdemandpattern(int nodeIndex, int demandIndex, int patIndex)
-  //  {
-  //    return EN_setdemandpattern(nodeIndex, demandIndex, patIndex);
-  //  }
-  //  // Network Link Functions
-  //  int addlink(char *id, int linkType, char *fromNode, char *toNode, int *index)
-  //  {
-  //    return EN_addlink(id, linkType, fromNode, toNode, index);
-  //  }
-  //  int deletelink(int index, int actionCode)
-  //  {
-  //    return EN_deletelink(index, actionCode);
-  //  }
-  //  int getlinkindex(char *id, int *index)
-  //  {
-  //    return EN_getlinkindex(id, index);
-  //  }
-  //  int getlinkid(int index, char *out_id)
-  //  {
-  //    return EN_getlinkid(index, out_id);
-  //  }
-  //  int setlinkid(int index, char *newid)
-  //  {
-  //    return EN_setlinkid(index, newid);
-  //  }
-  //  int getlinktype(int index, int *linkType)
-  //  {
-  //    return EN_getlinktype(index, linkType);
-  //  }
-  //  int setlinktype(int *inout_index, int linkType, int actionCode)
-  //  {
-  //    return EN_setlinktype(inout_index, linkType, actionCode);
-  //  }
-  //  int getlinknodes(int index, int *node1, int *node2)
-  //  {
-  //    return EN_getlinknodes(index, node1, node2);
-  //  }
-  //  int setlinknodes(int index, int node1, int node2)
-  //  {
-  //    return EN_setlinknodes(index, node1, node2);
-  //  }
-  //  int getlinkvalue(int index, int property, double *value)
-  //  {
-  //    return EN_getlinkvalue(index, property, value);
-  //  }
-  //  int setlinkvalue(int index, int property, double value)
-  //  {
-  //    return EN_setlinkvalue(index, property, value);
-  //  }
-  //  int setpipedata(int index, double length, double diam, double rough, double mloss)
-  //  {
-  //    return EN_setpipedata(index, length, diam, rough, mloss);
-  //  }
-  //  int getpumptype(int linkIndex, int *pumpType)
-  //  {
-  //    return EN_getpumptype(linkIndex, pumpType);
-  //  }
-  //  int getheadcurveindex(int linkIndex, int *curveIndex)
-  //  {
-  //    return EN_getheadcurveindex(linkIndex, curveIndex);
-  //  }
-  //  int setheadcurveindex(int linkIndex, int curveIndex)
-  //  {
-  //    return EN_setheadcurveindex(linkIndex, curveIndex);
-  //  }
-  //  int getvertexcount(int index, int *count)
-  //  {
-  //    return EN_getvertexcount(index, count);
-  //  }
-  //  int getvertex(int index, int vertex, double *x, double *y)
-  //  {
-  //    return EN_getvertex(index, vertex, x, y);
-  //  }
-  //  int setvertices(int index, double *x, double *y, int count)
-  //  {
-  //    return EN_setvertices(index, x, y, count);
-  //  }
+  // Nodal Demand Functions
+  int adddemand(int nodeIndex, double baseDemand, std::string demandPattern, std::string demandName)
+  {
+    int errcode;
+    char *demandPatternChar = new char[demandPattern.length() + 1];
+    char *demandNameChar = new char[demandName.length() + 1];
+    strcpy(demandPatternChar, demandPattern.c_str());
+    strcpy(demandNameChar, demandName.c_str());
+
+    errcode = EN_adddemand(ph, nodeIndex, baseDemand, demandPatternChar, demandNameChar);
+
+    delete[] demandPatternChar;
+    delete[] demandNameChar;
+    return errcode;
+  }
+  int deletedemand(int nodeIndex, int demandIndex)
+  {
+    return EN_deletedemand(ph, nodeIndex, demandIndex);
+  }
+
+  int getbasedemand(int nodeIndex, int demandIndex, intptr_t baseDemand)
+  {
+    double *ptr1 = reinterpret_cast<double *>(baseDemand);
+    return EN_getbasedemand(ph, nodeIndex, demandIndex, ptr1);
+  }
+
+  int getdemandindex(int nodeIndex, std::string demandName, intptr_t demandIndex)
+  {
+    int errcode;
+
+    int *ptr1 = reinterpret_cast<int *>(demandIndex);
+
+    char *demandNameChar = new char[demandName.length() + 1];
+    strcpy(demandNameChar, demandName.c_str());
+
+    errcode = EN_getdemandindex(ph, nodeIndex, demandNameChar, ptr1);
+
+    delete[] demandNameChar;
+    return errcode;
+  }
+
+  int getdemandmodel(intptr_t type, intptr_t pmin, intptr_t preq, intptr_t pexp)
+  {
+    int *ptr1 = reinterpret_cast<int *>(type);
+    double *ptr2 = reinterpret_cast<double *>(pmin);
+    double *ptr3 = reinterpret_cast<double *>(preq);
+    double *ptr4 = reinterpret_cast<double *>(pexp);
+    return EN_getdemandmodel(ph, ptr1, ptr2, ptr3, ptr4);
+  }
+
+  int getdemandname(int nodeIndex, int demandIndex, intptr_t out_demandName)
+  {
+    char *ptr1 = reinterpret_cast<char *>(out_demandName);
+    return EN_getdemandname(ph, nodeIndex, demandIndex, ptr1);
+  }
+
+  int getdemandpattern(int nodeIndex, int demandIndex, intptr_t patIndex)
+  {
+    int *ptr1 = reinterpret_cast<int *>(patIndex);
+    return EN_getdemandpattern(ph, nodeIndex, demandIndex, ptr1);
+  }
+
+  int getnumdemands(int nodeIndex, intptr_t numDemands)
+  {
+    int *ptr1 = reinterpret_cast<int *>(numDemands);
+    return EN_getnumdemands(ph, nodeIndex, ptr1);
+  }
+
+  int setbasedemand(int nodeIndex, int demandIndex, double baseDemand)
+  {
+    return EN_setbasedemand(ph, nodeIndex, demandIndex, baseDemand);
+  }
+
+  int setdemandmodel(int type, double pmin, double preq, double pexp)
+  {
+    return EN_setdemandmodel(ph, type, pmin, preq, pexp);
+  }
+
+  int setdemandname(int nodeIndex, int demandIdx, std::string demandName)
+  {
+    int errcode;
+
+    char *demandNameChar = new char[demandName.length() + 1];
+    strcpy(demandNameChar, demandName.c_str());
+
+    errcode = EN_setdemandname(ph, nodeIndex, demandIdx, demandNameChar);
+
+    delete[] demandNameChar;
+    return errcode;
+  }
+
+  int setdemandpattern(int nodeIndex, int demandIndex, int patIndex)
+  {
+    return EN_setdemandpattern(ph, nodeIndex, demandIndex, patIndex);
+  }
+  // Network Link Functions
+  int addlink(std::string id, int linkType, std::string fromNode, std::string toNode, intptr_t index)
+  {
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+
+    char *idChar = new char[id.length() + 1];
+    char *fromNodeChar = new char[fromNode.length() + 1];
+    char *toNodeChar = new char[toNode.length() + 1];
+    strcpy(idChar, id.c_str());
+    strcpy(fromNodeChar, fromNode.c_str());
+    strcpy(toNodeChar, toNode.c_str());
+
+    errcode = EN_addlink(ph, idChar, linkType, fromNodeChar, toNodeChar, ptr1);
+
+    delete[] idChar;
+    delete[] fromNodeChar;
+    delete[] toNodeChar;
+    return errcode;
+  }
+
+  int deletelink(int index, int actionCode)
+  {
+    return EN_deletelink(ph, index, actionCode);
+  }
+
+  int getlinkindex(std::string id, intptr_t index)
+  {
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+    char *idChar = new char[id.length() + 1];
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_getlinkindex(ph, idChar, ptr1);
+
+    delete[] idChar;
+    return errcode;
+  }
+
+  int getlinkid(int index, intptr_t out_id)
+  {
+    char *ptr1 = reinterpret_cast<char *>(out_id);
+    return EN_getlinkid(ph, index, ptr1);
+  }
+
+  int setlinkid(int index, std::string newid)
+  {
+    int errcode;
+    char *newidChar = new char[newid.length() + 1];
+    strcpy(newidChar, newid.c_str());
+
+    errcode = EN_setlinkid(ph, index, newidChar);
+
+    delete[] newidChar;
+    return errcode;
+  }
+
+  int getlinktype(int index, intptr_t linkType)
+  {
+    int *ptr1 = reinterpret_cast<int *>(linkType);
+    return EN_getlinktype(ph, index, ptr1);
+  }
+
+  int setlinktype(intptr_t inout_index, int linkType, int actionCode)
+  {
+    int *ptr1 = reinterpret_cast<int *>(inout_index);
+    return EN_setlinktype(ph, ptr1, linkType, actionCode);
+  }
+
+  int getlinknodes(int index, intptr_t node1, intptr_t node2)
+  {
+    int *ptr1 = reinterpret_cast<int *>(node1);
+    int *ptr2 = reinterpret_cast<int *>(node2);
+    return EN_getlinknodes(ph, index, ptr1, ptr2);
+  }
+
+  int setlinknodes(int index, int node1, int node2)
+  {
+    return EN_setlinknodes(ph, index, node1, node2);
+  }
+
+  int getlinkvalue(int index, int property, intptr_t value)
+  {
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_getlinkvalue(ph, index, property, ptr1);
+  }
+
+  int setlinkvalue(int index, int property, double value)
+  {
+    return EN_setlinkvalue(ph, index, property, value);
+  }
+
+  int setpipedata(int index, double length, double diam, double rough, double mloss)
+  {
+    return EN_setpipedata(ph, index, length, diam, rough, mloss);
+  }
+
+  int getpumptype(int linkIndex, intptr_t pumpType)
+  {
+    int *ptr1 = reinterpret_cast<int *>(pumpType);
+    return EN_getpumptype(ph, linkIndex, ptr1);
+  }
+
+  int getheadcurveindex(int linkIndex, intptr_t curveIndex)
+  {
+    int *ptr1 = reinterpret_cast<int *>(curveIndex);
+    return EN_getheadcurveindex(ph, linkIndex, ptr1);
+  }
+
+  int setheadcurveindex(int linkIndex, int curveIndex)
+  {
+    return EN_setheadcurveindex(ph, linkIndex, curveIndex);
+  }
+
+  int getvertexcount(int index, intptr_t count)
+  {
+    int *ptr1 = reinterpret_cast<int *>(count);
+    return EN_getvertexcount(ph, index, ptr1);
+  }
+
+  int getvertex(int index, int vertex, intptr_t x, intptr_t y)
+  {
+    double *ptr1 = reinterpret_cast<double *>(x);
+    double *ptr2 = reinterpret_cast<double *>(y);
+    return EN_getvertex(ph, index, vertex, ptr1, ptr2);
+  }
+
+  int setvertices(int index, intptr_t x, intptr_t y, int count)
+  {
+    double *ptr1 = reinterpret_cast<double *>(x);
+    double *ptr2 = reinterpret_cast<double *>(y);
+    return EN_setvertices(ph, index, ptr1, ptr2, count);
+  }
   //  // Time Pattern Functions
   //  int addpattern(char *id)
   //  {
@@ -828,38 +934,38 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("setnodeid", &Epanet::setnodeid)
       .function("setnodevalue", &Epanet::setnodevalue)
       .function("settankdata", &Epanet::settankdata)
-      //      // Nodal Demand Functions
-      //      .function("adddemand", &Epanet::adddemand)
-      //      .function("deletedemand", &Epanet::deletedemand)
-      //      .function("getbasedemand", &Epanet::getbasedemand)
-      //      .function("getdemandindex", &Epanet::getdemandindex)
-      //      .function("getdemandmodel", &Epanet::getdemandmodel)
-      //      .function("getdemandname", &Epanet::getdemandname)
-      //      .function("getdemandpattern", &Epanet::getdemandpattern)
-      //      .function("getnumdemands", &Epanet::getnumdemands)
-      //      .function("setbasedemand", &Epanet::setbasedemand)
-      //      .function("setdemandmodel", &Epanet::setdemandmodel)
-      //      .function("setdemandname", &Epanet::setdemandname)
-      //      .function("setdemandpattern", &Epanet::setdemandpattern)
-      //      // Network Link Functions
-      //      .function("addlink", &Epanet::addlink)
-      //      .function("deletelink", &Epanet::deletelink)
-      //      .function("getheadcurveindex", &Epanet::getheadcurveindex)
-      //      .function("getlinkid", &Epanet::getlinkid)
-      //      .function("getlinkindex", &Epanet::getlinkindex)
-      //      .function("getlinknodes", &Epanet::getlinknodes)
-      //      .function("getlinktype", &Epanet::getlinktype)
-      //      .function("getlinkvalue", &Epanet::getlinkvalue)
-      //      .function("getpumptype", &Epanet::getpumptype)
-      //      .function("getvertex", &Epanet::getvertex)
-      //      .function("getvertexcount", &Epanet::getvertexcount)
-      //      .function("setheadcurveindex", &Epanet::setheadcurveindex)
-      //      .function("setlinkid", &Epanet::setlinkid)
-      //      .function("setlinknodes", &Epanet::setlinknodes)
-      //      .function("setlinktype", &Epanet::setlinktype)
-      //      .function("setlinkvalue", &Epanet::setlinkvalue)
-      //      .function("setpipedata", &Epanet::setpipedata)
-      //      .function("setvertices", &Epanet::setvertices)
+      // Nodal Demand Functions
+      .function("adddemand", &Epanet::adddemand)
+      .function("deletedemand", &Epanet::deletedemand)
+      .function("getbasedemand", &Epanet::getbasedemand)
+      .function("getdemandindex", &Epanet::getdemandindex)
+      .function("getdemandmodel", &Epanet::getdemandmodel)
+      .function("getdemandname", &Epanet::getdemandname)
+      .function("getdemandpattern", &Epanet::getdemandpattern)
+      .function("getnumdemands", &Epanet::getnumdemands)
+      .function("setbasedemand", &Epanet::setbasedemand)
+      .function("setdemandmodel", &Epanet::setdemandmodel)
+      .function("setdemandname", &Epanet::setdemandname)
+      .function("setdemandpattern", &Epanet::setdemandpattern)
+      // Network Link Functions
+      .function("addlink", &Epanet::addlink)
+      .function("deletelink", &Epanet::deletelink)
+      .function("getheadcurveindex", &Epanet::getheadcurveindex)
+      .function("getlinkid", &Epanet::getlinkid)
+      .function("getlinkindex", &Epanet::getlinkindex)
+      .function("getlinknodes", &Epanet::getlinknodes)
+      .function("getlinktype", &Epanet::getlinktype)
+      .function("getlinkvalue", &Epanet::getlinkvalue)
+      .function("getpumptype", &Epanet::getpumptype)
+      .function("getvertex", &Epanet::getvertex)
+      .function("getvertexcount", &Epanet::getvertexcount)
+      .function("setheadcurveindex", &Epanet::setheadcurveindex)
+      .function("setlinkid", &Epanet::setlinkid)
+      .function("setlinknodes", &Epanet::setlinknodes)
+      .function("setlinktype", &Epanet::setlinktype)
+      .function("setlinkvalue", &Epanet::setlinkvalue)
+      .function("setpipedata", &Epanet::setpipedata)
+      .function("setvertices", &Epanet::setvertices)
       //      // Time Pattern Functions
       //      .function("addpattern", &Epanet::addpattern)
       //      .function("deletepattern", &Epanet::deletepattern)
