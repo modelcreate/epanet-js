@@ -339,366 +339,427 @@ public:
 
   int getqualinfo(uintptr_t qualType, uintptr_t out_chemName, uintptr_t out_chemUnits, uintptr_t traceNode)
   {
-    int *ptr1 = reinterpret_cast<char *>(qualType);
+    int *ptr1 = reinterpret_cast<int *>(qualType);
     char *ptr2 = reinterpret_cast<char *>(out_chemName);
     char *ptr3 = reinterpret_cast<char *>(out_chemUnits);
     int *ptr4 = reinterpret_cast<int *>(traceNode);
 
-    return EN_getqualinfo(ph, qualType, ptr1, ptr2, ptr3, ptr4);
+    return EN_getqualinfo(ph, ptr1, ptr2, ptr3, ptr4);
   }
   int getqualtype(uintptr_t qualType, uintptr_t traceNode)
   {
-    int *ptr1 = reinterpret_cast<char *>(qualType);
+    int *ptr1 = reinterpret_cast<int *>(qualType);
     int *ptr2 = reinterpret_cast<int *>(traceNode);
     return EN_getqualtype(ph, ptr1, ptr2);
   }
-  int gettimeparam(int param, long *value)
+  int gettimeparam(int param, uintptr_t value)
   {
-    return EN_gettimeparam(param, value);
+    long *ptr1 = reinterpret_cast<long *>(value);
+    return EN_gettimeparam(ph, param, ptr1);
   }
   int setflowunits(int units)
   {
-    return EN_setflowunits(units);
+    return EN_setflowunits(ph, units);
   }
   int setoption(int option, double value)
   {
-    return EN_setoption(option, value);
+    return EN_setoption(ph, option, value);
   }
-  int setqualtype(int qualType, char *chemName, char *chemUnits, char *traceNode)
+  int setqualtype(int qualType, std::string chemName, std::string chemUnits, std::string traceNode)
   {
-    return EN_setqualtype(qualType, chemName, chemUnits, traceNode);
+    int errcode;
+    char *p1 = new char[chemName.length() + 1];
+    char *p2 = new char[chemUnits.length() + 1];
+    char *p3 = new char[traceNode.length() + 1];
+
+    strcpy(p1, chemName.c_str());
+    strcpy(p2, chemUnits.c_str());
+    strcpy(p3, traceNode.c_str());
+
+    errcode = EN_setqualtype(ph, qualType, p1, p2, p3);
+
+    delete[] p1;
+    delete[] p2;
+    delete[] p3;
+
+    return errcode;
   }
+
   int settimeparam(int param, long value)
   {
-    return EN_settimeparam(param, value);
+    return EN_settimeparam(ph, param, value);
   }
   // Network Node Functions
-  int addnode(char *id, int nodeType, int *index)
+  int addnode(std::string id, int nodeType, intptr_t index)
   {
-    return EN_addnode(id, nodeType, index);
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+    char *idChar = new char[id.length() + 1];
+
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_addnode(ph, idChar, nodeType, ptr1);
+
+    delete[] idChar;
+    return errcode;
   }
   int deletenode(int index, int actionCode)
   {
-    return EN_deletenode(index, actionCode);
+    return EN_deletenode(ph, index, actionCode);
   }
-  int getnodeindex(char *id, int *index)
+  int getnodeindex(std::string id, intptr_t index)
   {
-    return EN_getnodeindex(id, index);
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+    char *idChar = new char[id.length() + 1];
+
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_getnodeindex(ph, idChar, ptr1);
+
+    delete[] idChar;
+    return errcode;
   }
-  int getnodeid(int index, char *out_id)
+  int getnodeid(int index, intptr_t out_id)
   {
-    return EN_getnodeid(index, out_id);
+    char *ptr1 = reinterpret_cast<char *>(out_id);
+    return EN_getnodeid(ph, index, ptr1);
   }
-  int setnodeid(int index, char *newid)
+  int setnodeid(int index, std::string newid)
   {
-    return EN_setnodeid(index, newid);
+    int errcode;
+    char *idChar = new char[newid.length() + 1];
+    strcpy(idChar, newid.c_str());
+
+    errcode = EN_setnodeid(ph, index, idChar);
+
+    delete[] idChar;
+    return errcode;
   }
-  int getnodetype(int index, int *nodeType)
+  int getnodetype(int index, intptr_t nodeType)
   {
-    return EN_getnodetype(index, nodeType);
+    int *ptr1 = reinterpret_cast<int *>(nodeType);
+    return EN_getnodetype(ph, index, ptr1);
   }
-  int getnodevalue(int index, int property, double *value)
+  int getnodevalue(int index, int property, intptr_t value)
   {
-    return EN_getnodevalue(index, property, value);
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_getnodevalue(ph, index, property, ptr1);
   }
   int setnodevalue(int index, int property, double value)
   {
-    return EN_setnodevalue(index, property, value);
+    return EN_setnodevalue(ph, index, property, value);
   }
-  int setjuncdata(int index, double elev, double dmnd, char *dmndpat)
+  int setjuncdata(int index, double elev, double dmnd, std::string dmndpat)
   {
-    return EN_setjuncdata(index, elev, dmnd, dmndpat);
+    int errcode;
+    char *dmndpatChar = new char[dmndpat.length() + 1];
+    strcpy(dmndpatChar, dmndpat.c_str());
+
+    errcode = EN_setjuncdata(ph, index, elev, dmnd, dmndpatChar);
+
+    delete[] dmndpatChar;
+    return errcode;
   }
-  int settankdata(int index, double elev, double initlvl, double minlvl, double maxlvl, double diam, double minvol, char *volcurve)
+  int settankdata(int index, double elev, double initlvl, double minlvl, double maxlvl, double diam, double minvol, std::string volcurve)
   {
-    return EN_settankdata(index, elev, initlvl, minlvl, maxlvl, diam, minvol, volcurve);
+    int errcode;
+    char *volcurveChar = new char[volcurve.length() + 1];
+    strcpy(volcurveChar, volcurve.c_str());
+
+    errcode = EN_settankdata(ph, index, elev, initlvl, minlvl, maxlvl, diam, minvol, volcurveChar);
+
+    delete[] volcurveChar;
+    return errcode;
   }
-  int getcoord(int index, double *x, double *y)
+  int getcoord(int index, intptr_t x, intptr_t y)
   {
-    return EN_getcoord(index, x, y);
+    double *ptr1 = reinterpret_cast<double *>(x);
+    double *ptr2 = reinterpret_cast<double *>(y);
+    return EN_getcoord(ph, index, ptr1, ptr2);
   }
   int setcoord(int index, double x, double y)
   {
-    return EN_setcoord(index, x, y);
-  }
-  // Nodal Demand Functions
-  int adddemand(int nodeIndex, double baseDemand, char *demandPattern, char *demandName)
-  {
-    return EN_adddemand(nodeIndex, baseDemand, demandPattern, demandName);
-  }
-  int deletedemand(int nodeIndex, int demandIndex)
-  {
-    return EN_deletedemand(nodeIndex, demandIndex);
-  }
-  int getbasedemand(int nodeIndex, int demandIndex, double *baseDemand)
-  {
-    return EN_getbasedemand(nodeIndex, demandIndex, baseDemand);
-  }
-  int getdemandindex(int nodeIndex, char *demandName, int *demandIndex)
-  {
-    return EN_getdemandindex(nodeIndex, demandName, demandIndex);
-  }
-  int getdemandmodel(int *type, double *pmin, double *preq, double *pexp)
-  {
-    return EN_getdemandmodel(type, pmin, preq, pexp);
-  }
-  int getdemandname(int nodeIndex, int demandIndex, char *out_demandName)
-  {
-    return EN_getdemandname(nodeIndex, demandIndex, out_demandName);
-  }
-  int getdemandpattern(int nodeIndex, int demandIndex, int *patIndex)
-  {
-    return EN_getdemandpattern(nodeIndex, demandIndex, patIndex);
-  }
-  int getnumdemands(int nodeIndex, int *numDemands)
-  {
-    return EN_getnumdemands(nodeIndex, numDemands);
-  }
-  int setbasedemand(int nodeIndex, int demandIndex, double baseDemand)
-  {
-    return EN_setbasedemand(nodeIndex, demandIndex, baseDemand);
-  }
-  int setdemandmodel(int type, double pmin, double preq, double pexp)
-  {
-    return EN_setdemandmodel(type, pmin, preq, pexp);
-  }
-  int setdemandname(int nodeIndex, int demandIdx, char *demandName)
-  {
-    return EN_setdemandname(nodeIndex, demandIdx, demandName);
-  }
-  int setdemandpattern(int nodeIndex, int demandIndex, int patIndex)
-  {
-    return EN_setdemandpattern(nodeIndex, demandIndex, patIndex);
-  }
-  // Network Link Functions
-  int addlink(char *id, int linkType, char *fromNode, char *toNode, int *index)
-  {
-    return EN_addlink(id, linkType, fromNode, toNode, index);
-  }
-  int deletelink(int index, int actionCode)
-  {
-    return EN_deletelink(index, actionCode);
-  }
-  int getlinkindex(char *id, int *index)
-  {
-    return EN_getlinkindex(id, index);
-  }
-  int getlinkid(int index, char *out_id)
-  {
-    return EN_getlinkid(index, out_id);
-  }
-  int setlinkid(int index, char *newid)
-  {
-    return EN_setlinkid(index, newid);
-  }
-  int getlinktype(int index, int *linkType)
-  {
-    return EN_getlinktype(index, linkType);
-  }
-  int setlinktype(int *inout_index, int linkType, int actionCode)
-  {
-    return EN_setlinktype(inout_index, linkType, actionCode);
-  }
-  int getlinknodes(int index, int *node1, int *node2)
-  {
-    return EN_getlinknodes(index, node1, node2);
-  }
-  int setlinknodes(int index, int node1, int node2)
-  {
-    return EN_setlinknodes(index, node1, node2);
-  }
-  int getlinkvalue(int index, int property, double *value)
-  {
-    return EN_getlinkvalue(index, property, value);
-  }
-  int setlinkvalue(int index, int property, double value)
-  {
-    return EN_setlinkvalue(index, property, value);
-  }
-  int setpipedata(int index, double length, double diam, double rough, double mloss)
-  {
-    return EN_setpipedata(index, length, diam, rough, mloss);
-  }
-  int getpumptype(int linkIndex, int *pumpType)
-  {
-    return EN_getpumptype(linkIndex, pumpType);
-  }
-  int getheadcurveindex(int linkIndex, int *curveIndex)
-  {
-    return EN_getheadcurveindex(linkIndex, curveIndex);
-  }
-  int setheadcurveindex(int linkIndex, int curveIndex)
-  {
-    return EN_setheadcurveindex(linkIndex, curveIndex);
-  }
-  int getvertexcount(int index, int *count)
-  {
-    return EN_getvertexcount(index, count);
-  }
-  int getvertex(int index, int vertex, double *x, double *y)
-  {
-    return EN_getvertex(index, vertex, x, y);
-  }
-  int setvertices(int index, double *x, double *y, int count)
-  {
-    return EN_setvertices(index, x, y, count);
-  }
-  // Time Pattern Functions
-  int addpattern(char *id)
-  {
-    return EN_addpattern(id);
-  }
-  int deletepattern(int index)
-  {
-    return EN_deletepattern(index);
-  }
-  int getpatternindex(char *id, int *index)
-  {
-    return EN_getpatternindex(id, index);
-  }
-  int getpatternid(int index, char *out_id)
-  {
-    return EN_getpatternid(index, out_id);
-  }
-  int setpatternid(int index, char *id)
-  {
-    return EN_setpatternid(index, id);
-  }
-  int getpatternlen(int index, int *len)
-  {
-    return EN_getpatternlen(index, len);
-  }
-  int getpatternvalue(int index, int period, double *value)
-  {
-    return EN_getpatternvalue(index, period, value);
-  }
-  int setpatternvalue(int index, int period, double value)
-  {
-    return EN_setpatternvalue(index, period, value);
-  }
-  int getaveragepatternvalue(int index, double *value)
-  {
-    return EN_getaveragepatternvalue(index, value);
-  }
-  int setpattern(int index, double *values, int len)
-  {
-    return EN_setpattern(index, values, len);
-  }
-  // Data Curve Functions
-  int addcurve(char *id)
-  {
-    return EN_addcurve(id);
-  }
-  int deletecurve(int index)
-  {
-    return EN_deletecurve(index);
-  }
-  int getcurveindex(char *id, int *index)
-  {
-    return EN_getcurveindex(id, index);
-  }
-  int getcurveid(int index, char *out_id)
-  {
-    return EN_getcurveid(index, out_id);
-  }
-  int setcurveid(int index, char *id)
-  {
-    return EN_setcurveid(index, id);
-  }
-  int getcurvelen(int index, int *len)
-  {
-    return EN_getcurvelen(index, len);
-  }
-  int getcurvetype(int index, int *type)
-  {
-    return EN_getcurvetype(index, type);
-  }
-  int getcurvevalue(int curveIndex, int pointIndex, double *x, double *y)
-  {
-    return EN_getcurvevalue(curveIndex, pointIndex, x, y);
-  }
-  int setcurvevalue(int curveIndex, int pointIndex, double x, double y)
-  {
-    return EN_setcurvevalue(curveIndex, pointIndex, x, y);
-  }
-  int setcurve(int index, double *xValues, double *yValues, int nPoints)
-  {
-    return EN_setcurve(index, xValues, yValues, nPoints);
-  }
-  // Simple Control Functions
-  int addcontrol(int type, int linkIndex, double setting, int nodeIndex, double level, int *index)
-  {
-    return EN_addcontrol(type, linkIndex, setting, nodeIndex, level, index);
-  }
-  int deletecontrol(int index)
-  {
-    return EN_deletecontrol(index);
-  }
-  int getcontrol(int index, int *type, int *linkIndex, double *setting, int *nodeIndex, double *level)
-  {
-    return EN_getcontrol(index, type, linkIndex, setting, nodeIndex, level);
-  }
-  int setcontrol(int index, int type, int linkIndex, double setting, int nodeIndex, double level)
-  {
-    return EN_setcontrol(index, type, linkIndex, setting, nodeIndex, level);
-  }
-  // Rule-Based Control Functions
-  int addrule(char *rule)
-  {
-    return EN_addrule(rule);
-  }
-  int deleterule(int index)
-  {
-    return EN_deleterule(index);
-  }
-  int getrule(int index, int *nPremises, int *nThenActions, int *nElseActions, double *priority)
-  {
-    return EN_getrule(index, nPremises, nThenActions, nElseActions, priority);
-  }
-  int getruleID(int index, char *out_id)
-  {
-    return EN_getruleID(index, out_id);
-  }
-  int getpremise(int ruleIndex, int premiseIndex, int *logop, int *object, int *objIndex, int *variable, int *relop, int *status, double *value)
-  {
-    return EN_getpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
-  }
-  int setpremise(int ruleIndex, int premiseIndex, int logop, int object, int objIndex, int variable, int relop, int status, double value)
-  {
-    return EN_setpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
-  }
-  int setpremiseindex(int ruleIndex, int premiseIndex, int objIndex)
-  {
-    return EN_setpremiseindex(ruleIndex, premiseIndex, objIndex);
-  }
-  int setpremisestatus(int ruleIndex, int premiseIndex, int status)
-  {
-    return EN_setpremisestatus(ruleIndex, premiseIndex, status);
-  }
-  int setpremisevalue(int ruleIndex, int premiseIndex, double value)
-  {
-    return EN_setpremisevalue(ruleIndex, premiseIndex, value);
-  }
-  int getthenaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
-  {
-    return EN_getthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  }
-  int setthenaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
-  {
-    return EN_setthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  }
-  int getelseaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
-  {
-    return EN_getelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  }
-  int setelseaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
-  {
-    return EN_setelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
-  }
-  int setrulepriority(int index, double priority)
-  {
-    return EN_setrulepriority(index, priority);
-  }
+    return EN_setcoord(ph, index, x, y);
+  }
+  //  // Nodal Demand Functions
+  //  int adddemand(int nodeIndex, double baseDemand, char *demandPattern, char *demandName)
+  //  {
+  //    return EN_adddemand(nodeIndex, baseDemand, demandPattern, demandName);
+  //  }
+  //  int deletedemand(int nodeIndex, int demandIndex)
+  //  {
+  //    return EN_deletedemand(nodeIndex, demandIndex);
+  //  }
+  //  int getbasedemand(int nodeIndex, int demandIndex, double *baseDemand)
+  //  {
+  //    return EN_getbasedemand(nodeIndex, demandIndex, baseDemand);
+  //  }
+  //  int getdemandindex(int nodeIndex, char *demandName, int *demandIndex)
+  //  {
+  //    return EN_getdemandindex(nodeIndex, demandName, demandIndex);
+  //  }
+  //  int getdemandmodel(int *type, double *pmin, double *preq, double *pexp)
+  //  {
+  //    return EN_getdemandmodel(type, pmin, preq, pexp);
+  //  }
+  //  int getdemandname(int nodeIndex, int demandIndex, char *out_demandName)
+  //  {
+  //    return EN_getdemandname(nodeIndex, demandIndex, out_demandName);
+  //  }
+  //  int getdemandpattern(int nodeIndex, int demandIndex, int *patIndex)
+  //  {
+  //    return EN_getdemandpattern(nodeIndex, demandIndex, patIndex);
+  //  }
+  //  int getnumdemands(int nodeIndex, int *numDemands)
+  //  {
+  //    return EN_getnumdemands(nodeIndex, numDemands);
+  //  }
+  //  int setbasedemand(int nodeIndex, int demandIndex, double baseDemand)
+  //  {
+  //    return EN_setbasedemand(nodeIndex, demandIndex, baseDemand);
+  //  }
+  //  int setdemandmodel(int type, double pmin, double preq, double pexp)
+  //  {
+  //    return EN_setdemandmodel(type, pmin, preq, pexp);
+  //  }
+  //  int setdemandname(int nodeIndex, int demandIdx, char *demandName)
+  //  {
+  //    return EN_setdemandname(nodeIndex, demandIdx, demandName);
+  //  }
+  //  int setdemandpattern(int nodeIndex, int demandIndex, int patIndex)
+  //  {
+  //    return EN_setdemandpattern(nodeIndex, demandIndex, patIndex);
+  //  }
+  //  // Network Link Functions
+  //  int addlink(char *id, int linkType, char *fromNode, char *toNode, int *index)
+  //  {
+  //    return EN_addlink(id, linkType, fromNode, toNode, index);
+  //  }
+  //  int deletelink(int index, int actionCode)
+  //  {
+  //    return EN_deletelink(index, actionCode);
+  //  }
+  //  int getlinkindex(char *id, int *index)
+  //  {
+  //    return EN_getlinkindex(id, index);
+  //  }
+  //  int getlinkid(int index, char *out_id)
+  //  {
+  //    return EN_getlinkid(index, out_id);
+  //  }
+  //  int setlinkid(int index, char *newid)
+  //  {
+  //    return EN_setlinkid(index, newid);
+  //  }
+  //  int getlinktype(int index, int *linkType)
+  //  {
+  //    return EN_getlinktype(index, linkType);
+  //  }
+  //  int setlinktype(int *inout_index, int linkType, int actionCode)
+  //  {
+  //    return EN_setlinktype(inout_index, linkType, actionCode);
+  //  }
+  //  int getlinknodes(int index, int *node1, int *node2)
+  //  {
+  //    return EN_getlinknodes(index, node1, node2);
+  //  }
+  //  int setlinknodes(int index, int node1, int node2)
+  //  {
+  //    return EN_setlinknodes(index, node1, node2);
+  //  }
+  //  int getlinkvalue(int index, int property, double *value)
+  //  {
+  //    return EN_getlinkvalue(index, property, value);
+  //  }
+  //  int setlinkvalue(int index, int property, double value)
+  //  {
+  //    return EN_setlinkvalue(index, property, value);
+  //  }
+  //  int setpipedata(int index, double length, double diam, double rough, double mloss)
+  //  {
+  //    return EN_setpipedata(index, length, diam, rough, mloss);
+  //  }
+  //  int getpumptype(int linkIndex, int *pumpType)
+  //  {
+  //    return EN_getpumptype(linkIndex, pumpType);
+  //  }
+  //  int getheadcurveindex(int linkIndex, int *curveIndex)
+  //  {
+  //    return EN_getheadcurveindex(linkIndex, curveIndex);
+  //  }
+  //  int setheadcurveindex(int linkIndex, int curveIndex)
+  //  {
+  //    return EN_setheadcurveindex(linkIndex, curveIndex);
+  //  }
+  //  int getvertexcount(int index, int *count)
+  //  {
+  //    return EN_getvertexcount(index, count);
+  //  }
+  //  int getvertex(int index, int vertex, double *x, double *y)
+  //  {
+  //    return EN_getvertex(index, vertex, x, y);
+  //  }
+  //  int setvertices(int index, double *x, double *y, int count)
+  //  {
+  //    return EN_setvertices(index, x, y, count);
+  //  }
+  //  // Time Pattern Functions
+  //  int addpattern(char *id)
+  //  {
+  //    return EN_addpattern(id);
+  //  }
+  //  int deletepattern(int index)
+  //  {
+  //    return EN_deletepattern(index);
+  //  }
+  //  int getpatternindex(char *id, int *index)
+  //  {
+  //    return EN_getpatternindex(id, index);
+  //  }
+  //  int getpatternid(int index, char *out_id)
+  //  {
+  //    return EN_getpatternid(index, out_id);
+  //  }
+  //  int setpatternid(int index, char *id)
+  //  {
+  //    return EN_setpatternid(index, id);
+  //  }
+  //  int getpatternlen(int index, int *len)
+  //  {
+  //    return EN_getpatternlen(index, len);
+  //  }
+  //  int getpatternvalue(int index, int period, double *value)
+  //  {
+  //    return EN_getpatternvalue(index, period, value);
+  //  }
+  //  int setpatternvalue(int index, int period, double value)
+  //  {
+  //    return EN_setpatternvalue(index, period, value);
+  //  }
+  //  int getaveragepatternvalue(int index, double *value)
+  //  {
+  //    return EN_getaveragepatternvalue(index, value);
+  //  }
+  //  int setpattern(int index, double *values, int len)
+  //  {
+  //    return EN_setpattern(index, values, len);
+  //  }
+  //  // Data Curve Functions
+  //  int addcurve(char *id)
+  //  {
+  //    return EN_addcurve(id);
+  //  }
+  //  int deletecurve(int index)
+  //  {
+  //    return EN_deletecurve(index);
+  //  }
+  //  int getcurveindex(char *id, int *index)
+  //  {
+  //    return EN_getcurveindex(id, index);
+  //  }
+  //  int getcurveid(int index, char *out_id)
+  //  {
+  //    return EN_getcurveid(index, out_id);
+  //  }
+  //  int setcurveid(int index, char *id)
+  //  {
+  //    return EN_setcurveid(index, id);
+  //  }
+  //  int getcurvelen(int index, int *len)
+  //  {
+  //    return EN_getcurvelen(index, len);
+  //  }
+  //  int getcurvetype(int index, int *type)
+  //  {
+  //    return EN_getcurvetype(index, type);
+  //  }
+  //  int getcurvevalue(int curveIndex, int pointIndex, double *x, double *y)
+  //  {
+  //    return EN_getcurvevalue(curveIndex, pointIndex, x, y);
+  //  }
+  //  int setcurvevalue(int curveIndex, int pointIndex, double x, double y)
+  //  {
+  //    return EN_setcurvevalue(curveIndex, pointIndex, x, y);
+  //  }
+  //  int setcurve(int index, double *xValues, double *yValues, int nPoints)
+  //  {
+  //    return EN_setcurve(index, xValues, yValues, nPoints);
+  //  }
+  //  // Simple Control Functions
+  //  int addcontrol(int type, int linkIndex, double setting, int nodeIndex, double level, int *index)
+  //  {
+  //    return EN_addcontrol(type, linkIndex, setting, nodeIndex, level, index);
+  //  }
+  //  int deletecontrol(int index)
+  //  {
+  //    return EN_deletecontrol(index);
+  //  }
+  //  int getcontrol(int index, int *type, int *linkIndex, double *setting, int *nodeIndex, double *level)
+  //  {
+  //    return EN_getcontrol(index, type, linkIndex, setting, nodeIndex, level);
+  //  }
+  //  int setcontrol(int index, int type, int linkIndex, double setting, int nodeIndex, double level)
+  //  {
+  //    return EN_setcontrol(index, type, linkIndex, setting, nodeIndex, level);
+  //  }
+  //  // Rule-Based Control Functions
+  //  int addrule(char *rule)
+  //  {
+  //    return EN_addrule(rule);
+  //  }
+  //  int deleterule(int index)
+  //  {
+  //    return EN_deleterule(index);
+  //  }
+  //  int getrule(int index, int *nPremises, int *nThenActions, int *nElseActions, double *priority)
+  //  {
+  //    return EN_getrule(index, nPremises, nThenActions, nElseActions, priority);
+  //  }
+  //  int getruleID(int index, char *out_id)
+  //  {
+  //    return EN_getruleID(index, out_id);
+  //  }
+  //  int getpremise(int ruleIndex, int premiseIndex, int *logop, int *object, int *objIndex, int *variable, int *relop, int *status, double *value)
+  //  {
+  //    return EN_getpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
+  //  }
+  //  int setpremise(int ruleIndex, int premiseIndex, int logop, int object, int objIndex, int variable, int relop, int status, double value)
+  //  {
+  //    return EN_setpremise(ruleIndex, premiseIndex, logop, object, objIndex, variable, relop, status, value);
+  //  }
+  //  int setpremiseindex(int ruleIndex, int premiseIndex, int objIndex)
+  //  {
+  //    return EN_setpremiseindex(ruleIndex, premiseIndex, objIndex);
+  //  }
+  //  int setpremisestatus(int ruleIndex, int premiseIndex, int status)
+  //  {
+  //    return EN_setpremisestatus(ruleIndex, premiseIndex, status);
+  //  }
+  //  int setpremisevalue(int ruleIndex, int premiseIndex, double value)
+  //  {
+  //    return EN_setpremisevalue(ruleIndex, premiseIndex, value);
+  //  }
+  //  int getthenaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
+  //  {
+  //    return EN_getthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
+  //  }
+  //  int setthenaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
+  //  {
+  //    return EN_setthenaction(ruleIndex, actionIndex, linkIndex, status, setting);
+  //  }
+  //  int getelseaction(int ruleIndex, int actionIndex, int *linkIndex, int *status, double *setting)
+  //  {
+  //    return EN_getelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
+  //  }
+  //  int setelseaction(int ruleIndex, int actionIndex, int linkIndex, int status, double setting)
+  //  {
+  //    return EN_setelseaction(ruleIndex, actionIndex, linkIndex, status, setting);
+  //  }
+  //  int setrulepriority(int index, double priority)
+  //  {
+  //    return EN_setrulepriority(index, priority);
+  //  }
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -767,78 +828,79 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("setnodeid", &Epanet::setnodeid)
       .function("setnodevalue", &Epanet::setnodevalue)
       .function("settankdata", &Epanet::settankdata)
-      // Nodal Demand Functions
-      .function("adddemand", &Epanet::adddemand)
-      .function("deletedemand", &Epanet::deletedemand)
-      .function("getbasedemand", &Epanet::getbasedemand)
-      .function("getdemandindex", &Epanet::getdemandindex)
-      .function("getdemandmodel", &Epanet::getdemandmodel)
-      .function("getdemandname", &Epanet::getdemandname)
-      .function("getdemandpattern", &Epanet::getdemandpattern)
-      .function("getnumdemands", &Epanet::getnumdemands)
-      .function("setbasedemand", &Epanet::setbasedemand)
-      .function("setdemandmodel", &Epanet::setdemandmodel)
-      .function("setdemandname", &Epanet::setdemandname)
-      .function("setdemandpattern", &Epanet::setdemandpattern)
-      // Network Link Functions
-      .function("addlink", &Epanet::addlink)
-      .function("deletelink", &Epanet::deletelink)
-      .function("getheadcurveindex", &Epanet::getheadcurveindex)
-      .function("getlinkid", &Epanet::getlinkid)
-      .function("getlinkindex", &Epanet::getlinkindex)
-      .function("getlinknodes", &Epanet::getlinknodes)
-      .function("getlinktype", &Epanet::getlinktype)
-      .function("getlinkvalue", &Epanet::getlinkvalue)
-      .function("getpumptype", &Epanet::getpumptype)
-      .function("getvertex", &Epanet::getvertex)
-      .function("getvertexcount", &Epanet::getvertexcount)
-      .function("setheadcurveindex", &Epanet::setheadcurveindex)
-      .function("setlinkid", &Epanet::setlinkid)
-      .function("setlinknodes", &Epanet::setlinknodes)
-      .function("setlinktype", &Epanet::setlinktype)
-      .function("setlinkvalue", &Epanet::setlinkvalue)
-      .function("setpipedata", &Epanet::setpipedata)
-      .function("setvertices", &Epanet::setvertices)
-      // Time Pattern Functions
-      .function("addpattern", &Epanet::addpattern)
-      .function("deletepattern", &Epanet::deletepattern)
-      .function("getaveragepatternvalue", &Epanet::getaveragepatternvalue)
-      .function("getpatternid", &Epanet::getpatternid)
-      .function("getpatternindex", &Epanet::getpatternindex)
-      .function("getpatternlen", &Epanet::getpatternlen)
-      .function("getpatternvalue", &Epanet::getpatternvalue)
-      .function("setpattern", &Epanet::setpattern)
-      .function("setpatternid", &Epanet::setpatternid)
-      .function("setpatternvalue", &Epanet::setpatternvalue)
-      // Data Curve Functions
-      .function("addcurve", &Epanet::addcurve)
-      .function("deletecurve", &Epanet::deletecurve)
-      .function("getcurveid", &Epanet::getcurveid)
-      .function("getcurveindex", &Epanet::getcurveindex)
-      .function("getcurvelen", &Epanet::getcurvelen)
-      .function("getcurvetype", &Epanet::getcurvetype)
-      .function("getcurvevalue", &Epanet::getcurvevalue)
-      .function("setcurve", &Epanet::setcurve)
-      .function("setcurveid", &Epanet::setcurveid)
-      .function("setcurvevalue", &Epanet::setcurvevalue)
-      // Simple Control Functions
-      .function("addcontrol", &Epanet::addcontrol)
-      .function("deletecontrol", &Epanet::deletecontrol)
-      .function("getcontrol", &Epanet::getcontrol)
-      .function("setcontrol", &Epanet::setcontrol)
-      // Rule-Based Control Functions
-      .function("addrule", &Epanet::addrule)
-      .function("deleterule", &Epanet::deleterule)
-      .function("getelseaction", &Epanet::getelseaction)
-      .function("getpremise", &Epanet::getpremise)
-      .function("getrule", &Epanet::getrule)
-      .function("getruleID", &Epanet::getruleID)
-      .function("getthenaction", &Epanet::getthenaction)
-      .function("setelseaction", &Epanet::setelseaction)
-      .function("setpremise", &Epanet::setpremise)
-      .function("setpremiseindex", &Epanet::setpremiseindex)
-      .function("setpremisestatus", &Epanet::setpremisestatus)
-      .function("setpremisevalue", &Epanet::setpremisevalue)
-      .function("setrulepriority", &Epanet::setrulepriority)
-      .function("setthenaction", &Epanet::setthenaction);
+      //      // Nodal Demand Functions
+      //      .function("adddemand", &Epanet::adddemand)
+      //      .function("deletedemand", &Epanet::deletedemand)
+      //      .function("getbasedemand", &Epanet::getbasedemand)
+      //      .function("getdemandindex", &Epanet::getdemandindex)
+      //      .function("getdemandmodel", &Epanet::getdemandmodel)
+      //      .function("getdemandname", &Epanet::getdemandname)
+      //      .function("getdemandpattern", &Epanet::getdemandpattern)
+      //      .function("getnumdemands", &Epanet::getnumdemands)
+      //      .function("setbasedemand", &Epanet::setbasedemand)
+      //      .function("setdemandmodel", &Epanet::setdemandmodel)
+      //      .function("setdemandname", &Epanet::setdemandname)
+      //      .function("setdemandpattern", &Epanet::setdemandpattern)
+      //      // Network Link Functions
+      //      .function("addlink", &Epanet::addlink)
+      //      .function("deletelink", &Epanet::deletelink)
+      //      .function("getheadcurveindex", &Epanet::getheadcurveindex)
+      //      .function("getlinkid", &Epanet::getlinkid)
+      //      .function("getlinkindex", &Epanet::getlinkindex)
+      //      .function("getlinknodes", &Epanet::getlinknodes)
+      //      .function("getlinktype", &Epanet::getlinktype)
+      //      .function("getlinkvalue", &Epanet::getlinkvalue)
+      //      .function("getpumptype", &Epanet::getpumptype)
+      //      .function("getvertex", &Epanet::getvertex)
+      //      .function("getvertexcount", &Epanet::getvertexcount)
+      //      .function("setheadcurveindex", &Epanet::setheadcurveindex)
+      //      .function("setlinkid", &Epanet::setlinkid)
+      //      .function("setlinknodes", &Epanet::setlinknodes)
+      //      .function("setlinktype", &Epanet::setlinktype)
+      //      .function("setlinkvalue", &Epanet::setlinkvalue)
+      //      .function("setpipedata", &Epanet::setpipedata)
+      //      .function("setvertices", &Epanet::setvertices)
+      //      // Time Pattern Functions
+      //      .function("addpattern", &Epanet::addpattern)
+      //      .function("deletepattern", &Epanet::deletepattern)
+      //      .function("getaveragepatternvalue", &Epanet::getaveragepatternvalue)
+      //      .function("getpatternid", &Epanet::getpatternid)
+      //      .function("getpatternindex", &Epanet::getpatternindex)
+      //      .function("getpatternlen", &Epanet::getpatternlen)
+      //      .function("getpatternvalue", &Epanet::getpatternvalue)
+      //      .function("setpattern", &Epanet::setpattern)
+      //      .function("setpatternid", &Epanet::setpatternid)
+      //      .function("setpatternvalue", &Epanet::setpatternvalue)
+      //      // Data Curve Functions
+      //      .function("addcurve", &Epanet::addcurve)
+      //      .function("deletecurve", &Epanet::deletecurve)
+      //      .function("getcurveid", &Epanet::getcurveid)
+      //      .function("getcurveindex", &Epanet::getcurveindex)
+      //      .function("getcurvelen", &Epanet::getcurvelen)
+      //      .function("getcurvetype", &Epanet::getcurvetype)
+      //      .function("getcurvevalue", &Epanet::getcurvevalue)
+      //      .function("setcurve", &Epanet::setcurve)
+      //      .function("setcurveid", &Epanet::setcurveid)
+      //      .function("setcurvevalue", &Epanet::setcurvevalue)
+      //      // Simple Control Functions
+      //      .function("addcontrol", &Epanet::addcontrol)
+      //      .function("deletecontrol", &Epanet::deletecontrol)
+      //      .function("getcontrol", &Epanet::getcontrol)
+      //      .function("setcontrol", &Epanet::setcontrol)
+      //      // Rule-Based Control Functions
+      //      .function("addrule", &Epanet::addrule)
+      //      .function("deleterule", &Epanet::deleterule)
+      //      .function("getelseaction", &Epanet::getelseaction)
+      //      .function("getpremise", &Epanet::getpremise)
+      //      .function("getrule", &Epanet::getrule)
+      //      .function("getruleID", &Epanet::getruleID)
+      //      .function("getthenaction", &Epanet::getthenaction)
+      //      .function("setelseaction", &Epanet::setelseaction)
+      //      .function("setpremise", &Epanet::setpremise)
+      //      .function("setpremiseindex", &Epanet::setpremiseindex)
+      //      .function("setpremisestatus", &Epanet::setpremisestatus)
+      //      .function("setpremisevalue", &Epanet::setpremisevalue)
+      //      .function("setrulepriority", &Epanet::setrulepriority)
+      //      .function("setthenaction", &Epanet::setthenaction)
+      ;
 }
