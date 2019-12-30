@@ -1,5 +1,6 @@
 #include <emscripten/bind.h>
 #include "epanet2_2.h"
+#include <stdio.h>
 
 using namespace emscripten;
 
