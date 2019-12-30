@@ -33,7 +33,6 @@ echo "============================================="
   mkdir -p dist
   # Move artifacts
   mv index.js dist
-  mv src/index.d.js dist
 
 )
 echo "============================================="

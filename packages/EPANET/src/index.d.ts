@@ -137,12 +137,28 @@ interface EmscriptenModule {
 
   _malloc(size: number): number;
   _free(ptr: number): void;
+
+  // Exported Functions - LB
+  FS: EmscriptenFileSysten;
+  UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 }
 
 // By default Emscripten emits a single global Module.  Users setting -s
 // MODULARIZE=1 -s EXPORT_NAME=MyMod should declare their own types, e.g.
 // declare var MyMod: EmscriptenModule;
 declare var Module: EmscriptenModule;
+
+interface EmscriptenFileSysten {
+  readFile(
+    path: string,
+    opts?: { encoding?: "binary" | "utf8"; flags?: string }
+  ): string | Uint8Array;
+  writeFile(
+    path: string,
+    data: string | ArrayBufferView,
+    opts?: { flags?: string }
+  ): void;
+}
 
 declare namespace FS {
   interface Lookup {
