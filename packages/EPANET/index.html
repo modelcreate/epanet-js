@@ -185,8 +185,8 @@ Open the console to see the output from the wasm module.
   class OwaEpanetWorkspace {
     constructor() {
       this._instance = Module();
-      const FS = this._instance.FS;
-      FS.writeFile("/net1.inp", net1);
+      this._FS = this._instance.FS;
+      this._FS.writeFile("/net1.inp", net1);
     }
 
     get version() {
@@ -206,6 +206,10 @@ Open the console to see the output from the wasm module.
       this._instance._free(title1Ptr);
       return errMessage;
     }
+
+    readFile(file) {
+      return this._instance.intArrayToString(this._FS.readFile(file));
+    }
   }
 
   class OwaEpanetProject {
@@ -217,13 +221,39 @@ Open the console to see the output from the wasm module.
       const result = this._EN.init(rptFile, outFile, unitType, headLosstype);
       return result;
     }
+
+    addnode(id, nodeType) {
+      const intPointer = this._ws._malloc(4);
+      var result = this._EN.addnode(id, nodeType, intPointer);
+      const returnValue = this._ws.getValue(intPointer, "i32");
+
+      this._ws._free(intPointer);
+
+      return returnValue;
+    }
+
+    setjuncdata(index, elev, dmnd, dmndpat) {
+      const result = this._EN.setjuncdata(index, elev, dmnd, dmndpat);
+      return result;
+    }
+
+    saveinpfile(filename) {
+      const result = this._EN.saveinpfile(filename);
+      return result;
+    }
   }
+  const EN_JUNCTION = 0;
 
   const workspace = new OwaEpanetWorkspace();
   const model = new OwaEpanetProject(workspace);
 
   console.log(workspace.version);
-  console.log(model.init("", "", 0, 0));
+  model.init("", "", 0, 0);
+  const nodeId = model.addnode("J1", EN_JUNCTION);
+  model.setjuncdata(nodeId, 700, 0, "");
+  model.saveinpfile("example2.inp");
+
+  console.log(workspace.readFile("example2.inp"));
 
   //  import wasmModule from "./my-module.js";
 
