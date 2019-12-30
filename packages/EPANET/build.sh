@@ -9,7 +9,7 @@ echo "============================================="
 (
 
   # Compile C/C++ code
-  emcc -O0 -o ./my-module.js /opt/epanet/build/lib/libepanet2.a \
+  emcc -O0 -o ./index.js /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
     src/epanet_wrapper.cpp \
@@ -23,16 +23,17 @@ echo "============================================="
     -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
 		-s WASM=0 \
-    -s MODULARIZE=1 \
-    -s EXPORT_ES6=1 \
 		--llvm-lto 3 \
+    -s MODULARIZE=1 \
 		--memory-init-file 0 \
+    --closure 0
 
 
   # Create output folder
   mkdir -p dist
   # Move artifacts
-  mv my-module.js dist
+  mv index.js dist
+  mv src/index.d.js dist
 
 )
 echo "============================================="
