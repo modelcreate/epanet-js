@@ -10,8 +10,7 @@ class Workspace {
 
   get version() {
     const intPointer = this._instance._malloc(4);
-    //@ts-ignore
-    var result = this._instance.getversion(intPointer);
+    this._instance.getversion(intPointer);
     const returnValue = this._instance.getValue(intPointer, 'i32');
 
     this._instance._free(intPointer);
@@ -21,8 +20,7 @@ class Workspace {
 
   getError(code: number) {
     const title1Ptr = this._instance._malloc(1);
-    //@ts-ignore
-    const result = this._instance.geterror(code, title1Ptr);
+    this._instance.geterror(code, title1Ptr);
     const errMessage = this._instance.UTF8ToString(title1Ptr);
     this._instance._free(title1Ptr);
     return errMessage;

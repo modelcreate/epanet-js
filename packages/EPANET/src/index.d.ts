@@ -141,6 +141,30 @@ interface EmscriptenModule {
   // Exported Functions - LB
   FS: EmscriptenFileSysten;
   UTF8ToString(ptr: number, maxBytesToRead?: number): string;
+  getversion(ptr: number): number;
+  geterror(errorCode: number, ptr: number): number;
+  Epanet: EpanetProjectConstructable;
+}
+
+// EPANET
+interface EpanetProjectConstructable {
+  new (): EpanetProject;
+}
+interface EpanetProject {
+  init(
+    reportFile: string,
+    outputFile: string,
+    unitsType: number,
+    headLossType: number
+  ): number;
+  addnode(id: string, nodeType: number, intPointer: number): number;
+  setjuncdata(
+    index: number,
+    elev: number,
+    dmnd: number,
+    dmndpat: string
+  ): number;
+  saveinpfile(filename: string): number;
 }
 
 // By default Emscripten emits a single global Module.  Users setting -s
