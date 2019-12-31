@@ -1,5 +1,4 @@
-import Workspace from '../src/Workspace';
-import Project from '../src/Project';
+import { Project, Workspace } from '../src';
 import { NodeType } from '../src/enum';
 
 const ws = new Workspace();
