@@ -1,12 +1,23 @@
 import Workspace from 'Workspace';
 
 class Project {
-  _ws: EmscriptenModule;
+  _ws: Workspace;
+  _instance: EmscriptenModule;
   _EN: EpanetProject;
   constructor(ws: Workspace) {
-    this._ws = ws._instance;
-    this._EN = new this._ws.Epanet();
+    this._ws = ws;
+    this._instance = ws._instance;
+    this._EN = new this._ws._instance.Epanet();
   }
+
+  _checkError(errorCode: number) {
+    if (errorCode === 0) {
+      return;
+    }
+    const errorMsg = this._ws.getError(errorCode);
+    throw new Error(errorMsg);
+  }
+
   init(
     rptFile: string,
     outFile: string,
@@ -14,16 +25,18 @@ class Project {
     headLosstype: number
   ) {
     const result = this._EN.init(rptFile, outFile, unitType, headLosstype);
+    this._checkError(result);
     return result;
   }
 
   addnode(id: string, nodeType: number) {
-    const intPointer = this._ws._malloc(4);
-    this._EN.addnode(id, nodeType, intPointer);
-    const returnValue = this._ws.getValue(intPointer, 'i32');
+    const intPointer = this._instance._malloc(4);
+    const result = this._EN.addnode(id, nodeType, intPointer);
+    const returnValue = this._instance.getValue(intPointer, 'i32');
 
-    this._ws._free(intPointer);
+    this._instance._free(intPointer);
 
+    this._checkError(result);
     return returnValue;
   }
 
