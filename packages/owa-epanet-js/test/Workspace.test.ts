@@ -1,4 +1,4 @@
-import Workspace from '../src/Workspace';
+import { Workspace } from '../src';
 
 const workspace = new Workspace();
 test('Returns workspace version', () => {
