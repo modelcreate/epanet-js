@@ -1,4 +1,5 @@
 import Workspace from 'Workspace';
+import { NodeType } from 'enum';
 
 class Project {
   _ws: Workspace;
@@ -29,7 +30,7 @@ class Project {
     return result;
   }
 
-  addnode(id: string, nodeType: number) {
+  addnode(id: string, nodeType: NodeType) {
     const intPointer = this._instance._malloc(4);
     const result = this._EN.addnode(id, nodeType, intPointer);
     const returnValue = this._instance.getValue(intPointer, 'i32');
