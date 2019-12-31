@@ -1,5 +1,6 @@
 import Workspace from '../src/Workspace';
 import Project from '../src/Project';
+import { NodeType } from '../src/enum';
 
 const ws = new Workspace();
 
@@ -19,7 +20,7 @@ describe('Epanet Project', () => {
     test('should throw without a network init', () => {
       function catchError() {
         const model = new Project(ws);
-        model.addnode('J1', 0);
+        model.addnode('J1', NodeType.Junction);
       }
 
       expect(catchError).toThrow('102');
