@@ -1,15 +1,12 @@
 import Project from '../Project';
 import { NodeType } from 'enum';
+import { __values } from 'tslib';
 
 class NetworkNodeFunctions {
   addnode(this: Project, id: string, nodeType: NodeType) {
-    const [intPointer] = this._allocateMemory(['int']);
-    const result = this._EN.addnode(id, nodeType, intPointer);
-    const returnValue = this._getValue(intPointer, 'int');
-    this._instance._free(intPointer);
-
-    this._checkError(result);
-    return returnValue;
+    const memory = this._allocateMemory('int');
+    this._checkError(this._EN.addnode(id, nodeType, ...memory));
+    return this._getValue(memory[0], 'int');
   }
 
   setjuncdata(

@@ -23,14 +23,25 @@ class Project implements ProjectFunctions, NetworkNodeFunctions {
     type: T
   ): MemoryTypes[T];
   _getValue(pointer: number, type: keyof MemoryTypes) {
+    let value;
     if (type === 'char') {
-      return this._instance.UTF8ToString(pointer);
+      value = this._instance.UTF8ToString(pointer);
+    } else {
+      const size = type === 'int' ? 'i32' : type === 'long' ? 'i64' : 'double';
+      value = this._instance.getValue(pointer, size);
     }
-    const size = type === 'int' ? 'i32' : type === 'long' ? 'i64' : 'double';
-    return this._instance.getValue(pointer, size);
+    this._instance._free(pointer);
+    return value;
   }
 
-  _allocateMemory(types: string[]): number[] {
+  _allocateMemory(v1: string): [number];
+  _allocateMemory(v1: string, v2: string): [number, number];
+  _allocateMemory(v1: string, v2: string, v3: string): [number, number, number];
+  _allocateMemory(v1: any): any {
+    if (typeof v1 != 'string') {
+      throw new Error('Method _allocateMemory expected string');
+    }
+    const types = Array.prototype.slice.call(arguments);
     return types.reduce((acc, t) => {
       const memsize = t === 'char' ? 1 : t === 'int' ? 4 : 8;
       const pointer = this._instance._malloc(memsize);
