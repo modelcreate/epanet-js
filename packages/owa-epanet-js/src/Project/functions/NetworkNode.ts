@@ -1,6 +1,5 @@
 import Project from '../Project';
 import { NodeType } from 'enum';
-import { __values } from 'tslib';
 
 class NetworkNodeFunctions {
   addnode(this: Project, id: string, nodeType: NodeType) {
@@ -16,8 +15,19 @@ class NetworkNodeFunctions {
     dmnd: number,
     dmndpat: string
   ) {
-    const result = this._EN.setjuncdata(index, elev, dmnd, dmndpat);
-    return result;
+    this._checkError(this._EN.setjuncdata(index, elev, dmnd, dmndpat));
+  }
+
+  getnodetype(this: Project, index: number) {
+    const memory = this._allocateMemory('int');
+    this._checkError(this._EN.getnodetype(index, ...memory));
+    return this._getValue(memory[0], 'int');
+  }
+
+  getnodevalue(this: Project, index: number, property: number) {
+    const memory = this._allocateMemory('double');
+    this._checkError(this._EN.getnodevalue(index, property, ...memory));
+    return this._getValue(memory[0], 'double');
   }
 }
 

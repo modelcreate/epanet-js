@@ -62,6 +62,8 @@ class Project implements ProjectFunctions, NetworkNodeFunctions {
   saveinpfile = ProjectFunctions.prototype.saveinpfile;
   addnode = NetworkNodeFunctions.prototype.addnode;
   setjuncdata = NetworkNodeFunctions.prototype.setjuncdata;
+  getnodetype = NetworkNodeFunctions.prototype.getnodetype;
+  getnodevalue = NetworkNodeFunctions.prototype.getnodevalue;
 }
 
 export default Project;

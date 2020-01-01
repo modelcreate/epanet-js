@@ -165,6 +165,8 @@ interface EpanetProject {
     dmndpat: string
   ): number;
   saveinpfile(filename: string): number;
+  getnodetype(index: number, ptrType: number): number;
+  getnodevalue(index: number, property: number, ptrValue: number): number;
 }
 
 // By default Emscripten emits a single global Module.  Users setting -s
