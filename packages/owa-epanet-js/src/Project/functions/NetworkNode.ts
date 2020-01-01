@@ -1,12 +1,11 @@
-import { Project } from '../';
+import Project from '../Project';
 import { NodeType } from 'enum';
 
 class NetworkNodeFunctions {
   addnode(this: Project, id: string, nodeType: NodeType) {
-    const intPointer = this._instance._malloc(4);
+    const [intPointer] = this._allocateMemory(['int']);
     const result = this._EN.addnode(id, nodeType, intPointer);
-    const returnValue = this._instance.getValue(intPointer, 'i32');
-
+    const returnValue = this._getValue(intPointer, 'int');
     this._instance._free(intPointer);
 
     this._checkError(result);
