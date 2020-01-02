@@ -3,6 +3,7 @@ import {
   ProjectFunctions,
   NetworkNodeFunctions,
   HydraulicAnalysisFunctions,
+  WaterQualityAnalysisFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -16,7 +17,8 @@ class Project
   implements
     ProjectFunctions,
     NetworkNodeFunctions,
-    HydraulicAnalysisFunctions {
+    HydraulicAnalysisFunctions,
+    WaterQualityAnalysisFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -87,6 +89,15 @@ class Project
   saveH = HydraulicAnalysisFunctions.prototype.saveH;
   savehydfile = HydraulicAnalysisFunctions.prototype.savehydfile;
   closeH = HydraulicAnalysisFunctions.prototype.closeH;
+
+  // Water Quality Analysis Functions
+  solveQ = WaterQualityAnalysisFunctions.prototype.solveQ;
+  openQ = WaterQualityAnalysisFunctions.prototype.openQ;
+  initQ = WaterQualityAnalysisFunctions.prototype.initQ;
+  runQ = WaterQualityAnalysisFunctions.prototype.runQ;
+  nextQ = WaterQualityAnalysisFunctions.prototype.nextQ;
+  stepQ = WaterQualityAnalysisFunctions.prototype.stepQ;
+  closeQ = WaterQualityAnalysisFunctions.prototype.closeQ;
 
   //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
