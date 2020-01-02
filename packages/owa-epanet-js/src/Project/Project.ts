@@ -58,8 +58,18 @@ class Project implements ProjectFunctions, NetworkNodeFunctions {
   }
 
   // Implementing function classes
+
+  // Project Functions
+  open = ProjectFunctions.prototype.open;
+  close = ProjectFunctions.prototype.close;
+  runproject = ProjectFunctions.prototype.runproject;
   init = ProjectFunctions.prototype.init;
+  getcount = ProjectFunctions.prototype.getcount;
+  gettitle = ProjectFunctions.prototype.gettitle;
+  settitle = ProjectFunctions.prototype.settitle;
   saveinpfile = ProjectFunctions.prototype.saveinpfile;
+
+  //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
   setjuncdata = NetworkNodeFunctions.prototype.setjuncdata;
   getnodetype = NetworkNodeFunctions.prototype.getnodetype;

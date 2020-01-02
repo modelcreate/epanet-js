@@ -153,6 +153,7 @@ interface EpanetProjectConstructable {
 interface EpanetProject {
   // Generated methods
 
+  //Project Functions
   open(inputFile: string, reportFile: string, outputFile: string): number;
   close(): number;
   runproject(inputFile: string, reportFile: string, outputFile: string): number;
@@ -166,6 +167,8 @@ interface EpanetProject {
   gettitle(out_line1: number, out_line2: number, out_line3: number): number;
   settitle(line1: string, line2: string, line3: string): number;
   saveinpfile(filename: string): number;
+
+  //Hydraulic Analysis Functions
   solveH(): number;
   usehydfile(filename: string): number;
   openH(): number;

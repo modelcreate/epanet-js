@@ -4,17 +4,6 @@ import { NodeType, NodeProperty } from '../src/enum';
 const ws = new Workspace();
 
 describe('Epanet Project', () => {
-  describe('init', () => {
-    test('should throw with bad properties', () => {
-      function catchError() {
-        const model = new Project(ws);
-        model.init('repor{/st.rpt', 'ou{/t.bin', 0, 0);
-      }
-
-      expect(catchError).toThrow('303');
-    });
-  });
-
   describe('addNode', () => {
     test('should throw without a network init', () => {
       function catchError() {
