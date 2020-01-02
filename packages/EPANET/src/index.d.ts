@@ -151,22 +151,319 @@ interface EpanetProjectConstructable {
   new (): EpanetProject;
 }
 interface EpanetProject {
+  // Generated methods
+
+  //Project Functions
+  open(inputFile: string, reportFile: string, outputFile: string): number;
+  close(): number;
+  runproject(inputFile: string, reportFile: string, outputFile: string): number;
   init(
     reportFile: string,
     outputFile: string,
     unitsType: number,
     headLossType: number
   ): number;
-  addnode(id: string, nodeType: number, intPointer: number): number;
+  getcount(obj: number, count: number): number;
+  gettitle(out_line1: number, out_line2: number, out_line3: number): number;
+  settitle(line1: string, line2: string, line3: string): number;
+  saveinpfile(filename: string): number;
+
+  //Hydraulic Analysis Functions
+  solveH(): number;
+  usehydfile(filename: string): number;
+  openH(): number;
+  initH(initFlag: number): number;
+  runH(currentTime: number): number;
+  nextH(tStep: number): number;
+  saveH(): number;
+  savehydfile(filename: string): number;
+  closeH(): number;
+  solveQ(): number;
+  openQ(): number;
+  initQ(initFlag: number): number;
+  runQ(currentTime: number): number;
+  nextQ(tStep: number): number;
+  stepQ(timeLeft: number): number;
+  closeQ(): number;
+  writeline(line: string): number;
+  report(): number;
+  copyreport(filename: string): number;
+  clearreport(): number;
+  resetreport(): number;
+  setreport(format: string): number;
+  setstatusreport(level: number): number;
+  getstatistic(type: number, value: number): number;
+  getresultindex(type: number, index: number, value: number): number;
+  getflowunits(units: number): number;
+  getoption(option: number, value: number): number;
+  getqualinfo(
+    qualType: number,
+    out_chemName: number,
+    out_chemUnits: number,
+    traceNode: number
+  ): number;
+  getqualtype(qualType: number, traceNode: number): number;
+  gettimeparam(param: number, value: number): number;
+  setflowunits(units: number): number;
+  setoption(option: number, value: number): number;
+  setqualtype(
+    qualType: number,
+    chemName: string,
+    chemUnits: string,
+    traceNode: string
+  ): number;
+  settimeparam(param: number, value: number): number;
+  addnode(id: string, nodeType: number, index: number): number;
+  deletenode(index: number, actionCode: number): number;
+  getnodeindex(id: string, index: number): number;
+  getnodeid(index: number, out_id: number): number;
+  setnodeid(index: number, newid: string): number;
+  getnodetype(index: number, nodeType: number): number;
+  getnodevalue(index: number, property: number, value: number): number;
+  setnodevalue(index: number, property: number, value: number): number;
   setjuncdata(
     index: number,
     elev: number,
     dmnd: number,
     dmndpat: string
   ): number;
-  saveinpfile(filename: string): number;
-  getnodetype(index: number, ptrType: number): number;
-  getnodevalue(index: number, property: number, ptrValue: number): number;
+  settankdata(
+    index: number,
+    elev: number,
+    initlvl: number,
+    minlvl: number,
+    maxlvl: number,
+    diam: number,
+    minvol: number,
+    volcurve: string
+  ): number;
+  getcoord(index: number, x: number, y: number): number;
+  setcoord(index: number, x: number, y: number): number;
+  adddemand(
+    nodeIndex: number,
+    baseDemand: number,
+    demandPattern: string,
+    demandName: string
+  ): number;
+  deletedemand(nodeIndex: number, demandIndex: number): number;
+  getbasedemand(
+    nodeIndex: number,
+    demandIndex: number,
+    baseDemand: number
+  ): number;
+  getdemandindex(
+    nodeIndex: number,
+    demandName: string,
+    demandIndex: number
+  ): number;
+  getdemandmodel(
+    type: number,
+    pmin: number,
+    preq: number,
+    pexp: number
+  ): number;
+  getdemandname(
+    nodeIndex: number,
+    demandIndex: number,
+    out_demandName: number
+  ): number;
+  getdemandpattern(
+    nodeIndex: number,
+    demandIndex: number,
+    patIndex: number
+  ): number;
+  getnumdemands(nodeIndex: number, numDemands: number): number;
+  setbasedemand(
+    nodeIndex: number,
+    demandIndex: number,
+    baseDemand: number
+  ): number;
+  setdemandmodel(
+    type: number,
+    pmin: number,
+    preq: number,
+    pexp: number
+  ): number;
+  setdemandname(
+    nodeIndex: number,
+    demandIdx: number,
+    demandName: string
+  ): number;
+  setdemandpattern(
+    nodeIndex: number,
+    demandIndex: number,
+    patIndex: number
+  ): number;
+  addlink(
+    id: string,
+    linkType: number,
+    fromNode: string,
+    toNode: string,
+    index: number
+  ): number;
+  deletelink(index: number, actionCode: number): number;
+  getlinkindex(id: string, index: number): number;
+  getlinkid(index: number, out_id: number): number;
+  setlinkid(index: number, newid: string): number;
+  getlinktype(index: number, linkType: number): number;
+  setlinktype(
+    inout_index: number,
+    linkType: number,
+    actionCode: number
+  ): number;
+  getlinknodes(index: number, node1: number, node2: number): number;
+  setlinknodes(index: number, node1: number, node2: number): number;
+  getlinkvalue(index: number, property: number, value: number): number;
+  setlinkvalue(index: number, property: number, value: number): number;
+  setpipedata(
+    index: number,
+    length: number,
+    diam: number,
+    rough: number,
+    mloss: number
+  ): number;
+  getpumptype(linkIndex: number, pumpType: number): number;
+  getheadcurveindex(linkIndex: number, curveIndex: number): number;
+  setheadcurveindex(linkIndex: number, curveIndex: number): number;
+  getvertexcount(index: number, count: number): number;
+  getvertex(index: number, vertex: number, x: number, y: number): number;
+  setvertices(index: number, x: number, y: number, count: number): number;
+  addpattern(id: string): number;
+  deletepattern(index: number): number;
+  getpatternindex(id: string, index: number): number;
+  getpatternid(index: number, out_id: number): number;
+  setpatternid(index: number, id: string): number;
+  getpatternlen(index: number, len: number): number;
+  getpatternvalue(index: number, period: number, value: number): number;
+  setpatternvalue(index: number, period: number, value: number): number;
+  getaveragepatternvalue(index: number, value: number): number;
+  setpattern(index: number, values: number, len: number): number;
+  addcurve(id: string): number;
+  deletecurve(index: number): number;
+  getcurveindex(id: string, index: number): number;
+  getcurveid(index: number, out_id: number): number;
+  setcurveid(index: number, id: string): number;
+  getcurvelen(index: number, len: number): number;
+  getcurvetype(index: number, type: number): number;
+  getcurvevalue(
+    curveIndex: number,
+    pointIndex: number,
+    x: number,
+    y: number
+  ): number;
+  setcurvevalue(
+    curveIndex: number,
+    pointIndex: number,
+    x: number,
+    y: number
+  ): number;
+  setcurve(
+    index: number,
+    xValues: number,
+    yValues: number,
+    nPoints: number
+  ): number;
+  addcontrol(
+    type: number,
+    linkIndex: number,
+    setting: number,
+    nodeIndex: number,
+    level: number,
+    index: number
+  ): number;
+  deletecontrol(index: number): number;
+  getcontrol(
+    index: number,
+    type: number,
+    linkIndex: number,
+    setting: number,
+    nodeIndex: number,
+    level: number
+  ): number;
+  setcontrol(
+    index: number,
+    type: number,
+    linkIndex: number,
+    setting: number,
+    nodeIndex: number,
+    level: number
+  ): number;
+  addrule(rule: string): number;
+  deleterule(index: number): number;
+  getrule(
+    index: number,
+    nPremises: number,
+    nThenActions: number,
+    nElseActions: number,
+    priority: number
+  ): number;
+  getruleID(index: number, out_id: number): number;
+  getpremise(
+    ruleIndex: number,
+    premiseIndex: number,
+    logop: number,
+    object: number,
+    objIndex: number,
+    variable: number,
+    relop: number,
+    status: number,
+    value: number
+  ): number;
+  setpremise(
+    ruleIndex: number,
+    premiseIndex: number,
+    logop: number,
+    object: number,
+    objIndex: number,
+    variable: number,
+    relop: number,
+    status: number,
+    value: number
+  ): number;
+  setpremiseindex(
+    ruleIndex: number,
+    premiseIndex: number,
+    objIndex: number
+  ): number;
+  setpremisestatus(
+    ruleIndex: number,
+    premiseIndex: number,
+    status: number
+  ): number;
+  setpremisevalue(
+    ruleIndex: number,
+    premiseIndex: number,
+    value: number
+  ): number;
+  getthenaction(
+    ruleIndex: number,
+    actionIndex: number,
+    linkIndex: number,
+    status: number,
+    setting: number
+  ): number;
+  setthenaction(
+    ruleIndex: number,
+    actionIndex: number,
+    linkIndex: number,
+    status: number,
+    setting: number
+  ): number;
+  getelseaction(
+    ruleIndex: number,
+    actionIndex: number,
+    linkIndex: number,
+    status: number,
+    setting: number
+  ): number;
+  setelseaction(
+    ruleIndex: number,
+    actionIndex: number,
+    linkIndex: number,
+    status: number,
+    setting: number
+  ): number;
+  setrulepriority(index: number, priority: number): number;
 }
 
 // By default Emscripten emits a single global Module.  Users setting -s
