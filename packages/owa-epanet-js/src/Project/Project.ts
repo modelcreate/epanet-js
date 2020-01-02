@@ -4,6 +4,7 @@ import {
   NetworkNodeFunctions,
   HydraulicAnalysisFunctions,
   WaterQualityAnalysisFunctions,
+  ReportingFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -18,7 +19,8 @@ class Project
     ProjectFunctions,
     NetworkNodeFunctions,
     HydraulicAnalysisFunctions,
-    WaterQualityAnalysisFunctions {
+    WaterQualityAnalysisFunctions,
+    ReportingFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -98,6 +100,17 @@ class Project
   nextQ = WaterQualityAnalysisFunctions.prototype.nextQ;
   stepQ = WaterQualityAnalysisFunctions.prototype.stepQ;
   closeQ = WaterQualityAnalysisFunctions.prototype.closeQ;
+
+  // Reporting Functions
+  writeline = ReportingFunctions.prototype.writeline;
+  report = ReportingFunctions.prototype.report;
+  copyreport = ReportingFunctions.prototype.copyreport;
+  clearreport = ReportingFunctions.prototype.clearreport;
+  resetreport = ReportingFunctions.prototype.resetreport;
+  setreport = ReportingFunctions.prototype.setreport;
+  setstatusreport = ReportingFunctions.prototype.setstatusreport;
+  getstatistic = ReportingFunctions.prototype.getstatistic;
+  getresultindex = ReportingFunctions.prototype.getresultindex;
 
   //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
