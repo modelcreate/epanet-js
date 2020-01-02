@@ -5,6 +5,7 @@ import {
   HydraulicAnalysisFunctions,
   WaterQualityAnalysisFunctions,
   ReportingFunctions,
+  AnalysisOptionsFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -20,7 +21,8 @@ class Project
     NetworkNodeFunctions,
     HydraulicAnalysisFunctions,
     WaterQualityAnalysisFunctions,
-    ReportingFunctions {
+    ReportingFunctions,
+    AnalysisOptionsFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -49,6 +51,12 @@ class Project
   _allocateMemory(v1: string): [number];
   _allocateMemory(v1: string, v2: string): [number, number];
   _allocateMemory(v1: string, v2: string, v3: string): [number, number, number];
+  _allocateMemory(
+    v1: string,
+    v2: string,
+    v3: string,
+    v4: string
+  ): [number, number, number, number];
   _allocateMemory(v1: any): any {
     if (typeof v1 != 'string') {
       throw new Error('Method _allocateMemory expected string');
@@ -111,6 +119,17 @@ class Project
   setstatusreport = ReportingFunctions.prototype.setstatusreport;
   getstatistic = ReportingFunctions.prototype.getstatistic;
   getresultindex = ReportingFunctions.prototype.getresultindex;
+
+  // Analysis Options Functions
+  getflowunits = AnalysisOptionsFunctions.prototype.getflowunits;
+  getoption = AnalysisOptionsFunctions.prototype.getoption;
+  getqualinfo = AnalysisOptionsFunctions.prototype.getqualinfo;
+  getqualtype = AnalysisOptionsFunctions.prototype.getqualtype;
+  gettimeparam = AnalysisOptionsFunctions.prototype.gettimeparam;
+  setflowunits = AnalysisOptionsFunctions.prototype.setflowunits;
+  setoption = AnalysisOptionsFunctions.prototype.setoption;
+  setqualtype = AnalysisOptionsFunctions.prototype.setqualtype;
+  settimeparam = AnalysisOptionsFunctions.prototype.settimeparam;
 
   //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
