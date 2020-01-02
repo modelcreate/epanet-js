@@ -168,7 +168,7 @@ interface EpanetProject {
   settitle(line1: string, line2: string, line3: string): number;
   saveinpfile(filename: string): number;
 
-  //Hydraulic Analysis Functions
+  // Hydraulic Analysis Functions
   solveH(): number;
   usehydfile(filename: string): number;
   openH(): number;
@@ -178,6 +178,8 @@ interface EpanetProject {
   saveH(): number;
   savehydfile(filename: string): number;
   closeH(): number;
+
+  // Water Quality Analysis Functions
   solveQ(): number;
   openQ(): number;
   initQ(initFlag: number): number;
@@ -185,6 +187,8 @@ interface EpanetProject {
   nextQ(tStep: number): number;
   stepQ(timeLeft: number): number;
   closeQ(): number;
+
+  // Reporting Functions
   writeline(line: string): number;
   report(): number;
   copyreport(filename: string): number;
@@ -194,6 +198,8 @@ interface EpanetProject {
   setstatusreport(level: number): number;
   getstatistic(type: number, value: number): number;
   getresultindex(type: number, index: number, value: number): number;
+
+  // Analysis Options Functions
   getflowunits(units: number): number;
   getoption(option: number, value: number): number;
   getqualinfo(
@@ -213,6 +219,8 @@ interface EpanetProject {
     traceNode: string
   ): number;
   settimeparam(param: number, value: number): number;
+
+  // Network Node Functions
   addnode(id: string, nodeType: number, index: number): number;
   deletenode(index: number, actionCode: number): number;
   getnodeindex(id: string, index: number): number;
@@ -239,6 +247,8 @@ interface EpanetProject {
   ): number;
   getcoord(index: number, x: number, y: number): number;
   setcoord(index: number, x: number, y: number): number;
+
+  //Nodal Demand Functions
   adddemand(
     nodeIndex: number,
     baseDemand: number,
@@ -294,6 +304,8 @@ interface EpanetProject {
     demandIndex: number,
     patIndex: number
   ): number;
+
+  // Network Link Functions
   addlink(
     id: string,
     linkType: number,
@@ -328,6 +340,8 @@ interface EpanetProject {
   getvertexcount(index: number, count: number): number;
   getvertex(index: number, vertex: number, x: number, y: number): number;
   setvertices(index: number, x: number, y: number, count: number): number;
+
+  // Time Pattern Functions
   addpattern(id: string): number;
   deletepattern(index: number): number;
   getpatternindex(id: string, index: number): number;
@@ -338,6 +352,8 @@ interface EpanetProject {
   setpatternvalue(index: number, period: number, value: number): number;
   getaveragepatternvalue(index: number, value: number): number;
   setpattern(index: number, values: number, len: number): number;
+
+  // Data Curve Functions
   addcurve(id: string): number;
   deletecurve(index: number): number;
   getcurveindex(id: string, index: number): number;
@@ -363,6 +379,8 @@ interface EpanetProject {
     yValues: number,
     nPoints: number
   ): number;
+
+  // Simple Control Functions
   addcontrol(
     type: number,
     linkIndex: number,
@@ -388,6 +406,8 @@ interface EpanetProject {
     nodeIndex: number,
     level: number
   ): number;
+
+  // Rule-Based Control Functions
   addrule(rule: string): number;
   deleterule(index: number): number;
   getrule(
