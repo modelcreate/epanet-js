@@ -6,6 +6,7 @@ import {
   WaterQualityAnalysisFunctions,
   ReportingFunctions,
   AnalysisOptionsFunctions,
+  NodalDemandFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -133,9 +134,31 @@ class Project
 
   //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
-  setjuncdata = NetworkNodeFunctions.prototype.setjuncdata;
+  deletenode = NetworkNodeFunctions.prototype.deletenode;
+  getnodeindex = NetworkNodeFunctions.prototype.getnodeindex;
+  getnodeid = NetworkNodeFunctions.prototype.getnodeid;
+  setnodeid = NetworkNodeFunctions.prototype.setnodeid;
   getnodetype = NetworkNodeFunctions.prototype.getnodetype;
   getnodevalue = NetworkNodeFunctions.prototype.getnodevalue;
+  setnodevalue = NetworkNodeFunctions.prototype.setnodevalue;
+  setjuncdata = NetworkNodeFunctions.prototype.setjuncdata;
+  settankdata = NetworkNodeFunctions.prototype.settankdata;
+  getcoord = NetworkNodeFunctions.prototype.getcoord;
+  setcoord = NetworkNodeFunctions.prototype.setcoord;
+
+  // Nodal Demand Functions
+  adddemand = NodalDemandFunctions.prototype.adddemand;
+  deletedemand = NodalDemandFunctions.prototype.deletedemand;
+  getbasedemand = NodalDemandFunctions.prototype.getbasedemand;
+  getdemandindex = NodalDemandFunctions.prototype.getdemandindex;
+  getdemandmodel = NodalDemandFunctions.prototype.getdemandmodel;
+  getdemandname = NodalDemandFunctions.prototype.getdemandname;
+  getdemandpattern = NodalDemandFunctions.prototype.getdemandpattern;
+  getnumdemands = NodalDemandFunctions.prototype.getnumdemands;
+  setbasedemand = NodalDemandFunctions.prototype.setbasedemand;
+  setdemandmodel = NodalDemandFunctions.prototype.setdemandmodel;
+  setdemandname = NodalDemandFunctions.prototype.setdemandname;
+  setdemandpattern = NodalDemandFunctions.prototype.setdemandpattern;
 }
 
 export default Project;
