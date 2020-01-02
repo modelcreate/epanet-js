@@ -1,5 +1,9 @@
 import Workspace from 'Workspace/Workspace';
-import { ProjectFunctions, NetworkNodeFunctions } from './functions';
+import {
+  ProjectFunctions,
+  NetworkNodeFunctions,
+  HydraulicAnalysisFunctions,
+} from './functions';
 
 interface MemoryTypes {
   int: number;
@@ -8,7 +12,11 @@ interface MemoryTypes {
   char: string;
 }
 
-class Project implements ProjectFunctions, NetworkNodeFunctions {
+class Project
+  implements
+    ProjectFunctions,
+    NetworkNodeFunctions,
+    HydraulicAnalysisFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -68,6 +76,17 @@ class Project implements ProjectFunctions, NetworkNodeFunctions {
   gettitle = ProjectFunctions.prototype.gettitle;
   settitle = ProjectFunctions.prototype.settitle;
   saveinpfile = ProjectFunctions.prototype.saveinpfile;
+
+  // Hydraulic Analysis Functions
+  solveH = HydraulicAnalysisFunctions.prototype.solveH;
+  usehydfile = HydraulicAnalysisFunctions.prototype.usehydfile;
+  openH = HydraulicAnalysisFunctions.prototype.openH;
+  initH = HydraulicAnalysisFunctions.prototype.initH;
+  runH = HydraulicAnalysisFunctions.prototype.runH;
+  nextH = HydraulicAnalysisFunctions.prototype.nextH;
+  saveH = HydraulicAnalysisFunctions.prototype.saveH;
+  savehydfile = HydraulicAnalysisFunctions.prototype.savehydfile;
+  closeH = HydraulicAnalysisFunctions.prototype.closeH;
 
   //Network Node Functions
   addnode = NetworkNodeFunctions.prototype.addnode;
