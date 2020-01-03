@@ -20,6 +20,21 @@ describe('Epanet Project Functions', () => {
 
       expect(catchError).toThrow('303');
     });
+    test('throw if no network is open close project and free memory', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.open('net1.inp', 'report.rpt', 'out.bin');
+      const nodeCount = model.getCount(CountType.NodeCount);
+      expect(nodeCount).toEqual(11);
+
+      model.close();
+
+      function catchError() {
+        model.getCount(CountType.NodeCount);
+      }
+
+      expect(catchError).toThrow('Error 102: no network data available');
+    });
   });
   describe('Impliment Methods', () => {
     test('run an existing project', () => {
@@ -37,21 +52,6 @@ describe('Epanet Project Functions', () => {
 
       // Check if bin for magic number
       expect(epanetMagicNumber).toEqual(516114521);
-    });
-    test('close project and free memory', () => {
-      ws.writeFile('net1.inp', net1);
-      const model = new Project(ws);
-      model.open('net1.inp', 'report.rpt', 'out.bin');
-      const nodeCount = model.getCount(CountType.NodeCount);
-      expect(nodeCount).toEqual(11);
-
-      model.close();
-
-      function catchError() {
-        model.getCount(CountType.NodeCount);
-      }
-
-      expect(catchError).toThrow('Error 102: no network data available');
     });
     test('set and get title', () => {
       const model = new Project(ws);
