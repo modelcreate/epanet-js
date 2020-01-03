@@ -1,15 +1,15 @@
 import Project from '../Project';
 
 class RuleBasedControlFunctions {
-  addrule(this: Project, rule: string) {
+  addRule(this: Project, rule: string) {
     this._checkError(this._EN.addrule(rule));
   }
 
-  deleterule(this: Project, index: number) {
+  deleteRule(this: Project, index: number) {
     this._checkError(this._EN.deleterule(index));
   }
 
-  getrule(this: Project, index: number) {
+  getRule(this: Project, index: number) {
     const memory = this._allocateMemory('int', 'int', 'int', 'double');
     this._checkError(this._EN.getrule(index, ...memory));
     return {
@@ -20,13 +20,13 @@ class RuleBasedControlFunctions {
     };
   }
 
-  getruleID(this: Project, index: number) {
+  getRuleId(this: Project, index: number) {
     const memory = this._allocateMemory('char');
     this._checkError(this._EN.getruleID(index, ...memory));
     return this._getValue(memory[0], 'char');
   }
 
-  getpremise(this: Project, ruleIndex: number, premiseIndex: number) {
+  getPremise(this: Project, ruleIndex: number, premiseIndex: number) {
     const memory = this._allocateMemory(
       'int',
       'int',
@@ -48,7 +48,7 @@ class RuleBasedControlFunctions {
     };
   }
 
-  setpremise(
+  setPremise(
     this: Project,
     ruleIndex: number,
     premiseIndex: number,
@@ -75,7 +75,7 @@ class RuleBasedControlFunctions {
     );
   }
 
-  setpremiseindex(
+  setPremiseIndex(
     this: Project,
     ruleIndex: number,
     premiseIndex: number,
@@ -86,7 +86,7 @@ class RuleBasedControlFunctions {
     );
   }
 
-  setpremisestatus(
+  setPremiseStatus(
     this: Project,
     ruleIndex: number,
     premiseIndex: number,
@@ -97,7 +97,7 @@ class RuleBasedControlFunctions {
     );
   }
 
-  setpremisevalue(
+  setPremiseValue(
     this: Project,
     ruleIndex: number,
     premiseIndex: number,
@@ -106,7 +106,7 @@ class RuleBasedControlFunctions {
     this._checkError(this._EN.setpremisevalue(ruleIndex, premiseIndex, value));
   }
 
-  getthenaction(this: Project, ruleIndex: number, actionIndex: number) {
+  getThenAction(this: Project, ruleIndex: number, actionIndex: number) {
     const memory = this._allocateMemory('int', 'int', 'double');
     this._checkError(this._EN.getthenaction(ruleIndex, actionIndex, ...memory));
     return {
@@ -116,7 +116,7 @@ class RuleBasedControlFunctions {
     };
   }
 
-  setthenaction(
+  setThenAction(
     this: Project,
     ruleIndex: number,
     actionIndex: number,
@@ -129,7 +129,7 @@ class RuleBasedControlFunctions {
     );
   }
 
-  getelseaction(this: Project, ruleIndex: number, actionIndex: number) {
+  getElseAction(this: Project, ruleIndex: number, actionIndex: number) {
     const memory = this._allocateMemory('int', 'int', 'double');
     this._checkError(this._EN.getelseaction(ruleIndex, actionIndex, ...memory));
     return {
@@ -139,7 +139,7 @@ class RuleBasedControlFunctions {
     };
   }
 
-  setelseaction(
+  setElseAction(
     this: Project,
     ruleIndex: number,
     actionIndex: number,
@@ -152,7 +152,7 @@ class RuleBasedControlFunctions {
     );
   }
 
-  setrulepriority(this: Project, index: number, priority: number) {
+  setRulePriority(this: Project, index: number, priority: number) {
     this._checkError(this._EN.setrulepriority(index, priority));
   }
 }

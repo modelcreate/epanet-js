@@ -1,19 +1,19 @@
 import Project from '../Project';
 
 class AnalysisOptionsFunctions {
-  getflowunits(this: Project): number {
+  getFlowUnits(this: Project): number {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getflowunits(...memory));
     return this._getValue(memory[0], 'int');
   }
 
-  getoption(this: Project, option: number): number {
+  getOption(this: Project, option: number): number {
     const memory = this._allocateMemory('double');
     this._checkError(this._EN.getoption(option, ...memory));
     return this._getValue(memory[0], 'double');
   }
 
-  getqualinfo(this: Project) {
+  getQualityInfo(this: Project) {
     const memory = this._allocateMemory('int', 'char', 'char', 'int');
     this._checkError(this._EN.getqualinfo(...memory));
     return {
@@ -24,7 +24,7 @@ class AnalysisOptionsFunctions {
     };
   }
 
-  getqualtype(this: Project) {
+  getQualityType(this: Project) {
     const memory = this._allocateMemory('int', 'int');
     this._checkError(this._EN.getqualtype(...memory));
     return {
@@ -33,21 +33,21 @@ class AnalysisOptionsFunctions {
     };
   }
 
-  gettimeparam(this: Project, param: number): number {
+  getTimeParameter(this: Project, param: number): number {
     const memory = this._allocateMemory('long');
     this._checkError(this._EN.gettimeparam(param, ...memory));
     return this._getValue(memory[0], 'long');
   }
 
-  setflowunits(this: Project, units: number) {
+  setFlowUnits(this: Project, units: number) {
     this._checkError(this._EN.setflowunits(units));
   }
 
-  setoption(this: Project, option: number, value: number) {
+  setOption(this: Project, option: number, value: number) {
     this._checkError(this._EN.setoption(option, value));
   }
 
-  setqualtype(
+  setQualityType(
     this: Project,
     qualType: number,
     chemName: string,
@@ -59,7 +59,7 @@ class AnalysisOptionsFunctions {
     );
   }
 
-  settimeparam(this: Project, param: number, value: number) {
+  setTimeParameter(this: Project, param: number, value: number) {
     this._checkError(this._EN.settimeparam(param, value));
   }
 }

@@ -131,22 +131,22 @@ class Project
   // Project Functions
   open = ProjectFunctions.prototype.open;
   close = ProjectFunctions.prototype.close;
-  runproject = ProjectFunctions.prototype.runproject;
+  runProject = ProjectFunctions.prototype.runProject;
   init = ProjectFunctions.prototype.init;
-  getcount = ProjectFunctions.prototype.getcount;
-  gettitle = ProjectFunctions.prototype.gettitle;
-  settitle = ProjectFunctions.prototype.settitle;
-  saveinpfile = ProjectFunctions.prototype.saveinpfile;
+  getCount = ProjectFunctions.prototype.getCount;
+  getTitle = ProjectFunctions.prototype.getTitle;
+  setTitle = ProjectFunctions.prototype.setTitle;
+  saveInpFile = ProjectFunctions.prototype.saveInpFile;
 
   // Hydraulic Analysis Functions
   solveH = HydraulicAnalysisFunctions.prototype.solveH;
-  usehydfile = HydraulicAnalysisFunctions.prototype.usehydfile;
+  useHydFile = HydraulicAnalysisFunctions.prototype.useHydFile;
   openH = HydraulicAnalysisFunctions.prototype.openH;
   initH = HydraulicAnalysisFunctions.prototype.initH;
   runH = HydraulicAnalysisFunctions.prototype.runH;
   nextH = HydraulicAnalysisFunctions.prototype.nextH;
   saveH = HydraulicAnalysisFunctions.prototype.saveH;
-  savehydfile = HydraulicAnalysisFunctions.prototype.savehydfile;
+  saveHydFile = HydraulicAnalysisFunctions.prototype.saveHydFile;
   closeH = HydraulicAnalysisFunctions.prototype.closeH;
 
   // Water Quality Analysis Functions
@@ -159,121 +159,121 @@ class Project
   closeQ = WaterQualityAnalysisFunctions.prototype.closeQ;
 
   // Reporting Functions
-  writeline = ReportingFunctions.prototype.writeline;
+  writeLine = ReportingFunctions.prototype.writeLine;
   report = ReportingFunctions.prototype.report;
-  copyreport = ReportingFunctions.prototype.copyreport;
-  clearreport = ReportingFunctions.prototype.clearreport;
-  resetreport = ReportingFunctions.prototype.resetreport;
-  setreport = ReportingFunctions.prototype.setreport;
-  setstatusreport = ReportingFunctions.prototype.setstatusreport;
-  getstatistic = ReportingFunctions.prototype.getstatistic;
-  getresultindex = ReportingFunctions.prototype.getresultindex;
+  copyReport = ReportingFunctions.prototype.copyReport;
+  clearReport = ReportingFunctions.prototype.clearReport;
+  resetReport = ReportingFunctions.prototype.resetReport;
+  setReport = ReportingFunctions.prototype.setReport;
+  setStatusReport = ReportingFunctions.prototype.setStatusReport;
+  getStatistic = ReportingFunctions.prototype.getStatistic;
+  getResultIndex = ReportingFunctions.prototype.getResultIndex;
 
   // Analysis Options Functions
-  getflowunits = AnalysisOptionsFunctions.prototype.getflowunits;
-  getoption = AnalysisOptionsFunctions.prototype.getoption;
-  getqualinfo = AnalysisOptionsFunctions.prototype.getqualinfo;
-  getqualtype = AnalysisOptionsFunctions.prototype.getqualtype;
-  gettimeparam = AnalysisOptionsFunctions.prototype.gettimeparam;
-  setflowunits = AnalysisOptionsFunctions.prototype.setflowunits;
-  setoption = AnalysisOptionsFunctions.prototype.setoption;
-  setqualtype = AnalysisOptionsFunctions.prototype.setqualtype;
-  settimeparam = AnalysisOptionsFunctions.prototype.settimeparam;
+  getFlowUnits = AnalysisOptionsFunctions.prototype.getFlowUnits;
+  getOption = AnalysisOptionsFunctions.prototype.getOption;
+  getQualityInfo = AnalysisOptionsFunctions.prototype.getQualityInfo;
+  getQualityType = AnalysisOptionsFunctions.prototype.getQualityType;
+  getTimeParameter = AnalysisOptionsFunctions.prototype.getTimeParameter;
+  setFlowUnits = AnalysisOptionsFunctions.prototype.setFlowUnits;
+  setOption = AnalysisOptionsFunctions.prototype.setOption;
+  setQualityType = AnalysisOptionsFunctions.prototype.setQualityType;
+  setTimeParameter = AnalysisOptionsFunctions.prototype.setTimeParameter;
 
   //Network Node Functions
-  addnode = NetworkNodeFunctions.prototype.addnode;
-  deletenode = NetworkNodeFunctions.prototype.deletenode;
-  getnodeindex = NetworkNodeFunctions.prototype.getnodeindex;
-  getnodeid = NetworkNodeFunctions.prototype.getnodeid;
-  setnodeid = NetworkNodeFunctions.prototype.setnodeid;
-  getnodetype = NetworkNodeFunctions.prototype.getnodetype;
-  getnodevalue = NetworkNodeFunctions.prototype.getnodevalue;
-  setnodevalue = NetworkNodeFunctions.prototype.setnodevalue;
-  setjuncdata = NetworkNodeFunctions.prototype.setjuncdata;
-  settankdata = NetworkNodeFunctions.prototype.settankdata;
-  getcoord = NetworkNodeFunctions.prototype.getcoord;
-  setcoord = NetworkNodeFunctions.prototype.setcoord;
+  addNode = NetworkNodeFunctions.prototype.addNode;
+  deleteNode = NetworkNodeFunctions.prototype.deleteNode;
+  getNodeIndex = NetworkNodeFunctions.prototype.getNodeIndex;
+  getNodeId = NetworkNodeFunctions.prototype.getNodeId;
+  setNodeId = NetworkNodeFunctions.prototype.setNodeId;
+  getNodeType = NetworkNodeFunctions.prototype.getNodeType;
+  getNodeValue = NetworkNodeFunctions.prototype.getNodeValue;
+  setNodeValue = NetworkNodeFunctions.prototype.setNodeValue;
+  setJunctionData = NetworkNodeFunctions.prototype.setJunctionData;
+  setTankData = NetworkNodeFunctions.prototype.setTankData;
+  getCoordinates = NetworkNodeFunctions.prototype.getCoordinates;
+  setCoordinates = NetworkNodeFunctions.prototype.setCoordinates;
 
   // Nodal Demand Functions
-  adddemand = NodalDemandFunctions.prototype.adddemand;
-  deletedemand = NodalDemandFunctions.prototype.deletedemand;
-  getbasedemand = NodalDemandFunctions.prototype.getbasedemand;
-  getdemandindex = NodalDemandFunctions.prototype.getdemandindex;
-  getdemandmodel = NodalDemandFunctions.prototype.getdemandmodel;
-  getdemandname = NodalDemandFunctions.prototype.getdemandname;
-  getdemandpattern = NodalDemandFunctions.prototype.getdemandpattern;
-  getnumdemands = NodalDemandFunctions.prototype.getnumdemands;
-  setbasedemand = NodalDemandFunctions.prototype.setbasedemand;
-  setdemandmodel = NodalDemandFunctions.prototype.setdemandmodel;
-  setdemandname = NodalDemandFunctions.prototype.setdemandname;
-  setdemandpattern = NodalDemandFunctions.prototype.setdemandpattern;
+  addDemand = NodalDemandFunctions.prototype.addDemand;
+  deleteDemand = NodalDemandFunctions.prototype.deleteDemand;
+  getBaseDemand = NodalDemandFunctions.prototype.getBaseDemand;
+  getDemandIndex = NodalDemandFunctions.prototype.getDemandIndex;
+  getDemandModel = NodalDemandFunctions.prototype.getDemandModel;
+  getDemandName = NodalDemandFunctions.prototype.getDemandName;
+  getDemandPattern = NodalDemandFunctions.prototype.getDemandPattern;
+  getNumberOfDemands = NodalDemandFunctions.prototype.getNumberOfDemands;
+  setBaseDemand = NodalDemandFunctions.prototype.setBaseDemand;
+  setDemandModel = NodalDemandFunctions.prototype.setDemandModel;
+  setDemandName = NodalDemandFunctions.prototype.setDemandName;
+  setDemandPattern = NodalDemandFunctions.prototype.setDemandPattern;
 
   // Network Link Functions
-  addlink = NetworkLinkFunctions.prototype.addlink;
-  deletelink = NetworkLinkFunctions.prototype.deletelink;
-  getlinkindex = NetworkLinkFunctions.prototype.getlinkindex;
-  getlinkid = NetworkLinkFunctions.prototype.getlinkid;
-  setlinkid = NetworkLinkFunctions.prototype.setlinkid;
-  getlinktype = NetworkLinkFunctions.prototype.getlinktype;
-  setlinktype = NetworkLinkFunctions.prototype.setlinktype;
-  getlinknodes = NetworkLinkFunctions.prototype.getlinknodes;
-  setlinknodes = NetworkLinkFunctions.prototype.setlinknodes;
-  getlinkvalue = NetworkLinkFunctions.prototype.getlinkvalue;
-  setlinkvalue = NetworkLinkFunctions.prototype.setlinkvalue;
-  setpipedata = NetworkLinkFunctions.prototype.setpipedata;
-  getpumptype = NetworkLinkFunctions.prototype.getpumptype;
-  getheadcurveindex = NetworkLinkFunctions.prototype.getheadcurveindex;
-  setheadcurveindex = NetworkLinkFunctions.prototype.setheadcurveindex;
-  getvertexcount = NetworkLinkFunctions.prototype.getvertexcount;
-  getvertex = NetworkLinkFunctions.prototype.getvertex;
-  setvertices = NetworkLinkFunctions.prototype.setvertices;
+  addLink = NetworkLinkFunctions.prototype.addLink;
+  deleteLink = NetworkLinkFunctions.prototype.deleteLink;
+  getLinkIndex = NetworkLinkFunctions.prototype.getLinkIndex;
+  getLinkId = NetworkLinkFunctions.prototype.getLinkId;
+  setLinkId = NetworkLinkFunctions.prototype.setLinkId;
+  getLinkType = NetworkLinkFunctions.prototype.getLinkType;
+  setLinkType = NetworkLinkFunctions.prototype.setLinkType;
+  getLinkNodes = NetworkLinkFunctions.prototype.getLinkNodes;
+  setLinkNodes = NetworkLinkFunctions.prototype.setLinkNodes;
+  getLinkValue = NetworkLinkFunctions.prototype.getLinkValue;
+  setLinkValue = NetworkLinkFunctions.prototype.setLinkValue;
+  setPipeData = NetworkLinkFunctions.prototype.setPipeData;
+  getPumpType = NetworkLinkFunctions.prototype.getPumpType;
+  getHeadCurveIndex = NetworkLinkFunctions.prototype.getHeadCurveIndex;
+  setHeadCurveIndex = NetworkLinkFunctions.prototype.setHeadCurveIndex;
+  getVertexCount = NetworkLinkFunctions.prototype.getVertexCount;
+  getVertex = NetworkLinkFunctions.prototype.getVertex;
+  setVertices = NetworkLinkFunctions.prototype.setVertices;
 
   // Time Pattern Functions
-  addpattern = TimePatternFunctions.prototype.addpattern;
-  deletepattern = TimePatternFunctions.prototype.deletepattern;
-  getpatternindex = TimePatternFunctions.prototype.getpatternindex;
-  getpatternid = TimePatternFunctions.prototype.getpatternid;
-  setpatternid = TimePatternFunctions.prototype.setpatternid;
-  getpatternlen = TimePatternFunctions.prototype.getpatternlen;
-  getpatternvalue = TimePatternFunctions.prototype.getpatternvalue;
-  setpatternvalue = TimePatternFunctions.prototype.setpatternvalue;
-  getaveragepatternvalue =
-    TimePatternFunctions.prototype.getaveragepatternvalue;
-  setpattern = TimePatternFunctions.prototype.setpattern;
+  addPattern = TimePatternFunctions.prototype.addPattern;
+  deletePattern = TimePatternFunctions.prototype.deletePattern;
+  getPatternIndex = TimePatternFunctions.prototype.getPatternIndex;
+  getPatternId = TimePatternFunctions.prototype.getPatternId;
+  setPatternId = TimePatternFunctions.prototype.setPatternId;
+  getPatternLenth = TimePatternFunctions.prototype.getPatternLenth;
+  getPatternValue = TimePatternFunctions.prototype.getPatternValue;
+  setPatternValue = TimePatternFunctions.prototype.setPatternValue;
+  getAveragePatternvalue =
+    TimePatternFunctions.prototype.getAveragePatternvalue;
+  setPattern = TimePatternFunctions.prototype.setPattern;
 
   // Data Curve Functions
-  addcurve = DataCurveFunctions.prototype.addcurve;
-  deletecurve = DataCurveFunctions.prototype.deletecurve;
-  getcurveindex = DataCurveFunctions.prototype.getcurveindex;
-  getcurveid = DataCurveFunctions.prototype.getcurveid;
-  setcurveid = DataCurveFunctions.prototype.setcurveid;
-  getcurvelen = DataCurveFunctions.prototype.getcurvelen;
-  getcurvetype = DataCurveFunctions.prototype.getcurvetype;
-  getcurvevalue = DataCurveFunctions.prototype.getcurvevalue;
-  setcurvevalue = DataCurveFunctions.prototype.setcurvevalue;
-  setcurve = DataCurveFunctions.prototype.setcurve;
+  addCurve = DataCurveFunctions.prototype.addCurve;
+  deleteCurve = DataCurveFunctions.prototype.deleteCurve;
+  getCurveIndex = DataCurveFunctions.prototype.getCurveIndex;
+  getCurveId = DataCurveFunctions.prototype.getCurveId;
+  setCurveId = DataCurveFunctions.prototype.setCurveId;
+  getCurveLenth = DataCurveFunctions.prototype.getCurveLenth;
+  getCurveType = DataCurveFunctions.prototype.getCurveType;
+  getCurveValue = DataCurveFunctions.prototype.getCurveValue;
+  setCurveValue = DataCurveFunctions.prototype.setCurveValue;
+  setCurve = DataCurveFunctions.prototype.setCurve;
 
   // Simple Control Functions
-  addcontrol = SimpleControlFunctions.prototype.addcontrol;
-  deletecontrol = SimpleControlFunctions.prototype.deletecontrol;
-  getcontrol = SimpleControlFunctions.prototype.getcontrol;
-  setcontrol = SimpleControlFunctions.prototype.setcontrol;
+  addControl = SimpleControlFunctions.prototype.addControl;
+  deleteControl = SimpleControlFunctions.prototype.deleteControl;
+  getControl = SimpleControlFunctions.prototype.getControl;
+  setControl = SimpleControlFunctions.prototype.setControl;
 
   // Rule-Based Control Functions
-  addrule = RuleBasedControlFunctions.prototype.addrule;
-  deleterule = RuleBasedControlFunctions.prototype.deleterule;
-  getrule = RuleBasedControlFunctions.prototype.getrule;
-  getruleID = RuleBasedControlFunctions.prototype.getruleID;
-  getpremise = RuleBasedControlFunctions.prototype.getpremise;
-  setpremise = RuleBasedControlFunctions.prototype.setpremise;
-  setpremiseindex = RuleBasedControlFunctions.prototype.setpremiseindex;
-  setpremisestatus = RuleBasedControlFunctions.prototype.setpremisestatus;
-  setpremisevalue = RuleBasedControlFunctions.prototype.setpremisevalue;
-  getthenaction = RuleBasedControlFunctions.prototype.getthenaction;
-  setthenaction = RuleBasedControlFunctions.prototype.setthenaction;
-  getelseaction = RuleBasedControlFunctions.prototype.getelseaction;
-  setelseaction = RuleBasedControlFunctions.prototype.setelseaction;
-  setrulepriority = RuleBasedControlFunctions.prototype.setrulepriority;
+  addRule = RuleBasedControlFunctions.prototype.addRule;
+  deleteRule = RuleBasedControlFunctions.prototype.deleteRule;
+  getRule = RuleBasedControlFunctions.prototype.getRule;
+  getRuleId = RuleBasedControlFunctions.prototype.getRuleId;
+  getPremise = RuleBasedControlFunctions.prototype.getPremise;
+  setPremise = RuleBasedControlFunctions.prototype.setPremise;
+  setPremiseIndex = RuleBasedControlFunctions.prototype.setPremiseIndex;
+  setPremiseStatus = RuleBasedControlFunctions.prototype.setPremiseStatus;
+  setPremiseValue = RuleBasedControlFunctions.prototype.setPremiseValue;
+  getThenAction = RuleBasedControlFunctions.prototype.getThenAction;
+  setThenAction = RuleBasedControlFunctions.prototype.setThenAction;
+  getElseAction = RuleBasedControlFunctions.prototype.getElseAction;
+  setElseAction = RuleBasedControlFunctions.prototype.setElseAction;
+  setRulePriority = RuleBasedControlFunctions.prototype.setRulePriority;
 }
 
 export default Project;

@@ -1,7 +1,7 @@
 import Project from '../Project';
 
 class NodalDemandFunctions {
-  adddemand(
+  addDemand(
     this: Project,
     nodeIndex: number,
     baseDemand: number,
@@ -13,23 +13,23 @@ class NodalDemandFunctions {
     );
   }
 
-  deletedemand(this: Project, nodeIndex: number, demandIndex: number) {
+  deleteDemand(this: Project, nodeIndex: number, demandIndex: number) {
     this._checkError(this._EN.deletedemand(nodeIndex, demandIndex));
   }
 
-  getbasedemand(this: Project, nodeIndex: number, demandIndex: number) {
+  getBaseDemand(this: Project, nodeIndex: number, demandIndex: number) {
     const memory = this._allocateMemory('double');
     this._checkError(this._EN.getbasedemand(nodeIndex, demandIndex, ...memory));
     return this._getValue(memory[0], 'double');
   }
 
-  getdemandindex(this: Project, nodeIndex: number, demandName: string) {
+  getDemandIndex(this: Project, nodeIndex: number, demandName: string) {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getdemandindex(nodeIndex, demandName, ...memory));
     return this._getValue(memory[0], 'int');
   }
 
-  getdemandmodel(this: Project) {
+  getDemandModel(this: Project) {
     const memory = this._allocateMemory('int', 'double', 'double', 'double');
     this._checkError(this._EN.getdemandmodel(...memory));
     return {
@@ -40,13 +40,13 @@ class NodalDemandFunctions {
     };
   }
 
-  getdemandname(this: Project, nodeIndex: number, demandIndex: number) {
+  getDemandName(this: Project, nodeIndex: number, demandIndex: number) {
     const memory = this._allocateMemory('char');
     this._checkError(this._EN.getdemandname(nodeIndex, demandIndex, ...memory));
     return this._getValue(memory[0], 'char');
   }
 
-  getdemandpattern(this: Project, nodeIndex: number, demandIndex: number) {
+  getDemandPattern(this: Project, nodeIndex: number, demandIndex: number) {
     const memory = this._allocateMemory('int');
     this._checkError(
       this._EN.getdemandpattern(nodeIndex, demandIndex, ...memory)
@@ -54,13 +54,13 @@ class NodalDemandFunctions {
     return this._getValue(memory[0], 'int');
   }
 
-  getnumdemands(this: Project, nodeIndex: number) {
+  getNumberOfDemands(this: Project, nodeIndex: number) {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getnumdemands(nodeIndex, ...memory));
     return this._getValue(memory[0], 'int');
   }
 
-  setbasedemand(
+  setBaseDemand(
     this: Project,
     nodeIndex: number,
     demandIndex: number,
@@ -70,7 +70,7 @@ class NodalDemandFunctions {
       this._EN.setbasedemand(nodeIndex, demandIndex, baseDemand)
     );
   }
-  setdemandmodel(
+  setDemandModel(
     this: Project,
     type: number,
     pmin: number,
@@ -79,7 +79,7 @@ class NodalDemandFunctions {
   ) {
     this._checkError(this._EN.setdemandmodel(type, pmin, preq, pexp));
   }
-  setdemandname(
+  setDemandName(
     this: Project,
     nodeIndex: number,
     demandIdx: number,
@@ -87,7 +87,7 @@ class NodalDemandFunctions {
   ) {
     this._checkError(this._EN.setdemandname(nodeIndex, demandIdx, demandName));
   }
-  setdemandpattern(
+  setDemandPattern(
     this: Project,
     nodeIndex: number,
     demandIndex: number,
