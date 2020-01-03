@@ -237,8 +237,8 @@ class Project
   getPatternLenth = TimePatternFunctions.prototype.getPatternLenth;
   getPatternValue = TimePatternFunctions.prototype.getPatternValue;
   setPatternValue = TimePatternFunctions.prototype.setPatternValue;
-  getAveragePatternvalue =
-    TimePatternFunctions.prototype.getAveragePatternvalue;
+  getAveragePatternValue =
+    TimePatternFunctions.prototype.getAveragePatternValue;
   setPattern = TimePatternFunctions.prototype.setPattern;
 
   // Data Curve Functions
