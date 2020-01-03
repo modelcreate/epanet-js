@@ -7,6 +7,7 @@ import {
   ReportingFunctions,
   AnalysisOptionsFunctions,
   NodalDemandFunctions,
+  NetworkLinkFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -23,7 +24,8 @@ class Project
     HydraulicAnalysisFunctions,
     WaterQualityAnalysisFunctions,
     ReportingFunctions,
-    AnalysisOptionsFunctions {
+    AnalysisOptionsFunctions,
+    NetworkLinkFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -68,6 +70,24 @@ class Project
       const pointer = this._instance._malloc(memsize);
       return acc.concat(pointer);
     }, [] as number[]);
+  }
+
+  _allocateMemoryForArray(arr: number[]): number {
+    const data = new Float32Array(arr);
+
+    // Get data byte size, allocate memory on Emscripten heap, and get pointer
+    const nDataBytes = data.length * data.BYTES_PER_ELEMENT;
+    const dataPtr = this._instance._malloc(nDataBytes);
+    const dataHeap = new Uint8Array(
+      this._instance.HEAPU8.buffer,
+      dataPtr,
+      nDataBytes
+    );
+    dataHeap.set(new Uint8Array(data.buffer));
+
+    //return dataHeap.byteOffset?
+
+    return dataPtr;
   }
 
   _checkError(errorCode: number) {
@@ -159,6 +179,26 @@ class Project
   setdemandmodel = NodalDemandFunctions.prototype.setdemandmodel;
   setdemandname = NodalDemandFunctions.prototype.setdemandname;
   setdemandpattern = NodalDemandFunctions.prototype.setdemandpattern;
+
+  // Network Link Functions
+  addlink = NetworkLinkFunctions.prototype.addlink;
+  deletelink = NetworkLinkFunctions.prototype.deletelink;
+  getlinkindex = NetworkLinkFunctions.prototype.getlinkindex;
+  getlinkid = NetworkLinkFunctions.prototype.getlinkid;
+  setlinkid = NetworkLinkFunctions.prototype.setlinkid;
+  getlinktype = NetworkLinkFunctions.prototype.getlinktype;
+  setlinktype = NetworkLinkFunctions.prototype.setlinktype;
+  getlinknodes = NetworkLinkFunctions.prototype.getlinknodes;
+  setlinknodes = NetworkLinkFunctions.prototype.setlinknodes;
+  getlinkvalue = NetworkLinkFunctions.prototype.getlinkvalue;
+  setlinkvalue = NetworkLinkFunctions.prototype.setlinkvalue;
+  setpipedata = NetworkLinkFunctions.prototype.setpipedata;
+  getpumptype = NetworkLinkFunctions.prototype.getpumptype;
+  getheadcurveindex = NetworkLinkFunctions.prototype.getheadcurveindex;
+  setheadcurveindex = NetworkLinkFunctions.prototype.setheadcurveindex;
+  getvertexcount = NetworkLinkFunctions.prototype.getvertexcount;
+  getvertex = NetworkLinkFunctions.prototype.getvertex;
+  setvertices = NetworkLinkFunctions.prototype.setvertices;
 }
 
 export default Project;
