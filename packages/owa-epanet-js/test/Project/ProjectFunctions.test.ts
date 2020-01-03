@@ -1,9 +1,13 @@
 import { Project, Workspace } from '../../src';
-import { CountType } from '../../src/enum';
+import { CountType, NodeType } from '../../src/enum';
 
 import fs from 'fs';
 
 const net1 = fs.readFileSync(__dirname + '/../data/net1.inp', 'utf8');
+const netGenerated = fs.readFileSync(
+  __dirname + '/../data/net1_backup.inp',
+  'utf8'
+);
 const ws = new Workspace();
 
 describe('Epanet Project Functions', () => {
@@ -34,6 +38,21 @@ describe('Epanet Project Functions', () => {
       // Check if bin for magic number
       expect(epanetMagicNumber).toEqual(516114521);
     });
+    test('close project and free memory', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.open('net1.inp', 'report.rpt', 'out.bin');
+      const nodeCount = model.getCount(CountType.NodeCount);
+      expect(nodeCount).toEqual(11);
+
+      model.close();
+
+      function catchError() {
+        model.getCount(CountType.NodeCount);
+      }
+
+      expect(catchError).toThrow('Error 102: no network data available');
+    });
     test('set and get title', () => {
       const model = new Project(ws);
       model.init('report.rpt', 'out.bin', 0, 0);
@@ -53,6 +72,25 @@ describe('Epanet Project Functions', () => {
 
       expect(nodeCount).toEqual(11);
       expect(linkCount).toEqual(13);
+    });
+    test('writes a inp file', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      //Create Network
+      const node1Id = model.addNode('N1', NodeType.Junction);
+      model.setJunctionData(node1Id, 700, 0, '');
+      const node2Id = model.addNode('N2', NodeType.Junction);
+      model.setJunctionData(node2Id, 600, 0, '');
+      const linkId = model.addLink('L1', 0, 'N1', 'N2');
+      model.setPipeData(linkId, 100, 50, 1, 1);
+
+      model.saveInpFile('net1_backup.inp');
+
+      const duplicateFile = ws.readFile('net1_backup.inp');
+
+      expect(duplicateFile).toEqual(netGenerated);
     });
   });
 });
