@@ -8,6 +8,10 @@ import {
   AnalysisOptionsFunctions,
   NodalDemandFunctions,
   NetworkLinkFunctions,
+  TimePatternFunctions,
+  DataCurveFunctions,
+  SimpleControlFunctions,
+  RuleBasedControlFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -25,7 +29,11 @@ class Project
     WaterQualityAnalysisFunctions,
     ReportingFunctions,
     AnalysisOptionsFunctions,
-    NetworkLinkFunctions {
+    NetworkLinkFunctions,
+    TimePatternFunctions,
+    DataCurveFunctions,
+    SimpleControlFunctions,
+    RuleBasedControlFunctions {
   _ws: Workspace;
   _instance: EmscriptenModule;
   _EN: EpanetProject;
@@ -51,6 +59,10 @@ class Project
     return value;
   }
 
+  // TODO: There is probably a better way to do this then overloading however
+  //       first attempts to use ...operator in arguments worked, I couldn't
+  //       figure out how to then have a set length tuple which we need to
+  //       spread over the C function with memory address
   _allocateMemory(v1: string): [number];
   _allocateMemory(v1: string, v2: string): [number, number];
   _allocateMemory(v1: string, v2: string, v3: string): [number, number, number];
@@ -60,6 +72,22 @@ class Project
     v3: string,
     v4: string
   ): [number, number, number, number];
+  _allocateMemory(
+    v1: string,
+    v2: string,
+    v3: string,
+    v4: string,
+    v5: string
+  ): [number, number, number, number, number];
+  _allocateMemory(
+    v1: string,
+    v2: string,
+    v3: string,
+    v4: string,
+    v5: string,
+    v6: string,
+    v7: string
+  ): [number, number, number, number, number, number, number];
   _allocateMemory(v1: any): any {
     if (typeof v1 != 'string') {
       throw new Error('Method _allocateMemory expected string');
@@ -199,6 +227,53 @@ class Project
   getvertexcount = NetworkLinkFunctions.prototype.getvertexcount;
   getvertex = NetworkLinkFunctions.prototype.getvertex;
   setvertices = NetworkLinkFunctions.prototype.setvertices;
+
+  // Time Pattern Functions
+  addpattern = TimePatternFunctions.prototype.addpattern;
+  deletepattern = TimePatternFunctions.prototype.deletepattern;
+  getpatternindex = TimePatternFunctions.prototype.getpatternindex;
+  getpatternid = TimePatternFunctions.prototype.getpatternid;
+  setpatternid = TimePatternFunctions.prototype.setpatternid;
+  getpatternlen = TimePatternFunctions.prototype.getpatternlen;
+  getpatternvalue = TimePatternFunctions.prototype.getpatternvalue;
+  setpatternvalue = TimePatternFunctions.prototype.setpatternvalue;
+  getaveragepatternvalue =
+    TimePatternFunctions.prototype.getaveragepatternvalue;
+  setpattern = TimePatternFunctions.prototype.setpattern;
+
+  // Data Curve Functions
+  addcurve = DataCurveFunctions.prototype.addcurve;
+  deletecurve = DataCurveFunctions.prototype.deletecurve;
+  getcurveindex = DataCurveFunctions.prototype.getcurveindex;
+  getcurveid = DataCurveFunctions.prototype.getcurveid;
+  setcurveid = DataCurveFunctions.prototype.setcurveid;
+  getcurvelen = DataCurveFunctions.prototype.getcurvelen;
+  getcurvetype = DataCurveFunctions.prototype.getcurvetype;
+  getcurvevalue = DataCurveFunctions.prototype.getcurvevalue;
+  setcurvevalue = DataCurveFunctions.prototype.setcurvevalue;
+  setcurve = DataCurveFunctions.prototype.setcurve;
+
+  // Simple Control Functions
+  addcontrol = SimpleControlFunctions.prototype.addcontrol;
+  deletecontrol = SimpleControlFunctions.prototype.deletecontrol;
+  getcontrol = SimpleControlFunctions.prototype.getcontrol;
+  setcontrol = SimpleControlFunctions.prototype.setcontrol;
+
+  // Rule-Based Control Functions
+  addrule = RuleBasedControlFunctions.prototype.addrule;
+  deleterule = RuleBasedControlFunctions.prototype.deleterule;
+  getrule = RuleBasedControlFunctions.prototype.getrule;
+  getruleID = RuleBasedControlFunctions.prototype.getruleID;
+  getpremise = RuleBasedControlFunctions.prototype.getpremise;
+  setpremise = RuleBasedControlFunctions.prototype.setpremise;
+  setpremiseindex = RuleBasedControlFunctions.prototype.setpremiseindex;
+  setpremisestatus = RuleBasedControlFunctions.prototype.setpremisestatus;
+  setpremisevalue = RuleBasedControlFunctions.prototype.setpremisevalue;
+  getthenaction = RuleBasedControlFunctions.prototype.getthenaction;
+  setthenaction = RuleBasedControlFunctions.prototype.setthenaction;
+  getelseaction = RuleBasedControlFunctions.prototype.getelseaction;
+  setelseaction = RuleBasedControlFunctions.prototype.setelseaction;
+  setrulepriority = RuleBasedControlFunctions.prototype.setrulepriority;
 }
 
 export default Project;
