@@ -22,8 +22,17 @@ describe('Epanet Project Functions', () => {
       ws.writeFile('net1.inp', net1);
       const model = new Project(ws);
       model.runProject('net1.inp', 'report.rpt', 'out.bin');
-      // Todo: Value from hydraulic run
-      expect(1).toEqual(1);
+
+      const rpt = ws.readFile('report.rpt');
+      const bin = ws.readFile('out.bin', 'binary');
+
+      const epanetMagicNumber = new DataView(bin.buffer).getInt32(0, true);
+
+      //Check if report has been written
+      expect(rpt.length).toBeGreaterThan(0);
+
+      // Check if bin for magic number
+      expect(epanetMagicNumber).toEqual(516114521);
     });
     test('set and get title', () => {
       const model = new Project(ws);

@@ -30,10 +30,19 @@ class Workspace {
     this._FS.writeFile(path, data);
   }
 
-  readFile(file: string) {
+  readFile(file: string): string;
+  readFile(file: string, encoding: 'utf8'): string;
+  readFile(file: string, encoding: 'binary'): Uint8Array;
+  readFile(file: any, encoding?: 'utf8' | 'binary'): any {
+    if (!encoding || encoding === 'utf8') {
+      encoding = 'utf8';
+      return this._FS.readFile(file, {
+        encoding,
+      }) as string;
+    }
     return this._FS.readFile(file, {
-      encoding: 'utf8',
-    });
+      encoding,
+    }) as Uint8Array;
   }
 }
 
