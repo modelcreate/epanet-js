@@ -1,4 +1,4 @@
-import Module from '@model-create/EPANET';
+import Module from '@model-create/epanet-engine';
 
 class Workspace {
   _instance: EmscriptenModule;

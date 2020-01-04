@@ -686,6 +686,6 @@ interface Math {
   imul(a: number, b: number): number;
 }
 
-declare module "@model-create/EPANET" {
+declare module "@model-create/epanet-engine" {
   export default function(): EmscriptenModule;
 }
