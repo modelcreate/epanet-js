@@ -1,2 +1,1 @@
-# EPANET
- 
+# EPANET-JS
