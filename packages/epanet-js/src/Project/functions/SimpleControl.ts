@@ -1,7 +1,7 @@
 import Project from '../Project';
 
 class SimpleControlFunctions {
-  addcontrol(
+  addControl(
     this: Project,
     type: number,
     linkIndex: number,
@@ -16,11 +16,11 @@ class SimpleControlFunctions {
     return this._getValue(memory[0], 'int');
   }
 
-  deletecontrol(this: Project, index: number) {
+  deleteControl(this: Project, index: number) {
     this._checkError(this._EN.deletecontrol(index));
   }
 
-  getcontrol(this: Project, index: number) {
+  getControl(this: Project, index: number) {
     const memory = this._allocateMemory(
       'int',
       'int',
@@ -38,7 +38,7 @@ class SimpleControlFunctions {
     };
   }
 
-  setcontrol(
+  setControl(
     this: Project,
     index: number,
     type: number,

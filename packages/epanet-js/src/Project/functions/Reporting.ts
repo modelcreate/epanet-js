@@ -1,7 +1,7 @@
 import Project from '../Project';
 
 class ReportingFunctions {
-  writeline(this: Project, line: string) {
+  writeLine(this: Project, line: string) {
     this._checkError(this._EN.writeline(line));
   }
 
@@ -9,33 +9,33 @@ class ReportingFunctions {
     this._checkError(this._EN.report());
   }
 
-  copyreport(this: Project, filename: string) {
+  copyReport(this: Project, filename: string) {
     this._checkError(this._EN.copyreport(filename));
   }
 
-  clearreport(this: Project) {
+  clearReport(this: Project) {
     this._checkError(this._EN.clearreport());
   }
 
-  resetreport(this: Project) {
+  resetReport(this: Project) {
     this._checkError(this._EN.resetreport());
   }
 
-  setreport(this: Project, format: string) {
+  setReport(this: Project, format: string) {
     this._checkError(this._EN.setreport(format));
   }
 
-  setstatusreport(this: Project, level: number) {
+  setStatusReport(this: Project, level: number) {
     this._checkError(this._EN.setstatusreport(level));
   }
 
-  getstatistic(this: Project, type: number) {
+  getStatistic(this: Project, type: number) {
     const memory = this._allocateMemory('double');
     this._checkError(this._EN.getstatistic(type, ...memory));
     return this._getValue(memory[0], 'double');
   }
 
-  getresultindex(this: Project, type: number, index: number) {
+  getResultIndex(this: Project, type: number, index: number) {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getresultindex(type, index, ...memory));
     return this._getValue(memory[0], 'int');

@@ -5,13 +5,13 @@ class ProjectFunctions {
     this._checkError(this._EN.close());
   }
 
-  getcount(this: Project, obj: number): number {
+  getCount(this: Project, obj: number): number {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getcount(obj, ...memory));
     return this._getValue(memory[0], 'int');
   }
 
-  gettitle(this: Project) {
+  getTitle(this: Project) {
     const memory = this._allocateMemory('char', 'char', 'char');
     this._checkError(this._EN.gettitle(...memory));
     return {
@@ -40,7 +40,8 @@ class ProjectFunctions {
     this._checkError(this._EN.open(inputFile, reportFile, outputFile));
   }
 
-  runproject(
+  // TODO: Include ability to have callback here
+  runProject(
     this: Project,
     inputFile: string,
     reportFile: string,
@@ -49,11 +50,11 @@ class ProjectFunctions {
     this._checkError(this._EN.runproject(inputFile, reportFile, outputFile));
   }
 
-  saveinpfile(this: Project, filename: string) {
+  saveInpFile(this: Project, filename: string) {
     this._checkError(this._EN.saveinpfile(filename));
   }
 
-  settitle(this: Project, line1: string, line2: string, line3: string) {
+  setTitle(this: Project, line1: string, line2: string, line3: string) {
     this._checkError(this._EN.settitle(line1, line2, line3));
   }
 }

@@ -8,7 +8,7 @@ describe('Epanet Project', () => {
     test('should throw without a network init', () => {
       function catchError() {
         const model = new Project(ws);
-        model.addnode('J1', NodeType.Junction);
+        model.addNode('J1', NodeType.Junction);
       }
 
       expect(catchError).toThrow('102');
@@ -17,13 +17,13 @@ describe('Epanet Project', () => {
     test('add new node with properties', () => {
       const model = new Project(ws);
       model.init('report.rpt', 'out.bin', 0, 0);
-      const nodeId = model.addnode('J1', NodeType.Junction);
-      model.setjuncdata(nodeId, 700, 0, '');
+      const nodeId = model.addNode('J1', NodeType.Junction);
+      model.setJunctionData(nodeId, 700, 0, '');
 
-      const nodeType = model.getnodetype(nodeId);
+      const nodeType = model.getNodeType(nodeId);
       expect(nodeType).toEqual(NodeType.Junction);
 
-      const elev = model.getnodevalue(nodeId, NodeProperty.Elevation);
+      const elev = model.getNodeValue(nodeId, NodeProperty.Elevation);
       expect(elev).toEqual(700);
     });
   });

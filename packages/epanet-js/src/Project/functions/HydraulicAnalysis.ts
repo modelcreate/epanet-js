@@ -5,7 +5,7 @@ class HydraulicAnalysisFunctions {
     this._checkError(this._EN.solveH());
   }
 
-  usehydfile(this: Project, filename: string) {
+  useHydFile(this: Project, filename: string) {
     this._checkError(this._EN.usehydfile(filename));
   }
 
@@ -33,7 +33,7 @@ class HydraulicAnalysisFunctions {
     this._checkError(this._EN.saveH());
   }
 
-  savehydfile(this: Project, filename: string) {
+  saveHydFile(this: Project, filename: string) {
     this._checkError(this._EN.savehydfile(filename));
   }
 
