@@ -20,7 +20,7 @@ describe('Epanet Project Functions', () => {
 
       expect(catchError).toThrow('303');
     });
-    test('throw if no network is open close project and free memory', () => {
+    test('throw if no network is open, close project and free memory', () => {
       ws.writeFile('net1.inp', net1);
       const model = new Project(ws);
       model.open('net1.inp', 'report.rpt', 'out.bin');
