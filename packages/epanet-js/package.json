@@ -14,7 +14,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@model-create/EPANET": "0.1.0"
+    "@model-create/epanet-engine": "0.1.0"
   },
   "peerDependencies": {},
   "husky": {
@@ -28,9 +28,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@model-create/owa-epanet-js",
+  "name": "epanet-js",
   "author": "Luke Butler",
-  "module": "dist/owa-epanet-js.esm.js",
+  "module": "dist/epanet-js.esm.js",
   "devDependencies": {
     "@types/jest": "^24.0.25",
     "husky": "^3.1.0",
