@@ -13,6 +13,7 @@ jobs:
       run: echo Hello, world!
     - name: Run a multi-line script
       run: |
+        set CI=true
         yarn build:docker
         yarn build:engine
         yarn install
