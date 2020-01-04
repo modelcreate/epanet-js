@@ -15,5 +15,6 @@ jobs:
       run: |
         yarn build:docker
         yarn build:engine
+        yarn install
         yarn test
         
