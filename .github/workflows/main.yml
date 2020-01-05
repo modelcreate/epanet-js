@@ -14,8 +14,8 @@ jobs:
       id: cache-emscripten-build
       uses: actions/cache@v1
       with:
-        path: 'packages/epanet-engine/dist/'
-        key: emscripten-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
+        path: 'packages/epanet-engine/dist'
+        key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
 
     - name: Build emscripten docker container
       if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
@@ -39,7 +39,7 @@ jobs:
     - name: Install Dependencies
       run: yarn install
     - name: Running tests
-      run: yarn test --watchAll=false
+      run: yarn test:CI
 
   lint:
     
