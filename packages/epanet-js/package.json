@@ -10,6 +10,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
+    "test:CI": "CI=true tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
