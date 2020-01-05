@@ -23,6 +23,12 @@
       "pre-commit": "tsdx lint"
     }
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/enum/",
+      "<rootDir>/node_modules/"
+    ]
+  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
