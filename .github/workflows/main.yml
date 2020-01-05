@@ -1,20 +1,74 @@
 name: CI
 
-on: [pull_request]
+on: [push]
 
 jobs:
-  build:
+  build-epa-engine:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        yarn build:docker
-        yarn build:engine
-        yarn install
-        yarn test --watchAll=false
+      
+    - name: Cache emscripten build
+      id: cache-emscripten-build
+      uses: actions/cache@v1
+      with:
+        path: './packages/epanet-engine/dist/'
+        key: emscripten-${{ hashFiles('./packages/epanet-engine/**','!./packages/epanet-engine/dist/**')}}
+
+    - name: Test Cache Hit
+      run: echo Hit cache - ${{ steps.cache-emscripten-build.outputs.cache-hit }}
+    - name: Build emscripten docker container
+      if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
+      run: yarn build:docker
+    - name: Compile OWA-EPANET to JS
+      if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
+      run:  yarn build:engine
+  
+  install-npm-deps:
+    
+    runs-on: ubuntu-latest
+    needs: [build-epa-engine]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+    - name: Install Dependencies
+      run: yarn install
+
+  tests:
+    
+    runs-on: ubuntu-latest
+    needs: [install-npm-deps]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Running tests
+      run: yarn test --watchAll=false
+
+
+  lint:
+    
+    runs-on: ubuntu-latest
+    needs: [install-npm-deps]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Running tests
+      run: yarn lint
+
+  build:
+    
+    runs-on: ubuntu-latest
+    needs: [install-npm-deps]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build epanet-js
+      run: yarn build
         
