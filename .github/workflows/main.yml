@@ -14,8 +14,8 @@ jobs:
       id: cache-emscripten-build
       uses: actions/cache@v1
       with:
-        path: './packages/epanet-engine/dist/'
-        key: emscripten-${{ hashFiles('./packages/epanet-engine/src/')}}-${{ hashFiles('./packages/epanet-engine/Dockerfile')}}-${{ hashFiles('./packages/epanet-engine/build.sh')}}
+        path: 'packages/epanet-engine/dist/'
+        key: emscripten-${{ hashFiles('packages/epanet-engine/src/')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
 
     - name: Test Cache Hit
       run: echo Hit cache - ${{ steps.cache-emscripten-build.outputs.cache-hit }}
