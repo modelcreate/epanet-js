@@ -24,11 +24,11 @@ jobs:
       if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
       run:  yarn build:engine
     - uses: actions/checkout@v1
-    - name: Cache node modules
+    - name: Use Yarn Cache
       uses: actions/cache@v1
       with:
-        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+        path: ~/.cache/yarn
+        key: yarn-${{ hashFiles( '/yarn.lock') }}
     - name: Install Dependencies
       run: yarn install
     - name: Running tests
