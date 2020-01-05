@@ -17,6 +17,8 @@ jobs:
         path: 'packages/epanet-engine/dist'
         key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
 
+    - name: list files
+      run: ls -LR  packages/epanet-engine
     - name: Build emscripten docker container
       if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
       run: yarn build:docker
