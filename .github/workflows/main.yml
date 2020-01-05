@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build-epa-engine:
+  test-lint-build:
 
     runs-on: ubuntu-latest
 
@@ -23,13 +23,6 @@ jobs:
     - name: Compile OWA-EPANET to JS
       if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
       run:  yarn build:engine
-  
-  tests:
-    
-    runs-on: ubuntu-latest
-    needs: [build-epa-engine]
-    
-    steps:
     - uses: actions/checkout@v1
     - name: Cache node modules
       uses: actions/cache@v1
@@ -40,39 +33,8 @@ jobs:
       run: yarn install
     - name: Running tests
       run: yarn test:CI
-
-  lint:
-    
-    runs-on: ubuntu-latest
-    needs: [build-epa-engine]
-    
-    steps:
-    - uses: actions/checkout@v1
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
-    - name: Install Dependencies
-      run: yarn install
     - name: Running linter
       run: yarn lint
-
-  build:
-    
-    runs-on: ubuntu-latest
-    needs: [build-epa-engine]
-    
-    steps:
-    - uses: actions/checkout@v1
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
-    - name: Install Dependencies
-      run: yarn install
-    - name: Running tests
+    - name: Running build
       run: yarn build
-
 
