@@ -6,6 +6,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modelcreate/epanet-js.git"
+  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -36,6 +40,7 @@
     "trailingComma": "es5"
   },
   "name": "epanet-js",
+  "description": "EPANET engine in javascript",
   "author": "Luke Butler",
   "module": "dist/epanet-js.esm.js",
   "devDependencies": {
