@@ -8,7 +8,7 @@
     "build:docker": "yarn workspace @model-create/epanet-engine build:dockerimage",
     "build:engine": "yarn workspace @model-create/epanet-engine build",
     "lint": "yarn workspace epanet-js lint",
-    "test": "yarn workspace epanet-js test",
+    "test": "yarn workspace epanet-js test:CI",
     "build": "yarn workspace epanet-js build"
   }
 }
