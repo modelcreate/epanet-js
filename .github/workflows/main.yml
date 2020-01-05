@@ -41,6 +41,15 @@ jobs:
       run: yarn install
     - name: Running tests
       run: yarn test
+      
+    - name: Running test coverage
+      run: yarn test:coverage
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} #required
+        file: 'packages/epanet-js/coverage/clover.xml'
+        fail_ci_if_error: true #optional (default = false)
+    
     - name: Running linter
       run: yarn lint
     - name: Running build
