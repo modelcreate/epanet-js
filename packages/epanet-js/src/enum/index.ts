@@ -1,5 +1,5 @@
 export { default as ActionCodeType } from './ActionCodeType';
-export { default as AnalysisStatistic } from './AnalysisStatistic'  ;
+export { default as AnalysisStatistic } from './AnalysisStatistic';
 export { default as ControlType } from './ControlType';
 export { default as CountType } from './CountType';
 export { default as CurveType } from './CurveType';
