@@ -8,8 +8,10 @@ echo "Compiling wasm bindings"
 echo "============================================="
 (
 
+  mkdir -p build
+
   # Compile C/C++ code
-  emcc -O0 -o ./index.js /opt/epanet/build/lib/libepanet2.a \
+  emcc -O0 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
     src/epanet_wrapper.cpp \
@@ -24,15 +26,20 @@ echo "============================================="
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
 		-s WASM=0 \
 		--llvm-lto 3 \
-    -s MODULARIZE=1 \
 		--memory-init-file 0 \
     --closure 0
+
+    #-s MODULARIZE=1 \
+
+		cat src/wrapper/cjs-prefix.js build/epanetEngine.js src/wrapper/cjs-postfix.js >> index.js
+		cat build/epanetEngine.js src/wrapper/es6-postfix.js >> index.es6.js
 
 
   # Create output folder
   mkdir -p dist
   # Move artifacts
   mv index.js dist
+  mv index.es6.js dist
 
 )
 echo "============================================="

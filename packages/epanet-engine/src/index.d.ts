@@ -687,5 +687,5 @@ interface Math {
 }
 
 declare module "@model-create/epanet-engine" {
-  export default function(): EmscriptenModule;
+  export var epanetEngine: EmscriptenModule;
 }

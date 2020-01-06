@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
+  "module": "dist/index.es6.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "build:dockerimage": "docker build -t mydockerimage .",
