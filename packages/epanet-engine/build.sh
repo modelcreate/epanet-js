@@ -32,7 +32,7 @@ echo "============================================="
     #-s MODULARIZE=1 \
 
 		cat src/wrapper/cjs-prefix.js build/epanetEngine.js src/wrapper/cjs-postfix.js >> index.js
-		cat ./epanetEngine.js src/wrapper/es6-postfix.js >> index.es6.js
+		cat build/epanetEngine.js src/wrapper/es6-postfix.js >> index.es6.js
 
 
   # Create output folder
