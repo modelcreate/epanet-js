@@ -1,10 +1,10 @@
-import Module from '@model-create/epanet-engine';
+import { epanetEngine } from '@model-create/epanet-engine';
 
 class Workspace {
   _instance: EmscriptenModule;
   _FS: EmscriptenFileSysten;
   constructor() {
-    this._instance = Module();
+    this._instance = epanetEngine;
     this._FS = this._instance.FS;
   }
 
