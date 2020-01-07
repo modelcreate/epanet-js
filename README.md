@@ -6,7 +6,7 @@
 
 
 
-Water distribution system modelling, either in the browser or Node. Uses the Open Water Analytics EPANET v2.2 toolkit compiled to Javascript.
+Water distribution network modelling, either in the browser or Node. Uses the Open Water Analytics EPANET v2.2 toolkit compiled to Javascript.
 
 > **Note**: All version before 1.0.0 should be considered beta with potential breaking changes between releases, use in production with caution.
 
@@ -14,9 +14,9 @@ Water distribution system modelling, either in the browser or Node. Uses the Ope
   <a href="#install">Install</a> •
   <a href="#usage">Usage</a> •
   <a href="#about">About</a> •
-  <a href="#build">Build</a> •
   <a href="#examples">Examples</a> •
   <a href="#featured-apps">Featured Apps</a> •
+  <a href="#build">Build</a> •
   <a href="#api">API</a> •
   <a href="#license">License</a>
 </p>
@@ -82,12 +82,8 @@ Reaching version 1.0.0 is the current focus, the first non-beta version will hav
 
 Also planned are helper classes and an object-oriented wrapper to allow simpler development of applications using the EPANET engine.
 
-#### Version 1.0.0
-- [x] All EPANET Toolkit 2.2 methods implimented
-- [ ] Full test coverage
-- [ ] Document API
+See the remaining task on the [Version 1.0.0 Project](https://github.com/modelcreate/epanet-js/projects/1).
 
-## Build
 
 ## Examples
 
@@ -95,7 +91,7 @@ Also planned are helper classes and an object-oriented wrapper to allow simpler 
 
 Use the openH - initH - runH - nextH - closeH series of functions to step through the simulation one hydraulic time step at a time.
 
-<details><summary>Show code</summary>
+<details><summary>Click to show code</summary>
 <p>
 
 
@@ -140,7 +136,7 @@ model.closeH();
 
 Allows networks to be built completely from function calls instead of from an input file.
 
-<details><summary>Show code</summary>
+<details><summary>Click to show code</summary>
 <p>
 
 
@@ -184,6 +180,32 @@ Display models created in EPANET directly in the browser. No data leaves your co
 Extract subsections of your InfoWorks WS Pro models and run them in your browser. As you make calibration changes such as modifying roughness or restriction valves the application runs an epanet model and compares the simulated results to those observered in the field.
 
 **Website**: [Model Calibrate](https://calibrate.modelcreate.com/)
+
+
+## Build
+
+epanet-js is split into two packages, the epanet-engine package which wraps the original C code in C++ and compiles it to JavaScript using Emscripten. And epanet-js is a TypeScript library which wraps over the generated module from Emscripten and manages memory allocation, error handling and returning of varaible.
+
+**Building epanet-engine**
+
+The first command `yarn run build:dockerimage` create a docker container of Emscripten and the compiled OWA-EPANET source code, you can then run `yarn run build` to compile the C++ wrapper into Javascript.
+
+```sh
+cd packages/epanet-engine
+yarn run build:dockerimage
+yarn run build
+```
+
+**Building epanet-js**
+
+You must first build epanet-engine before you can lint, test or build epanet-js.
+
+```sh
+cd packages/epanet-js
+yarn run lint
+yarn run test
+yarn run build
+```
 
 ## API
 
