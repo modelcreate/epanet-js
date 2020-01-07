@@ -18,7 +18,7 @@ describe('Epanet Water Quality Functions', () => {
 
       expect(1).toEqual(1); //Lets just see if it completes
     });
-    test('step by step WQ run', () => {
+    test('step by step WQ (NextQ) run', () => {
       ws.writeFile('net1.inp', net1);
       const model = new Project(ws);
       model.open('net1.inp', 'report.rpt', 'out.bin');
@@ -42,7 +42,7 @@ describe('Epanet Water Quality Functions', () => {
       expect(epanetMagicNumber).toEqual(516114521);
       expect(tStep).toEqual(0);
     });
-    test('reuse hydraulic run for WQ run', () => {
+    test('reuse hydraulic run for WQ (StepQ) run', () => {
       ws.writeFile('net1.inp', net1);
       const model = new Project(ws);
 
@@ -54,7 +54,17 @@ describe('Epanet Water Quality Functions', () => {
       const model2 = new Project(ws);
       model2.open('net1.inp', 'net1-2.rpt', 'out-2.bin');
       model2.useHydFile('hydFile.out');
-      model2.solveQ();
+
+      model2.openQ();
+      model2.initQ(0);
+
+      let tStep = Infinity;
+      do {
+        model2.runQ();
+        tStep = model2.stepQ();
+      } while (tStep > 0);
+
+      model2.closeQ();
 
       expect(1).toEqual(1); //Lets just see if it completes
     });
