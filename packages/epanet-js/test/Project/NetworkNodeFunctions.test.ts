@@ -43,5 +43,43 @@ describe('Epanet Network Node Functions', () => {
       const count2 = model.getCount(CountType.NodeCount);
       expect(count2).toEqual(0);
     });
+    test('set node cordinates', () => {
+      const model = new Project(ws);
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      //Create Network
+      model.addNode('N1', NodeType.Junction);
+      const node1Id = model.getNodeIndex('N1');
+
+      model.setJunctionData(node1Id, 700, 0, '');
+
+      model.setCoordinates(node1Id, 100, 300);
+      const { x, y } = model.getCoordinates(node1Id);
+      expect(x).toEqual(100);
+      expect(y).toEqual(300);
+    });
+    test('set and get node types', () => {
+      const model = new Project(ws);
+      model.init('report3.rpt', 'out3.bin', 0, 0);
+
+      //Create Network
+      const node1Id = model.addNode('N1', NodeType.Reservoir);
+
+      const nodeType = model.getNodeType(node1Id);
+
+      expect(nodeType).toEqual(NodeType.Reservoir);
+    });
+    test('set node id and get index', () => {
+      const model = new Project(ws);
+      model.init('report4.rpt', 'out4.bin', 0, 0);
+
+      //Create Network
+      const node1Id = model.addNode('N1', NodeType.Tank);
+      model.setNodeId(node1Id, 'Tank1');
+
+      const indexLookup = model.getNodeIndex('Tank1');
+
+      expect(node1Id).toEqual(indexLookup);
+    });
   });
 });
