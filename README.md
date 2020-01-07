@@ -14,7 +14,6 @@ Water distribution system modelling, either in the browser or Node. Uses the Ope
   <a href="#install">Install</a> •
   <a href="#usage">Usage</a> •
   <a href="#about">About</a> •
-  <a href="#roadmap">Roadmap</a> •
   <a href="#build">Build</a> •
   <a href="#examples">Examples</a> •
   <a href="#featured-apps">Featured Apps</a> •
@@ -36,7 +35,7 @@ or with yarn:
 $ yarn add epanet-js
 ```
 
-For those without a module bundler, the epanet-js package will also be available on unpkg as a precompiled production and development UMD builds. This will allow you to drop a UMD build in a `<script>` tag on the page and access it on the window.epanetJs global variable.
+For those without a module bundler, the epanet-js package will soon also be available on unpkg as a precompiled UMD builds. This will allow you to drop a UMD build in a `<script>` tag on your page and access it on the window.epanetJs global variable.
 
 
 ## Usage
@@ -44,7 +43,7 @@ For those without a module bundler, the epanet-js package will also be available
 
 ```js
 import {Project, Workspace} from 'epanet-js'
-import fs from 'fs
+import fs from 'fs'
 
 // Read an existing inp file from the disk
 const net1 = fs.readFileSync('net1.inp')
@@ -63,7 +62,87 @@ model.close()
 ```
 
 
+## About
+
+Engineers use hydraulic modelling software to simulate water networks. A model will represent a network consisting of pipes, pumps, valves and storage tanks. The modelling software tracks the flow of water in each pipe, the pressure at each node, the height of water in each tank throughout the network during a multi-period simulation. 
+
+EPANET is an industry-standard program, initially developed by the USEPA, to simulate water distribution networks, its source code was released in the public domain. An open-source fork by the OWA (Open Water Analytics) community has been released extending its original capabilities. Read more about EPANET on Wikipedia and the OWA community on their website.
+
+The EPANET Toolkit is an API written in C that allows developers to embed the EPANET's engine in their own applications. Ports of the toolkit exist in Python and Matlab; however, there are limited options to use the EPANET engine in JavaScript.
+
+Epanet-js is a full port of version 2.2 OWA-EPANET Toolkit in Typescript, providing access to all 120 functions within the toolkit.
+
+The JavaScript library is for engineers, developers and academics to quickly run and share hydraulic analyses or create custom front end or server-side applications.
+
+
+
+### Roadmap
+
+Reaching version 1.0.0 is the current focus, the first non-beta version will have API stability and have mirrored functions of each method in the EPANET Toolkit.
+
+Also planned are helper classes and an object-oriented wrapper to allow simpler development of applications using the EPANET engine.
+
+#### Version 1.0.0
+- [x] All EPANET Toolkit 2.2 methods implimented
+- [ ] Full test coverage
+- [ ] Document API
+
+## Build
+
+## Examples
+
+### Step through the hydraulic simulation
+
+Use the openH - initH - runH - nextH - closeH series of functions to step through the simulation one hydraulic time step at a time.
+
+<details><summary>Show code</summary>
+<p>
+
+
+```js
+const {Project, Workspace} = require('epanet-js')
+const tslib = require('tslib')
+var fs = require('fs');
+
+const net1 = fs.readFileSync('net1.inp')
+
+const ws = new Workspace();
+const model = new Project(ws);
+
+ws.writeFile('net1.inp', net1);
+
+model.open('net1.inp', 'report.rpt', 'out.bin');
+
+const n11Index = model.getNodeIndex('11')
+
+model.openH();
+model.initH(11);
+
+let tStep = Infinity;
+do {
+  const cTime = model.runH();
+  const pressure = model.getNodeValue(n11Index, 11)
+  console.log(`Current Time: - ${cTime}, Node 11 Pressure: ${pressure.toFixed(2)}`)
+
+  tStep = model.nextH();
+} while (tStep > 0);
+
+model.saveH();
+model.closeH();
+```
+
+</p>
+</details>
+
+
+
 ### New model builder API
+
+Allows networks to be built completely from function calls instead of from an input file.
+
+<details><summary>Show code</summary>
+<p>
+
 
 ```js
 import {Project, Workspace} from 'epanet-js'
@@ -81,32 +160,30 @@ model.setJunctionData(n2Index, 400, 0, '');
 const l1Index = model.addLink('L1',LinkType.Pipe,'N1','N2')
 ```
 
-## About
+</p>
+</details>
 
-Infomation about what this library is for, how people can use it and how its being used currently.
-
-### Roadmap
-
-Reaching version 1.0.0 is the current focus, the first non-beta version will have API stability and have mirrored functions of each method in the EPANET Toolkit.
-
-Planned also are additional helper classes and an object-oriented wrapper to allow simpler development of applications using the EPANET engine.
-
-#### Version 1.0.0
-- [x] All EPANET Toolkit 2.2 methods implimented
-- [ ] Full test coverage
-- [ ] Document API
-
-#### Additional work to be done
-* Read result bin file
-* Object-oriented wrapper for the toolkit functions
-* Website & documentation
-* Examples
-
-## Build
-
-## Examples
 
 ## Featured Apps
+
+The following apps were created using the epanet-js engine, please let us know any apps you've made.
+
+### Model View
+
+<img src="https://raw.githubusercontent.com/modelcreate/model-view/master/ModelViewPreview.gif" alt="Model View" height="150" align="center"/>
+
+Display models created in EPANET directly in the browser. No data leaves your computer; all data rendered and processed locally using the epanet-js library.
+
+**Website**: [Model View](https://view.modelcreate.com/)
+
+**Source Code**: [GitHub](https://github.com/modelcreate/model-view)
+
+
+### Model Calibrate
+
+Extract subsections of your InfoWorks WS Pro models and run them in your browser. As you make calibration changes such as modifying roughness or restriction valves the application runs an epanet model and compares the simulated results to those observered in the field.
+
+**Website**: [Model Calibrate](https://calibrate.modelcreate.com/)
 
 ## API
 
