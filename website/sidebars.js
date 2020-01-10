@@ -6,8 +6,11 @@
  */
 
 module.exports = {
-  someSidebar: {
+  docs: {
     Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+    Features: ['mdx']
+  },
+  api: {
+    API: ['api/api1'],
   },
 };

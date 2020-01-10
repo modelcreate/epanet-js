@@ -1,23 +1,24 @@
 module.exports = {
-  title: 'My Site',
+  title: 'EPANET-JS',
   tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://epanetjs.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'modelcreate', // Usually your GitHub org/user name.
+  projectName: 'epanet-js', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'EPANET-JS',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'EPANET-JS Logo',
         src: 'img/logo.svg',
       },
       links: [
         {to: 'docs/doc1', label: 'Docs', position: 'left'},
+        {to: 'docs/api/api1', label: 'API', position: 'left'},
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/modelcreate/epanet-js',
           label: 'GitHub',
           position: 'right',
         },
@@ -61,7 +62,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/modelcreate/epanet-js',
             },
             {
               label: 'Twitter',
