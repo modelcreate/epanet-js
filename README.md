@@ -153,7 +153,7 @@ All method names have been converted to camelCase due to javascript convention.
 
 ### Library Classes
 
-Create a `Workspace` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Clas"><code>Workspace</code></a> class.
+Create a `Workspace` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Class"><code>Workspace</code></a> class.
 
 ```javascript
 import { Workspace } from `epanet-js`
@@ -161,7 +161,7 @@ import { Workspace } from `epanet-js`
 const ws = new Workspace()
 ```
 
-Create a `Project` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Project-Clas"><code>Project</code></a> class with a <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Clas"><code>Workspace</code></a>  object.
+Create a `Project` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Project-Class"><code>Project</code></a> class with a <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Class"><code>Workspace</code></a>  object.
 
 ```javascript
 import { Project, Workspace } from `epanet-js`
@@ -170,9 +170,7 @@ const ws = new Workspace()
 const model = new Project(ws)
 ```
 
-For a full list of all functions on the two classes please check the wiki:
-* [Workspace Class](https://github.com/modelcreate/epanet-js/wiki/Workspace-Class)
-* [Project Class](https://github.com/modelcreate/epanet-js/wiki/Project-Class)
+For a full list of all functions on the two classes please check the wiki, <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Class"><code>Workspace</code></a> & <a href="https://github.com/modelcreate/epanet-js/wiki/Project-Class"><code>Project</code></a>
 
 
 
