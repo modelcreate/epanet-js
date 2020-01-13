@@ -14,7 +14,7 @@ Water distribution network modelling, either in the browser or Node. Uses the Op
   <a href="#install">Install</a> •
   <a href="#usage">Usage</a> •
   <a href="#about">About</a> •
-  <a href="#examples">Examples</a> •
+  <a href="https://github.com/modelcreate/epanet-js/wiki/Examples">Examples</a> •
   <a href="#featured-apps">Featured Apps</a> •
   <a href="#build">Build</a> •
   <a href="#api">API</a> •
@@ -63,8 +63,8 @@ model.close()
 
 ***More Examples***
 
-* [Step through the hydraulic simulation](#step-through-the-hydraulic-simulation)
-* [New model builder API](#new-model-builder-api)
+* [Step through the hydraulic simulation](https://github.com/modelcreate/epanet-js/wiki/Examples#step-through-the-hydraulic-simulation)
+* [New model builder API](https://github.com/modelcreate/epanet-js/wiki/Examples#new-model-builder-api)
 
 
 
@@ -89,81 +89,6 @@ Reaching version 1.0.0 is the current focus, the first non-beta version will hav
 Also planned are helper classes and an object-oriented wrapper to allow simpler development of applications using the EPANET engine.
 
 See the remaining task on the [Version 1.0.0 Project](https://github.com/modelcreate/epanet-js/projects/1).
-
-
-## Examples
-
-### Step through the hydraulic simulation
-
-Use the openH - initH - runH - nextH - closeH series of functions to step through the simulation one hydraulic time step at a time.
-
-<details><summary>Click to show code</summary>
-<p>
-
-
-```js
-const {Project, Workspace} = require('epanet-js')
-const tslib = require('tslib')
-var fs = require('fs');
-
-const net1 = fs.readFileSync('net1.inp')
-
-const ws = new Workspace();
-const model = new Project(ws);
-
-ws.writeFile('net1.inp', net1);
-
-model.open('net1.inp', 'report.rpt', 'out.bin');
-
-const n11Index = model.getNodeIndex('11')
-
-model.openH();
-model.initH(11);
-
-let tStep = Infinity;
-do {
-  const cTime = model.runH();
-  const pressure = model.getNodeValue(n11Index, 11)
-  console.log(`Current Time: - ${cTime}, Node 11 Pressure: ${pressure.toFixed(2)}`)
-
-  tStep = model.nextH();
-} while (tStep > 0);
-
-model.saveH();
-model.closeH();
-```
-
-</p>
-</details>
-
-
-
-### New model builder API
-
-Allows networks to be built completely from function calls instead of from an input file.
-
-<details><summary>Click to show code</summary>
-<p>
-
-
-```js
-import {Project, Workspace} from 'epanet-js'
-
-const ws = new Workspace();
-const model = new Project(ws);
-
-model.init('report.rpt', 'out.bin', 0, 0);
-
-const n1Index = model.addNode('N1', NodeType.Junction);
-const n2Index = model.addNode('N2', NodeType.Junction);
-model.setJunctionData(n1Index, 700, 0, '');
-model.setJunctionData(n2Index, 400, 0, '');
-
-const l1Index = model.addLink('L1',LinkType.Pipe,'N1','N2')
-```
-
-</p>
-</details>
 
 
 ## Featured Apps
@@ -226,99 +151,28 @@ All method names have been converted to camelCase due to javascript convention.
 > **Note**: The full API has been converted; however, it is not all listed below. [Issue #13](https://github.com/modelcreate/epanet-js/issues/13)
 
 
-### Class `Workspace`
+### Library Classes
 
-Create a `Workspace` object by instancing the `epanetJs.Workspace` class.
+Create a `Workspace` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Clas"><code>Workspace</code></a> class.
 
 ```javascript
 import { Workspace } from `epanet-js`
+
 const ws = new Workspace()
 ```
 
-
-**Methods**
-
-```typescript
-writeFile(path: string, data: string | ArrayBufferView) 
-
-readFile(file: string): string;
-readFile(file: string, encoding: 'utf8'): string;
-readFile(file: string, encoding: 'binary'): Uint8Array;
-
-```
-
-### Class `Project`
-
-Create a `Project` object by instancing the `epanetJs.Project` class with a `Workspace` object.
+Create a `Project` object by instancing the <a href="https://github.com/modelcreate/epanet-js/wiki/Project-Clas"><code>Project</code></a> class with a <a href="https://github.com/modelcreate/epanet-js/wiki/Workspace-Clas"><code>Workspace</code></a>  object.
 
 ```javascript
-import { Workspace, Project } from `epanet-js`
+import { Project, Workspace } from `epanet-js`
+
 const ws = new Workspace()
 const model = new Project(ws)
 ```
 
-
-**Project Methods**
-
-```typescript
-close(): void 
-
-getCount( obj: Number): Number {
-
-getTitle(): {
-  line1: String,
-  line2: String,
-  line3: String
-};  
-
-init(
-  rptFile: String,
-  outFile: String,
-  unitType: Number,
-  headLosstype: Number
-): void
-
-open(
-  inputFile: String,
-  reportFile: String,
-  outputFile: String
-): void
-
-
-runProject(
-  inputFile: String,
-  reportFile: String,
-  outputFile: String
-): void
-
-saveInpFile( filename: String): void
-
-setTitle( line1: String, line2: String, line3: String): void
-```
-
-
-
-**Hydraulic Analysis Methods**
-
-```typescript
-solveH(): void
-
-useHydFile(filename: string): void
-
-openH(): void
-
-initH(initFlag: Number): void
-
-runH(): Number
-
-nextH(): Number
-
-saveH(): void
-
-saveHydFile( filename: string): void
-
-closeH(): void
-```
+For a full list of all functions on the two classes please check the wiki:
+* [Workspace Class](https://github.com/modelcreate/epanet-js/wiki/Workspace-Class)
+* [Project Class](https://github.com/modelcreate/epanet-js/wiki/Project-Class)
 
 
 
