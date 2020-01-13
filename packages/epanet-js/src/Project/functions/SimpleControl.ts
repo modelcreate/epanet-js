@@ -1,9 +1,10 @@
 import Project from '../Project';
+import { ControlType } from 'enum';
 
 class SimpleControlFunctions {
   addControl(
     this: Project,
-    type: number,
+    type: ControlType,
     linkIndex: number,
     setting: number,
     nodeIndex: number,
@@ -30,7 +31,7 @@ class SimpleControlFunctions {
     );
     this._checkError(this._EN.getcontrol(index, ...memory));
     return {
-      type: this._getValue(memory[0], 'int'),
+      type: this._getValue(memory[0], 'int') as ControlType,
       linkIndex: this._getValue(memory[1], 'int'),
       setting: this._getValue(memory[2], 'double'),
       nodeIndex: this._getValue(memory[3], 'int'),
@@ -41,7 +42,7 @@ class SimpleControlFunctions {
   setControl(
     this: Project,
     index: number,
-    type: number,
+    type: ControlType,
     linkIndex: number,
     setting: number,
     nodeIndex: number,

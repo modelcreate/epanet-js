@@ -1,4 +1,5 @@
 import Project from '../Project';
+import { InitHydOption } from '../../index';
 
 class HydraulicAnalysisFunctions {
   solveH(this: Project) {
@@ -13,7 +14,7 @@ class HydraulicAnalysisFunctions {
     this._checkError(this._EN.openH());
   }
 
-  initH(this: Project, initFlag: number) {
+  initH(this: Project, initFlag: InitHydOption) {
     this._checkError(this._EN.initH(initFlag));
   }
 

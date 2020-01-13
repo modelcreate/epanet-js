@@ -1,4 +1,5 @@
 import Project from '../Project';
+import { CurveType } from 'enum';
 
 class DataCurveFunctions {
   addCurve(this: Project, id: string) {
@@ -31,7 +32,7 @@ class DataCurveFunctions {
     return this._getValue(memory[0], 'int');
   }
 
-  getCurveType(this: Project, index: number) {
+  getCurveType(this: Project, index: number): CurveType {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getcurvetype(index, ...memory));
     return this._getValue(memory[0], 'int');

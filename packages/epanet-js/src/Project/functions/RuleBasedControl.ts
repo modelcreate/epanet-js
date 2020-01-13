@@ -1,4 +1,5 @@
 import Project from '../Project';
+import { RuleStatus, RuleObject, RuleVariable, RuleOperator } from 'enum';
 
 class RuleBasedControlFunctions {
   addRule(this: Project, rule: string) {
@@ -39,11 +40,11 @@ class RuleBasedControlFunctions {
     this._checkError(this._EN.getpremise(ruleIndex, premiseIndex, ...memory));
     return {
       logop: this._getValue(memory[0], 'int'),
-      object: this._getValue(memory[1], 'int'),
+      object: this._getValue(memory[1], 'int') as RuleObject,
       objIndex: this._getValue(memory[2], 'int'),
-      variable: this._getValue(memory[3], 'int'),
-      relop: this._getValue(memory[4], 'int'),
-      status: this._getValue(memory[5], 'int'),
+      variable: this._getValue(memory[3], 'int') as RuleVariable,
+      relop: this._getValue(memory[4], 'int') as RuleOperator,
+      status: this._getValue(memory[5], 'int') as RuleStatus,
       value: this._getValue(memory[6], 'double'),
     };
   }
@@ -53,11 +54,11 @@ class RuleBasedControlFunctions {
     ruleIndex: number,
     premiseIndex: number,
     logop: number,
-    object: number,
+    object: RuleObject,
     objIndex: number,
-    variable: number,
-    relop: number,
-    status: number,
+    variable: RuleVariable,
+    relop: RuleOperator,
+    status: RuleStatus,
     value: number
   ) {
     this._checkError(
@@ -90,7 +91,7 @@ class RuleBasedControlFunctions {
     this: Project,
     ruleIndex: number,
     premiseIndex: number,
-    status: number
+    status: RuleStatus
   ) {
     this._checkError(
       this._EN.setpremisestatus(ruleIndex, premiseIndex, status)
@@ -111,7 +112,7 @@ class RuleBasedControlFunctions {
     this._checkError(this._EN.getthenaction(ruleIndex, actionIndex, ...memory));
     return {
       linkIndex: this._getValue(memory[0], 'int'),
-      status: this._getValue(memory[1], 'int'),
+      status: this._getValue(memory[1], 'int') as RuleStatus,
       setting: this._getValue(memory[2], 'double'),
     };
   }
@@ -121,7 +122,7 @@ class RuleBasedControlFunctions {
     ruleIndex: number,
     actionIndex: number,
     linkIndex: number,
-    status: number,
+    status: RuleStatus,
     setting: number
   ) {
     this._checkError(
@@ -134,7 +135,7 @@ class RuleBasedControlFunctions {
     this._checkError(this._EN.getelseaction(ruleIndex, actionIndex, ...memory));
     return {
       linkIndex: this._getValue(memory[0], 'int'),
-      status: this._getValue(memory[1], 'int'),
+      status: this._getValue(memory[1], 'int') as RuleStatus,
       setting: this._getValue(memory[2], 'double'),
     };
   }
@@ -144,7 +145,7 @@ class RuleBasedControlFunctions {
     ruleIndex: number,
     actionIndex: number,
     linkIndex: number,
-    status: number,
+    status: RuleStatus,
     setting: number
   ) {
     this._checkError(
