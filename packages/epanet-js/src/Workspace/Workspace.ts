@@ -1,7 +1,9 @@
 import { epanetEngine } from '@model-create/epanet-engine';
 
 class Workspace {
+  /** @internal **/
   _instance: EmscriptenModule;
+  /** @internal **/
   _FS: EmscriptenFileSysten;
   constructor() {
     this._instance = epanetEngine;

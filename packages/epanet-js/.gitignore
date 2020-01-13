@@ -3,3 +3,9 @@
 node_modules
 dist
 coverage
+
+# API Markdown Folders
+temp
+etc
+input
+markdown
