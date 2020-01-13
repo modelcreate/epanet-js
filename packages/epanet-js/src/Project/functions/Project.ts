@@ -1,11 +1,12 @@
 import Project from '../Project';
+import { CountType, FlowUnits, HeadLossType } from '../../index';
 
 class ProjectFunctions {
   close(this: Project) {
     this._checkError(this._EN.close());
   }
 
-  getCount(this: Project, obj: number): number {
+  getCount(this: Project, obj: CountType): number {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getcount(obj, ...memory));
     return this._getValue(memory[0], 'int');
@@ -25,8 +26,8 @@ class ProjectFunctions {
     this: Project,
     rptFile: string,
     outFile: string,
-    unitType: number,
-    headLosstype: number
+    unitType: FlowUnits,
+    headLosstype: HeadLossType
   ) {
     this._checkError(this._EN.init(rptFile, outFile, unitType, headLosstype));
   }

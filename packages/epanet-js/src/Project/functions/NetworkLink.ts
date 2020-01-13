@@ -1,10 +1,11 @@
 import Project from '../Project';
+import { LinkType, ActionCodeType, LinkProperty, PumpType } from 'enum';
 
 class NetworkLinkFunctions {
   addLink(
     this: Project,
     id: string,
-    linkType: number,
+    linkType: LinkType,
     fromNode: string,
     toNode: string
   ) {
@@ -15,7 +16,7 @@ class NetworkLinkFunctions {
     return this._getValue(memory[0], 'int');
   }
 
-  deleteLink(this: Project, index: number, actionCode: number) {
+  deleteLink(this: Project, index: number, actionCode: ActionCodeType) {
     this._checkError(this._EN.deletelink(index, actionCode));
   }
 
@@ -35,7 +36,7 @@ class NetworkLinkFunctions {
     this._checkError(this._EN.setlinkid(index, newid));
   }
 
-  getLinkType(this: Project, index: number) {
+  getLinkType(this: Project, index: number): LinkType {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getlinktype(index, ...memory));
     return this._getValue(memory[0], 'int');
@@ -44,8 +45,8 @@ class NetworkLinkFunctions {
   setLinkType(
     this: Project,
     index: number,
-    linkType: number,
-    actionCode: number
+    linkType: LinkType,
+    actionCode: ActionCodeType
   ) {
     // Index is In/Out for setlinktype API
     const memory = this._allocateMemory('int');
@@ -67,7 +68,7 @@ class NetworkLinkFunctions {
     this._checkError(this._EN.setlinknodes(index, node1, node2));
   }
 
-  getLinkValue(this: Project, index: number, property: number) {
+  getLinkValue(this: Project, index: number, property: LinkProperty) {
     const memory = this._allocateMemory('double');
     this._checkError(this._EN.getlinkvalue(index, property, ...memory));
     return this._getValue(memory[0], 'double');
@@ -88,7 +89,7 @@ class NetworkLinkFunctions {
     this._checkError(this._EN.setpipedata(index, length, diam, rough, mloss));
   }
 
-  getPumpType(this: Project, index: number) {
+  getPumpType(this: Project, index: number): PumpType {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getpumptype(index, ...memory));
     return this._getValue(memory[0], 'int');

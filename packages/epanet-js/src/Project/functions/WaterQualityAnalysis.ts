@@ -1,4 +1,5 @@
 import Project from '../Project';
+import { InitHydOption } from '../../index';
 
 class WaterQualityAnalysisFunctions {
   solveQ(this: Project) {
@@ -9,7 +10,7 @@ class WaterQualityAnalysisFunctions {
     this._checkError(this._EN.openQ());
   }
 
-  initQ(this: Project, initFlag: number) {
+  initQ(this: Project, initFlag: InitHydOption.Save | InitHydOption.NoSave) {
     this._checkError(this._EN.initQ(initFlag));
   }
 

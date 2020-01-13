@@ -1,4 +1,5 @@
 import Project from '../Project';
+import { DemandModel } from 'enum';
 
 class NodalDemandFunctions {
   addDemand(
@@ -33,7 +34,7 @@ class NodalDemandFunctions {
     const memory = this._allocateMemory('int', 'double', 'double', 'double');
     this._checkError(this._EN.getdemandmodel(...memory));
     return {
-      type: this._getValue(memory[0], 'int'),
+      type: this._getValue(memory[0], 'int') as DemandModel,
       pmin: this._getValue(memory[1], 'double'),
       preq: this._getValue(memory[2], 'double'),
       pexp: this._getValue(memory[3], 'double'),
@@ -72,7 +73,7 @@ class NodalDemandFunctions {
   }
   setDemandModel(
     this: Project,
-    type: number,
+    type: DemandModel,
     pmin: number,
     preq: number,
     pexp: number
