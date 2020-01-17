@@ -5,6 +5,7 @@ module.exports = {
   rollup(config, options) {
 
     if(options.format !== 'umd') {
+      config.external = ['@model-create/epanet-engine']
       return config
     }
 
