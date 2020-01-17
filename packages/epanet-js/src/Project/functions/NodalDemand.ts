@@ -1,5 +1,5 @@
 import Project from '../Project';
-import { DemandModel } from 'enum';
+import { DemandModel } from '../../index';
 
 class NodalDemandFunctions {
   addDemand(

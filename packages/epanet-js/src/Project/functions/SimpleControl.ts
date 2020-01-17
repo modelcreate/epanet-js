@@ -1,5 +1,5 @@
 import Project from '../Project';
-import { ControlType } from 'enum';
+import { ControlType } from '../../index';
 
 class SimpleControlFunctions {
   addControl(

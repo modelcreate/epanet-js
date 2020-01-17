@@ -1,5 +1,10 @@
 import Project from '../Project';
-import { RuleStatus, RuleObject, RuleVariable, RuleOperator } from 'enum';
+import {
+  RuleStatus,
+  RuleObject,
+  RuleVariable,
+  RuleOperator,
+} from '../../index';
 
 class RuleBasedControlFunctions {
   addRule(this: Project, rule: string) {

@@ -1,5 +1,5 @@
 import Project from '../Project';
-import { NodeType, NodeProperty, ActionCodeType } from 'enum';
+import { NodeType, NodeProperty, ActionCodeType } from '../../index';
 
 class NetworkNodeFunctions {
   addNode(this: Project, id: string, nodeType: NodeType) {

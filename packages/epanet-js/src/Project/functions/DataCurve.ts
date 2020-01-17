@@ -1,5 +1,5 @@
 import Project from '../Project';
-import { CurveType } from 'enum';
+import { CurveType } from '../../index';
 
 class DataCurveFunctions {
   addCurve(this: Project, id: string) {

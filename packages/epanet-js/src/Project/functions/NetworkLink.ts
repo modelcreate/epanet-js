@@ -1,5 +1,5 @@
 import Project from '../Project';
-import { LinkType, ActionCodeType, LinkProperty, PumpType } from 'enum';
+import { LinkType, ActionCodeType, LinkProperty, PumpType } from '../../index';
 
 class NetworkLinkFunctions {
   addLink(
