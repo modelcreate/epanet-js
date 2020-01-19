@@ -70,7 +70,7 @@ model.close()
 * [Step through the hydraulic simulation](https://github.com/modelcreate/epanet-js/wiki/Examples#step-through-the-hydraulic-simulation)
 * [New model builder API](https://github.com/modelcreate/epanet-js/wiki/Examples#new-model-builder-api)
 * [Fire Flow Analysis using React](https://github.com/modelcreate/epanet-js/wiki/Examples#fire-flow-analysis---react-example)
-* [Float valves using React (WIP)](https://github.com/modelcreate/epanet-js-float-valve-example)
+* [Float valves using React Code (WIP)](https://github.com/modelcreate/epanet-js-float-valve-example) - [Demo](https://modelcreate.github.io/epanet-js-float-valve-example/)
 
 
 
