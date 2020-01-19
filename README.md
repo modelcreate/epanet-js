@@ -41,6 +41,8 @@ For those without a module bundler, the epanet-js package will soon be available
 ## Usage
 ### Load and run an existing inp File
 
+[Run this example on CodeSandbox](https://codesandbox.io/embed/musing-chandrasekhar-7tp1y?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=dark)
+
 ```js
 import {Project, Workspace} from 'epanet-js'
 import fs from 'fs'
@@ -60,6 +62,8 @@ model.open('net1.inp', 'report.rpt', 'out.bin');
 model.solveH()
 model.close()
 ```
+
+
 
 ***More Examples***
 
