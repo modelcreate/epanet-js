@@ -138,6 +138,9 @@ class Project
   _checkError(errorCode: number) {
     if (errorCode === 0) {
       return;
+    } else if (errorCode < 100) {
+      console.warn(`epanet-js: ${this._ws.getError(errorCode)}`);
+      return;
     }
     const errorMsg = this._ws.getError(errorCode);
     throw new Error(errorMsg);
