@@ -1,5 +1,11 @@
 import { Project, Workspace } from '../../src';
-import { CountType, LinkType, NodeType, LinkProperty } from '../../src/enum';
+import {
+  CountType,
+  LinkType,
+  NodeType,
+  LinkProperty,
+  ActionCodeType,
+} from '../../src/enum';
 
 import fs from 'fs';
 
@@ -17,6 +23,21 @@ describe('Epanet Network Node Functions', () => {
       }
 
       expect(catchError).toThrow('204: function call contains undefined link');
+    });
+    test('throw if unable to delete', () => {
+      function catchError() {
+        ws.writeFile('net1.inp', net1);
+        const model = new Project(ws);
+        model.open('net1.inp', 'report.rpt', 'out.bin');
+
+        expect(model.getCount(CountType.LinkCount)).toEqual(13);
+
+        model.deleteLink(13, ActionCodeType.Conditional);
+      }
+
+      expect(catchError).toThrow(
+        '261: function call contains attempt to delete a node or link contained in a control'
+      );
     });
   });
   describe('Impliment Methods', () => {
@@ -75,6 +96,32 @@ describe('Epanet Network Node Functions', () => {
       const { node1, node2 } = model.getLinkNodes(1);
       expect(node1).toEqual(1);
       expect(node2).toEqual(3);
+    });
+    test('delete link', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.open('net1.inp', 'report.rpt', 'out.bin');
+
+      expect(model.getCount(CountType.LinkCount)).toEqual(13);
+
+      model.deleteLink(1, ActionCodeType.Conditional);
+
+      expect(model.getCount(CountType.LinkCount)).toEqual(12);
+    });
+    test('set link type', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.open('net1.inp', 'report.rpt', 'out.bin');
+
+      const orgModelType = model.getLinkType(1);
+      expect(orgModelType).toEqual(LinkType.Pipe);
+
+      // TODO: There is bug here that won't let us use setLinkType
+      // https://github.com/modelcreate/epanet-js/issues/24
+
+      //model.setLinkType(1, LinkType.PRV, ActionCodeType.Conditional);
+      //const updatedModelType = model.getLinkType(1);
+      //expect(updatedModelType).toEqual(LinkType.PRV);
     });
   });
 });
