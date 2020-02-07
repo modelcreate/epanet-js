@@ -1,5 +1,12 @@
 import { Project, Workspace } from '../../src';
-import { CountType, NodeType, ActionCodeType } from '../../src/enum';
+import {
+  CountType,
+  NodeType,
+  ActionCodeType,
+  FlowUnits,
+  HeadLossType,
+  NodeProperty,
+} from '../../src/enum';
 
 import fs from 'fs';
 
@@ -80,6 +87,40 @@ describe('Epanet Network Node Functions', () => {
       const indexLookup = model.getNodeIndex('Tank1');
 
       expect(node1Id).toEqual(indexLookup);
+    });
+    test('set and get node values', () => {
+      const model = new Project(ws);
+      model.init('report5.rpt', 'out5.bin', FlowUnits.LPS, HeadLossType.DW);
+
+      //Create Network
+      const node1Id = model.addNode('N1', NodeType.Junction);
+      model.setNodeValue(node1Id, NodeProperty.Elevation, 10);
+      const result = model.getNodeValue(node1Id, NodeProperty.Elevation);
+
+      expect(result).toEqual(10);
+    });
+    test('set and get tank values', () => {
+      const model = new Project(ws);
+      model.init('report6.rpt', 'out6.bin', FlowUnits.LPS, HeadLossType.HW);
+
+      //Create Network
+      const tankId = model.addNode('N1', NodeType.Tank);
+
+      model.setTankData(tankId, 10, 1, 0, 5, 3.2, 1, '');
+
+      // This is failing, see issue https://github.com/modelcreate/epanet-js/issues/23
+
+      //const elevation = model.getNodeValue(tankId, NodeProperty.Elevation);
+      const minLevel = model.getNodeValue(tankId, NodeProperty.MinLevel);
+      const maxLevel = model.getNodeValue(tankId, NodeProperty.MaxLevel);
+      const tankDiam = model.getNodeValue(tankId, NodeProperty.TankDiam);
+      const minVolume = model.getNodeValue(tankId, NodeProperty.MinVolume);
+
+      //expect(elevation).toEqual(10);
+      expect(minLevel).toEqual(0);
+      expect(maxLevel).toEqual(5);
+      expect(tankDiam).toEqual(3.2);
+      expect(minVolume).toEqual(1);
     });
   });
 });
