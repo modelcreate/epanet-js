@@ -1,0 +1,311 @@
+{% extends "main.html" %}
+
+<!-- Render hero under tabs -->
+{% block tabs %} {{ super() }}
+
+<!-- Additional styles for landing page -->
+<style>
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Application header should be static for the landing page */
+  .md-header {
+    position: initial;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .md-tabs {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  /* Remove spacing, as we cannot hide it completely */
+  .md-main__inner {
+    margin: 0;
+  }
+
+  /* Hide main content for now */
+  .md-content {
+    display: none;
+  }
+
+  /* Stripe Layout Test */
+
+  header .stripes {
+    top: 0;
+    grid: repeat(5, 200px) / repeat(10, 1fr);
+    -webkit-transform-origin: 0;
+    transform-origin: 0;
+    background: linear-gradient(
+      #2d517a,
+      #497094 10%,
+      #b1bfcc 38%,
+      #b8c4cf 48%,
+      #f6f9fc 62%
+    );
+  }
+
+  header .stripes::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0; /*changed this */
+    z-index: -1; /*Added this*/
+    width: 100vw;
+    height: 100%;
+  }
+
+  header .stripes {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    display: grid;
+    -webkit-transform: skewY(-12deg);
+    transform: skewY(-12deg);
+  }
+
+  header .stripes {
+    display: grid;
+    grid: repeat(5, 200px) / repeat(10, 1fr);
+  }
+
+  header .stripes :nth-child(1) {
+    grid-area: 3 / 7 / 4/ 1;
+    background: linear-gradient(
+      100grad,
+      rgb(159, 180, 199),
+      rgba(100, 140, 160, 0.09) 20%,
+      rgba(243, 251, 255, 0)
+    );
+  }
+
+  header .stripes :nth-child(2) {
+    grid-area: 2 / span 7 /5 / -1;
+    background: linear-gradient(
+      100grad,
+      rgba(0, 119, 204, 0),
+      rgba(0, 119, 204, 0.05) 33%,
+      rgba(73, 79, 84, 0.61)
+    );
+  }
+
+  header .stripes :nth-child(3) {
+    grid-area: 4/1/6/8;
+    background: linear-gradient(100grad, #fff 50%, hsla(0, 0%, 100%, 0.05));
+  }
+
+  header .stripes :nth-child(4) {
+    grid-area: 4 / span 8 / auto/-1;
+    background: linear-gradient(
+      100grad,
+      rgba(0, 119, 204, 0) 10%,
+      rgb(190, 203, 212)
+    );
+  }
+
+  header .stripes :nth-child(5) {
+    grid-area: 3/1/6/5;
+    background: linear-gradient(
+      100grad,
+      rgba(230, 230, 230, 0.25) 7%,
+      rgba(241, 241, 241, 0)
+    );
+  }
+
+  /*  
+/*
+/*  /* Gradient background + blob */
+  /*  .tx-container {
+/*    padding-top: 1rem;
+/*    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1123 258'><path d='M1124,2c0,0 0,256 0,256l-1125,0l0,-48c0,0 16,5 55,5c116,0 197,-92 325,-92c121,0 114,46 254,46c140,0 214,-167 572,-166Z' style='fill: white' /></svg>")
+/*        no-repeat bottom,
+/*      linear-gradient(
+/*        to bottom,
+/*        var(--md-primary-fg-color),
+/*        rgb(238, 156, 135) 99%,
+/*        white 99%
+/*      );
+/*  }
+
+  /* Set inverted text color on hero */
+  .tx-hero {
+    margin: 0 0.8rem;
+    color: var(--md-primary-bg-color);
+  }
+
+  /* Make main headline thicker */
+  .tx-hero h1 {
+    margin-bottom: 1rem;
+    color: currentColor;
+    font-weight: 700;
+  }
+
+  /* Ensure that blob doesn't overlap buttons */
+  .tx-hero__content {
+    padding-bottom: 6rem;
+  }
+
+  /* Adjust spacing of buttons and invert them */
+  .tx-hero .md-button {
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    color: var(--md-primary-bg-color);
+  }
+
+  /* Invert primary button */
+  .tx-hero .md-button--primary {
+    background-color: var(--md-primary-bg-color);
+    color: hsla(280deg, 37%, 48%, 1);
+    border-color: var(--md-primary-bg-color);
+  }
+
+  /* Invert hover and focus button states */
+  .tx-hero .md-button:hover,
+  .tx-hero .md-button:focus {
+    background-color: var(--md-accent-fg-color);
+    color: var(--md-default-bg-color);
+    border-color: var(--md-accent-fg-color);
+  }
+
+  /* [mobile portrait -]: Adjust headline */
+  @media screen and (max-width: 30em) {
+    /* Make main headline smaller */
+    .tx-hero h1 {
+      font-size: 1.4rem;
+    }
+  }
+
+  /* [tablet landscape +]: Display content and image next to each other */
+  @media screen and (min-width: 60em) {
+    /* Hide table of contents */
+    .md-sidebar--secondary {
+      display: none;
+    }
+
+    /* Use flex layout to align items */
+    .tx-hero {
+      display: flex;
+      align-items: stretch;
+    }
+
+    /* Increase bottom spacing and set dimensions */
+    .tx-hero__content {
+      max-width: 19rem;
+      margin-top: 3.5rem;
+      padding-bottom: 14vw;
+    }
+
+    /* Swap with teaser and set dimensions */
+    .tx-hero__image {
+      width: 38rem;
+      order: 1;
+      transform: translateX(4rem);
+    }
+  }
+
+  /* [screen +]: Adjust spacing */
+  @media screen and (min-width: 76.25em) {
+    /* Hide navigation */
+    .md-sidebar--primary {
+      display: none;
+    }
+
+    /* Ensure the image aligns with the repository information */
+    .tx-hero__image {
+      transform: translateX(8rem);
+    }
+  }
+</style>
+
+<!-- Hero for landing page -->
+<header class="tx-container">
+  <div class="stripes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="md-grid md-typeset">
+    <div class="tx-hero">
+      <!-- Hero image -->
+      <div class="tx-hero__image">
+        <div>
+          Info
+        </div>
+      </div>
+
+      <!-- Hero content -->
+      <div class="tx-hero__content">
+        <h1>Water distribution network modelling in JavaScript</h1>
+        <p>
+          Uses the Open Water Analytics EPANET v2.2 toolkit compiled to
+          Javascript.
+        </p>
+        <a
+          href="{{ page.next_page.url | url }}"
+          title="{{ page.next_page.title | striptags }}"
+          class="md-button md-button--primary"
+        >
+          Get started
+        </a>
+        <a
+          href="{{ config.repo_url }}"
+          title="{{ lang.t('source.link.title') }}"
+          class="md-button"
+        >
+          Go to GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<section>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+  <h2>Test</h2>
+</section>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}{% endblock %}
+
+<!-- Application footer -->
+{% block footer %}{% endblock %}

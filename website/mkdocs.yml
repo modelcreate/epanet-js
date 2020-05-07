@@ -1,0 +1,72 @@
+# Project information
+site_name: epanet-js
+site_description: A Material Design theme for MkDocs
+site_author: Luke Butler
+site_url: https://squidfunk.github.io/mkdocs-material/
+
+# Repository
+repo_name: epanet-js
+repo_url: https://github.com/modelcreate/epanet-js
+
+# Copyright
+copyright: Copyright &copy; 2019 - 2020 Luke Butler
+
+# Configuration
+theme:
+  name: material
+  custom_dir: "theme/"
+  language: en
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: material/water
+    repo: fontawesome/brands/github
+  features:
+    - tabs
+    - instant
+
+# Extras
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/squidfunk
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/squidfunk
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/squidfunk
+
+# Google Analytics
+google_analytics:
+  - UA-XXXXXXXX-X
+  - auto
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+#nav:
+#  - Home: index.md
+#  - Learn More:
+#      - About epanet-js: About/index.md
+#  - Getting Started:
+#      - About epanet-js: Guide/index.md
+#  - Showcase:
+#      - About epanet-js: Guide/index.md
+#  - API:
+#      - API: API/index.md
+#      - Another File:
+#          - test: API/doc3.md
+#          - test: API/doc3.md
+#      - Another File 3:
+#          - test: API/doc3.md
+#          - test: API/doc3.md
+#  - Blog:
+#      - About epanet-js: Guide/index.md
+#
