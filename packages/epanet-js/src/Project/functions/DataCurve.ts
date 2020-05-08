@@ -71,7 +71,7 @@ class DataCurveFunctions {
 
     // Free memory
     this._instance._free(xPtr);
-    this._instance_free(yPtr);
+    this._instance._free(yPtr);
   }
 }
 
