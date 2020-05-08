@@ -5,15 +5,15 @@
 
 <!-- Additional styles for landing page -->
 <style>
-  @keyframes mover {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-5px);
-    }
+  body {
+    background: #f9fafb;
+    z-index: -2;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: "pnum";
+    font-feature-settings: "pnum";
+    font-variant-numeric: proportional-nums;
   }
-
   /* Application header should be static for the landing page */
   .md-header {
     position: initial;
@@ -117,37 +117,63 @@
     );
   }
 
-  /*  
-/*
-/*  /* Gradient background + blob */
-  /*  .tx-container {
-/*    padding-top: 1rem;
-/*    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1123 258'><path d='M1124,2c0,0 0,256 0,256l-1125,0l0,-48c0,0 16,5 55,5c116,0 197,-92 325,-92c121,0 114,46 254,46c140,0 214,-167 572,-166Z' style='fill: white' /></svg>")
-/*        no-repeat bottom,
-/*      linear-gradient(
-/*        to bottom,
-/*        var(--md-primary-fg-color),
-/*        rgb(238, 156, 135) 99%,
-/*        white 99%
-/*      );
-/*  }
+  /* Define the demo screen */
+  .tx-hero__demoscreen {
+    background: #fff;
+    border-radius: 8px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    width: 436px;
+    height: 353px;
+    display: block;
+    -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+      0 18px 36px -18px rgba(0, 0, 0, 0.3),
+      0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+      0 18px 36px -18px rgba(0, 0, 0, 0.3),
+      0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    left: 50%;
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-transform: perspective(3190px);
+    transform: perspective(3190px);
+  }
 
   /* Set inverted text color on hero */
   .tx-hero {
     margin: 0 0.8rem;
     color: var(--md-primary-bg-color);
+    display: grid;
+    grid-template-rows: 0.55fr 0.45fr;
+    grid-gap: 0 30px;
+    gap: 0 30px;
+    margin: 70px 0 0;
+    text-align: left;
+  }
+
+  .tx-hero > div {
+    min-width: 0;
   }
 
   /* Make main headline thicker */
   .tx-hero h1 {
     margin-bottom: 1rem;
-    color: currentColor;
-    font-weight: 700;
+    color: #2f2f2fbf;
+    font-size: 2.2625rem;
+    font-weight: 500;
   }
 
-  /* Ensure that blob doesn't overlap buttons */
-  .tx-hero__content {
-    padding-bottom: 6rem;
+  .tx-hero h1 .tx-hero__headerhighlight {
+    margin: 0;
+    color: hsl(280, 37%, 48%);
+    font-weight: 100;
+    font-size: 1.6rem;
+  }
+
+  .tx-hero .tx-hero__tagline {
+    font-size: 1rem;
+    max-width: 540px;
   }
 
   /* Adjust spacing of buttons and invert them */
@@ -172,11 +198,52 @@
     border-color: var(--md-accent-fg-color);
   }
 
+  #three-benefits {
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+  }
+
   /* [mobile portrait -]: Adjust headline */
   @media screen and (max-width: 30em) {
     /* Make main headline smaller */
     .tx-hero h1 {
       font-size: 1.4rem;
+    }
+  }
+
+  @media screen and (min-width: 670px) {
+    .tx-hero {
+      grid-template-columns: 0.55fr 0.45fr;
+      grid-template-rows: auto;
+      grid-gap: 0 40px;
+      gap: 0 40px;
+    }
+
+    .tx-hero__demoscreen {
+      left: auto;
+    }
+
+    #three-benefits {
+      display: grid;
+      grid: repeat(3, auto) / auto-flow 1fr;
+      grid-gap: 0 41px;
+    }
+  }
+
+  @media screen and (min-width: 880px) {
+    .tx-hero {
+      grid-gap: 0 30px;
+      gap: 0 30px;
+    }
+
+    .tx-hero__demoscreen {
+      box-shadow: 1px 1px 5px 0 rgba(26, 26, 67, 0.05),
+        39px 62.5px 125px -25px rgba(50, 50, 93, 0.5),
+        23.4px 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
+
+      transform: scale(1.3) translateX(50px) translateY(0) perspective(3190px)
+        rotateY(-29deg) rotateX(4deg) rotate(1deg);
     }
   }
 
@@ -187,25 +254,11 @@
       display: none;
     }
 
-    /* Use flex layout to align items */
-    .tx-hero {
-      display: flex;
-      align-items: stretch;
-    }
-
     /* Increase bottom spacing and set dimensions */
     .tx-hero__content {
-      max-width: 19rem;
-      margin-top: 3.5rem;
-      padding-bottom: 14vw;
     }
 
     /* Swap with teaser and set dimensions */
-    .tx-hero__image {
-      width: 38rem;
-      order: 1;
-      transform: translateX(4rem);
-    }
   }
 
   /* [screen +]: Adjust spacing */
@@ -217,7 +270,6 @@
 
     /* Ensure the image aligns with the repository information */
     .tx-hero__image {
-      transform: translateX(8rem);
     }
   }
 </style>
@@ -233,19 +285,17 @@
   </div>
   <div class="md-grid md-typeset">
     <div class="tx-hero">
-      <!-- Hero image -->
-      <div class="tx-hero__image">
-        <div>
-          Info
-        </div>
-      </div>
-
       <!-- Hero content -->
       <div class="tx-hero__content">
-        <h1>Water distribution network modelling in JavaScript</h1>
-        <p>
-          Uses the Open Water Analytics EPANET v2.2 toolkit compiled to
-          Javascript.
+        <h1>
+          Water distribution modelling <br />
+          <p class="tx-hero__headerhighlight">
+            in the browser using JavaScript
+          </p>
+        </h1>
+        <p class="tx-hero__tagline">
+          Use the Open Water Analytics EPANET toolkit compiled to Javascript,
+          either in the browser or Node.
         </p>
         <a
           href="{{ page.next_page.url | url }}"
@@ -262,46 +312,30 @@
           Go to GitHub
         </a>
       </div>
+      <!-- Hero image -->
+      <div class="tx-hero__image">
+        <div class="tx-hero__demoscreen">
+          Info
+        </div>
+      </div>
     </div>
   </div>
 </header>
-<section>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-  <h2>Test</h2>
-</section>
+<!--
+<section id="three-benefits" class="md-grid">
+  {% set icon = config.theme.icon.logo or "material/library" %}
 
+  <div>{% include ".icons/material/github.svg" %}</div>
+  <h2>Benefit One</h2>
+  <p>Long text talking about why this is good</p>
+  <div>{% include ".icons/material/github.svg" %}</div>
+  <h2>Benefit Two</h2>
+  <p>Long text talking about why this is good</p>
+  <div>{% include ".icons/material/rocket.svg" %}</div>
+  <h2>Benefit One</h2>
+  <p>Long text talking about why this is good</p>
+</section>
+-->
 {% endblock %}
 
 <!-- Content -->
