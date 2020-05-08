@@ -53,7 +53,7 @@ class TimePatternFunctions {
     this._checkError(this._EN.setpattern(index, valuesPtr, values.length));
 
     // Free memory
-    Module._free(valuesPtr);
+    this._instance._free(valuesPtr);
   }
 }
 
