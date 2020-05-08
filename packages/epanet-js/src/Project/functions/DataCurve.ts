@@ -70,8 +70,8 @@ class DataCurveFunctions {
     this._checkError(this._EN.setcurve(index, xPtr, yPtr, xValues.length));
 
     // Free memory
-    Module._free(xPtr);
-    Module._free(yPtr);
+    this._instance._free(xPtr);
+    this._instance._free(yPtr);
   }
 }
 

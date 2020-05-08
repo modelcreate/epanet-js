@@ -1,57 +1,55 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test-lint-build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-      
-    - name: Cache emscripten build
-      id: cache-emscripten-build
-      uses: actions/cache@v1
-      with:
-        path: 'packages/epanet-engine/dist'
-        key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
+      - uses: actions/checkout@v1
 
-    - name: list files
-      run: ls -LR  packages/epanet-engine
-    - name: Build emscripten docker container
-      if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
-      run: yarn build:docker
-    - name: Compile OWA-EPANET to JS
-      if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
-      run:  yarn build:engine
-    
-    - name: Get yarn cache
-      id: yarn-cache
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache emscripten build
+        id: cache-emscripten-build
+        uses: actions/cache@v1
+        with:
+          path: "packages/epanet-engine/dist"
+          key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
 
-    - uses: actions/cache@v1
-      with:
-        path: ${{ steps.yarn-cache.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-      
-    - name: Install Dependencies
-      run: yarn install
-    - name: Running tests
-      run: yarn test
-      
-    - name: Running test coverage
-      run: yarn test:coverage
-    - uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} #required
-        file: 'packages/epanet-js/coverage/clover.xml'
-        fail_ci_if_error: true #optional (default = false)
-    
-    - name: Running linter
-      run: yarn lint
-    - name: Running build
-      run: yarn build
+      - name: list files
+        run: ls -LR  packages/epanet-engine
+      - name: Build emscripten docker container
+        if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
+        run: yarn build:docker
+      - name: Compile OWA-EPANET to JS
+        if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
+        run: yarn build:engine
 
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: yarn install
+      - name: Running tests
+        run: yarn test
+
+      - name: Running test coverage
+        run: yarn test:coverage
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} #required
+          file: "packages/epanet-js/coverage/clover.xml"
+          fail_ci_if_error: true #optional (default = false)
+
+      - name: Running linter
+        run: yarn lint
+      - name: Running build
+        run: yarn build
