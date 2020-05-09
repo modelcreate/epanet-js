@@ -5,6 +5,16 @@
 
 <!-- Additional styles for landing page -->
 <style>
+  .stripes-container {
+    height: 100vh;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    overflow: initial;
+  }
+
   body {
     background: #f9fafb;
     z-index: -2;
@@ -32,89 +42,6 @@
   /* Hide main content for now */
   .md-content {
     display: none;
-  }
-
-  /* Stripe Layout Test */
-
-  header .stripes {
-    top: 0;
-    grid: repeat(5, 200px) / repeat(10, 1fr);
-    -webkit-transform-origin: 0;
-    transform-origin: 0;
-    background: linear-gradient(
-      #2d517a,
-      #497094 10%,
-      #b1bfcc 38%,
-      #b8c4cf 48%,
-      #f6f9fc 62%
-    );
-  }
-
-  header .stripes::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0; /*changed this */
-    z-index: -1; /*Added this*/
-    width: 100vw;
-    height: 100%;
-  }
-
-  header .stripes {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    display: grid;
-    -webkit-transform: skewY(-12deg);
-    transform: skewY(-12deg);
-  }
-
-  header .stripes {
-    display: grid;
-    grid: repeat(5, 200px) / repeat(10, 1fr);
-  }
-
-  header .stripes :nth-child(1) {
-    grid-area: 3 / 7 / 4/ 1;
-    background: linear-gradient(
-      100grad,
-      rgb(159, 180, 199),
-      rgba(100, 140, 160, 0.09) 20%,
-      rgba(243, 251, 255, 0)
-    );
-  }
-
-  header .stripes :nth-child(2) {
-    grid-area: 2 / span 7 /5 / -1;
-    background: linear-gradient(
-      100grad,
-      rgba(0, 119, 204, 0),
-      rgba(0, 119, 204, 0.05) 33%,
-      rgba(73, 79, 84, 0.61)
-    );
-  }
-
-  header .stripes :nth-child(3) {
-    grid-area: 4/1/6/8;
-    background: linear-gradient(100grad, #fff 50%, hsla(0, 0%, 100%, 0.05));
-  }
-
-  header .stripes :nth-child(4) {
-    grid-area: 4 / span 8 / auto/-1;
-    background: linear-gradient(
-      100grad,
-      rgba(0, 119, 204, 0) 10%,
-      rgb(190, 203, 212)
-    );
-  }
-
-  header .stripes :nth-child(5) {
-    grid-area: 3/1/6/5;
-    background: linear-gradient(
-      100grad,
-      rgba(230, 230, 230, 0.25) 7%,
-      rgba(241, 241, 241, 0)
-    );
   }
 
   /* Define the demo screen */
@@ -276,13 +203,13 @@
 
 <!-- Hero for landing page -->
 <header class="tx-container">
-  <div class="stripes">
+  <!-- <div class="stripes">
     <span></span>
     <span></span>
     <span></span>
     <span></span>
     <span></span>
-  </div>
+  </div> -->
   <div class="md-grid md-typeset">
     <div class="tx-hero">
       <!-- Hero content -->

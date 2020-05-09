@@ -39,6 +39,9 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/squidfunk
 
+extra_css:
+  - stylesheets/colours.css
+
 # Google Analytics
 google_analytics:
   - UA-XXXXXXXX-X

@@ -1,0 +1,9 @@
+.md-nav--primary .md-nav__title[for="__drawer"],
+.md-nav__source {
+  background-color: hsla(209, 23%, 48%, 1);
+}
+
+.md-header,
+.md-tabs {
+  background-color: transparent;
+}
