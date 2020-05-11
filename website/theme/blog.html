@@ -1,6 +1,16 @@
 {% extends "main.html" %} {% block content %}
 
 <style>
+  /* Hide Nav menu in content only */
+  .md-sidebar--secondary {
+    display: none;
+  }
+  @media screen and (min-width: 76.1875em) {
+    .md-sidebar {
+      display: none;
+    }
+  }
+
   .blog-card-content a,
   .blog-card-content a:hover,
   .blog-card-content a:focus {
@@ -47,13 +57,15 @@
   }
   .blog-items {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    flex-flow: row;
+    justify-content: start;
+    flex-wrap: wrap;
   }
   .blog-items .blog-card {
     border: none;
     padding: 0;
     width: calc(100% - 1em);
+    margin: 1.5625em 0.5em;
   }
   .blog-card-content {
     display: flex;
@@ -119,7 +131,7 @@
 <!-- Render item list -->
 <section class="blog-items">
   {% for nav_item in nav %} {% if nav_item.active %} {% for nav_item in
-  nav_item.children %} {% if nav_item.children %} {% for blog in
+  nav_item.children|reverse %} {% if nav_item.children %} {% for blog in
   nav_item.children|reverse %} {% include "partials/blog-item.html" %} {% endfor
   %} {% endif %}{% endfor %} {% endif %} {% endfor %}
 </section>
@@ -127,5 +139,3 @@
 <!-- Render item list -->
 
 {% endblock %}
-<!-- Application footer -->
-{% block site_nav %}{% endblock %}

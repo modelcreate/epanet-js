@@ -27,7 +27,7 @@ theme:
     repo: fontawesome/brands/github
   features:
     - tabs
-    - instant
+#    - instant
 
 # Extras
 extra:
@@ -54,6 +54,10 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
+
+plugins:
+  - search # necessary for search to work
+  - awesome-pages
 #nav:
 #  - Home: index.md
 #  - Learn More:
@@ -72,4 +76,3 @@ markdown_extensions:
 #          - test: API/doc3.md
 #  - Blog:
 #      - About epanet-js: Guide/index.md
-#
