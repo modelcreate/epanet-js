@@ -1,6 +1,5 @@
 ---
-title: Installing epanet-js
-sidebar_label: Getting Started
+title: Getting Started
 ---
 
 ## Install
@@ -45,15 +44,4 @@ model.solveH();
 model.close();
 ```
 
-**_More Examples_**
-
-- [Step through the hydraulic simulation](https://github.com/modelcreate/epanet-js/wiki/Examples#step-through-the-hydraulic-simulation)
-- [New model builder API](https://github.com/modelcreate/epanet-js/wiki/Examples#new-model-builder-api)
-- [Fire Flow Analysis using React](https://github.com/modelcreate/epanet-js/wiki/Examples#fire-flow-analysis---react-example)
-- [Float valves using React Code (WIP)](https://github.com/modelcreate/epanet-js-float-valve-example) - [Demo](https://modelcreate.github.io/epanet-js-float-valve-example/)
-
-## Guide
-
-- [Step through the hydraulic simulation](#step-through-the-hydraulic-simulation)
-- [New model builder API](#new-model-builder-api)
-- [Fire Flow Analysis - React Example](#fire-flow-analysis---react-example)
+See the complete list of examples in the [examples page](examples).

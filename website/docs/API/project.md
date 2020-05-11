@@ -1,4 +1,4 @@
-## Project Class
+# Project Class
 
 Create a `Project` object by instancing the `epanetJs.Project` class with a `Workspace` object.
 
@@ -8,7 +8,7 @@ const ws = new Workspace()
 const model = new Project(ws)
 ```
 
-### Class Methods
+## Class Methods
 
 | Functions                                                             | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- |

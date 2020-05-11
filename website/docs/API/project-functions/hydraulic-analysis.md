@@ -1,3 +1,5 @@
+# Hydraulic Analysis
+
 ## Project Class - Hydraulic Analysis Functions
 
 These functions are used to perform a hydraulic analysis.
@@ -11,8 +13,8 @@ These functions are used to perform a hydraulic analysis.
 | <a href="#runH"><code>runH</code></a>               | Computes a hydraulic solution for the current point in time.                                                                                                           |
 | <a href="#nextH"><code>nextH</code></a>             | Determines the length of time until the next hydraulic event occurs in an extended period simulation.                                                                  |
 | <a href="#saveH"><code>saveH</code></a>             | Transfers a project's hydraulics results from its temporary hydraulics file to its binary output file, where results are only reported at uniform reporting intervals. |
-| <a href="#saveHydFile"><code>saveHydFile</code></a> | Saves a project's temporary hydraulics file to disk.                                                                                                                   |
-| <a href="#closeH"><code>closeH</code></a>           | Closes the hydraulic solver freeing all of its allocated memory.                                                                                                       |
+| <a href="#savehydfile"><code>saveHydFile</code></a> | Saves a project's temporary hydraulics file to disk.                                                                                                                   |
+| <a href="#closeh"><code>closeH</code></a>           | Closes the hydraulic solver freeing all of its allocated memory.                                                                                                       |
 
 #### solveH
 
@@ -26,7 +28,7 @@ Use `solveH` to generate a complete hydraulic solution which can stand alone or 
 
 The sequence <a href="#openH"><code>openH</code></a> - <a href="#initH"><code>initH</code></a> - <a href="#runH"><code>runH</code></a> - <a href="#nextH"><code>nextH</code></a> - <a href="#closeH"><code>closeH</code></a> can be used instead to gain access to results at intermediate time periods and directly adjust link status and control settings as a simulation proceeds.
 
-##
+---
 
 #### useHydFile
 
@@ -46,7 +48,7 @@ Call this function to re-use a set of hydraulic analysis results saved previousl
 
 Do not call this function while the hydraulics solver is open.
 
-##
+---
 
 #### openH
 
@@ -60,7 +62,7 @@ Call `openH` prior to running the first hydraulic analysis using the <a href="#i
 
 Do not call this function if <a href="#solveH"><code>solveH</code></a> is being used to run a complete hydraulic analysis or if hydraulics are being supplied by a previously saved hydraulics file using <a href="#useHydFile"><code>useHydFile</code></a>.
 
-##
+---
 
 #### initH
 
@@ -90,7 +92,7 @@ Choose to save hydraulics results if you will be:
 
 There is no need to save hydraulics if you will be writing custom code to process hydraulic results as they are generated using the functions <a href="Network-Node-Functions#getNodeValue"><code>getNodeValue</code></a> and <a href="Network-Link-Functions#getLinkValue"><code>getLinkValue</code></a>.
 
-##
+---
 
 #### runH
 
@@ -109,7 +111,7 @@ This function is used in a loop with <a href="#nextH"><code>nextH</code></a> to 
 
 <a href="#initH"><code>initH</code></a> must have been called prior to running the <a href="#runH"><code>runH</code></a> - <a href="#nextH"><code>nextH</code></a> loop.
 
-##
+---
 
 #### nextH
 
@@ -134,7 +136,7 @@ The return value is automatically computed as the smaller of:
 - the time interval until a tank becomes full or empty
 - the time interval until a control or rule fires.
 
-##
+---
 
 #### saveH
 
@@ -146,7 +148,7 @@ saveH(): void
 
 `saveH` is used when only a hydraulic analysis is run and results at uniform reporting intervals need to be transferred to a project's binary output file. Such would be the case when results are to be written in formatted fashion to the project's report file using <a href="Reporting-Functions#report"><code>report</code></a>.
 
-##
+---
 
 #### saveHydFile
 
@@ -168,7 +170,7 @@ The hydraulics file contains nodal demands and heads and link flows, status, and
 
 Before calling this function hydraulic results must have been generated and saved by having called <a href="#solveH"><code>solveH</code></a> or the <a href="#initH"><code>initH</code></a> - <a href="#runH"><code>runH</code></a> - <a href="#nextH"><code>nextH</code></a> sequence with the `initflag` argument of <a href="#initH"><code>initH</code></a> set to <a href="Enumerated-Types#InitHydOption"><code>InitHydOption.Save</code></a> or <a href="Enumerated-Types#InitHydOption"><code>InitHydOption.SaveAndInit</code></a>.
 
-##
+---
 
 #### closeH
 

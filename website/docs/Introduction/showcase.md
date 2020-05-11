@@ -1,8 +1,6 @@
-## Featured Apps
-
 The following apps were created using the epanet-js engine, please let us know any apps you've made.
 
-### Model View
+## Model View
 
 <a href="https://view.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-view/master/ModelViewPreview.gif" alt="Model View" height="175" align="center"/></a>
 
@@ -12,7 +10,9 @@ Display models created in EPANET directly in the browser. No data leaves your co
 
 **Source Code**: [GitHub](https://github.com/modelcreate/model-view)
 
-### Model Calibrate
+---
+
+## Model Calibrate
 
 <a href="https://calibrate.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-calibrate/master/img/app.png" alt="Model View" height="175" align="center"/></a>
 

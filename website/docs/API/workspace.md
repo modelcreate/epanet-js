@@ -1,6 +1,5 @@
 ---
 title: Workspace Class
-sidebar_label: Workspace
 ---
 
 # Workspace Class
