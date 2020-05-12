@@ -47,13 +47,13 @@
 
   /* Define the demo screen */
   .tx-hero__demoscreen {
-    background: #fff;
+    background: #e8e8e8;
     border-radius: 8px;
     position: relative;
     z-index: 5;
     overflow: hidden;
-    width: 650px;
-    height: 350px;
+    width: 100%;
+    min-height: 200x;
     display: block;
     -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
       0 18px 36px -18px rgba(0, 0, 0, 0.3),
@@ -61,11 +61,14 @@
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
       0 18px 36px -18px rgba(0, 0, 0, 0.3),
       0 -12px 36px -8px rgba(0, 0, 0, 0.025);
-    left: 50%;
     -webkit-transform-origin: top center;
     transform-origin: top center;
     -webkit-transform: perspective(3190px);
     transform: perspective(3190px);
+  }
+
+  .tx-hero__image {
+    margin: 2em;
   }
 
   /* Set inverted text color on hero */
@@ -211,6 +214,12 @@
 
     .tx-hero__demoscreen {
       left: auto;
+      width: 650px;
+      height: 350px;
+    }
+
+    .tx-hero__image {
+      margin: 0;
     }
 
     #three-benefits {
@@ -256,10 +265,6 @@
     /* Increase bottom spacing and set dimensions */
     .tx-hero__content {
       margin-left: 0em;
-    }
-
-    /* Ensure the image aligns with the repository information */
-    .tx-hero__image {
     }
   }
 </style>
