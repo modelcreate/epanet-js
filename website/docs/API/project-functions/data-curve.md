@@ -1,19 +1,21 @@
-## Project Class - Data Curve Functions
+# Data Curve Functions
 
 These functions are used for working with data curves.
 
-| Function                                                                    | Description                                             |
-| --------------------------------------------------------------------------- | ------------------------------------------------------- |
-| <a href="Data-Curve-Functions#addCurve"><code>addCurve</code></a>           | Adds a new data curve to a project.                     |
-| <a href="Data-Curve-Functions#deleteCurve"><code>deleteCurve</code></a>     | Deletes a data curve from a project.                    |
-| <a href="Data-Curve-Functions#getCurveIndex"><code>getCurveIndex</code></a> | Retrieves the index of a curve given its ID name.       |
-| <a href="Data-Curve-Functions#getCurveId"><code>getCurveId</code></a>       | Retrieves the ID name of a curve given its index.       |
-| <a href="Data-Curve-Functions#setCurveId"><code>setCurveId</code></a>       | Changes the ID name of a data curve given its index.    |
-| <a href="Data-Curve-Functions#getCurveLenth"><code>getCurveLenth</code></a> | Retrieves the number of points in a curve.              |
-| <a href="Data-Curve-Functions#getCurveType"><code>getCurveType</code></a>   | Retrieves a curve's type.                               |
-| <a href="Data-Curve-Functions#getCurveValue"><code>getCurveValue</code></a> | Retrieves the value of a single data point for a curve. |
-| <a href="Data-Curve-Functions#setCurveValue"><code>setCurveValue</code></a> | Sets the value of a single data point for a curve.      |
-| <a href="Data-Curve-Functions#setCurve"><code>setCurve</code></a>           | assigns a set of data points to a curve.                |
+| Function                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| <a href="#addcurve"><code>addCurve</code></a>           | Adds a new data curve to a project.                     |
+| <a href="#deletecurve"><code>deleteCurve</code></a>     | Deletes a data curve from a project.                    |
+| <a href="#getcurveindex"><code>getCurveIndex</code></a> | Retrieves the index of a curve given its ID name.       |
+| <a href="#getcurveid"><code>getCurveId</code></a>       | Retrieves the ID name of a curve given its index.       |
+| <a href="#setcurveid"><code>setCurveId</code></a>       | Changes the ID name of a data curve given its index.    |
+| <a href="#getcurvelenth"><code>getCurveLenth</code></a> | Retrieves the number of points in a curve.              |
+| <a href="#getcurvetype"><code>getCurveType</code></a>   | Retrieves a curve's type.                               |
+| <a href="#getcurvevalue"><code>getCurveValue</code></a> | Retrieves the value of a single data point for a curve. |
+| <a href="#setcurvevalue"><code>setCurveValue</code></a> | Sets the value of a single data point for a curve.      |
+| <a href="#setcurve"><code>setCurve</code></a>           | assigns a set of data points to a curve.                |
+
+---
 
 #### addCurve
 
@@ -31,7 +33,7 @@ addCurve(id: string): void;
 
 The new curve contains a single data point (1.0, 1.0).
 
-##
+---
 
 #### deleteCurve
 
@@ -47,7 +49,7 @@ deleteCurve(index: number): void;
 | --------- | ------------------- | ----------------------------------------- |
 | index     | <code>number</code> | the data curve's index (starting from 1). |
 
-##
+---
 
 #### getCurveIndex
 
@@ -68,7 +70,7 @@ getCurveIndex(id: string): number;
 <code>Number</code>
 The curve's index (starting from 1).
 
-##
+---
 
 #### getCurveId
 
@@ -89,7 +91,7 @@ getCurveId(index: number): string;
 <code>Number</code>
 the curve's ID name.
 
-##
+---
 
 #### setCurveId
 
@@ -106,7 +108,7 @@ setCurveId(index: number, id: string): void;
 | index     | <code>number</code> | a data curve index (starting from 1). |
 | id        | <code>string</code> | the data curve's new ID name.         |
 
-##
+---
 
 #### getCurveLenth
 
@@ -127,7 +129,7 @@ getCurveLenth(index: number): number;
 <code>Number</code>
 The number of data points assigned to the curve.
 
-##
+---
 
 #### getCurveType
 
@@ -146,9 +148,9 @@ getCurveType(index: number): CurveType;
 **Returns**
 
 <code>CurveType</code>
-the curve's type (see <a href="Enumerated-Types#CurveType"><code>CurveType</code></a>).
+the curve's type (see <a href="../enumerated-types#curvetype"><code>CurveType</code></a>).
 
-##
+---
 
 #### getCurveValue
 
@@ -184,7 +186,7 @@ y: number;
 | x        | <code>number</code> | the point's x-value. |
 | y        | <code>number</code> | the point's y-value. |
 
-##
+---
 
 #### setCurveValue
 
@@ -203,7 +205,7 @@ setCurveValue(curveIndex: number, pointIndex: number, x: number, y: number): voi
 | x          | <code>number</code> | the point's new x-value.                             |
 | y          | <code>number</code> | the point's new y-value.                             |
 
-##
+---
 
 #### setCurve
 
@@ -221,4 +223,4 @@ setCurve(index: number, xValues: number[], yValues: number[]): void;
 | xValues   | <code>number[]</code> | an array of new x-values for the curve. |
 | yValues   | <code>number[]</code> | an array of new y-values for the curve. |
 
-Use this function to redefine (and resize) a curve all at once; use <a href="#setCurveValue"><code>setCurveValue</code></a> to revise a curve's data points one at a time.
+Use this function to redefine (and resize) a curve all at once; use <a href="#setcurvevalue"><code>setCurveValue</code></a> to revise a curve's data points one at a time.

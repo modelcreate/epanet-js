@@ -1,21 +1,23 @@
-## Project Class - Network Node Functions
+# Network Node Functions
 
-These functions are used for working with network nodes. [More...](Network-Node-Functions)
+These functions are used for working with network nodes. [More...]()
 
-| Function                                                                          | Description                                     |
-| --------------------------------------------------------------------------------- | ----------------------------------------------- |
-| <a href="Network-Node-Functions#addNode"><code>addNode</code></a>                 | Adds a new node to a project.                   |
-| <a href="Network-Node-Functions#deleteNode"><code>deleteNode</code></a>           | Deletes a node from a project.                  |
-| <a href="Network-Node-Functions#getNodeIndex"><code>getNodeIndex</code></a>       | Gets the index of a node given its ID name.     |
-| <a href="Network-Node-Functions#getNodeId"><code>getNodeId</code></a>             | Gets the ID name of a node given its index.     |
-| <a href="Network-Node-Functions#setNodeId"><code>setNodeId</code></a>             | Changes the ID name of a node.                  |
-| <a href="Network-Node-Functions#getNodeType"><code>getNodeType</code></a>         | Retrieves a node's type given its index.        |
-| <a href="Network-Node-Functions#getNodeValue"><code>getNodeValue</code></a>       | Retrieves a property value for a node.          |
-| <a href="Network-Node-Functions#setNodeValue"><code>setNodeValue</code></a>       | Sets a property value for a node.               |
-| <a href="Network-Node-Functions#setJunctionData"><code>setJunctionData</code></a> | Sets a group of properties for a junction node. |
-| <a href="Network-Node-Functions#setTankData"><code>setTankData</code></a>         | Sets a group of properties for a tank node.     |
-| <a href="Network-Node-Functions#getCoordinates"><code>getCoordinates</code></a>   | Gets the (x,y) coordinates of a node.           |
-| <a href="Network-Node-Functions#setCoordinates"><code>setCoordinates</code></a>   | Sets the (x,y) coordinates of a node.           |
+| Function                                                    | Description                                     |
+| ----------------------------------------------------------- | ----------------------------------------------- |
+| <a href="#addnode"><code>addNode</code></a>                 | Adds a new node to a project.                   |
+| <a href="#deletenode"><code>deleteNode</code></a>           | Deletes a node from a project.                  |
+| <a href="#getnodeindex"><code>getNodeIndex</code></a>       | Gets the index of a node given its ID name.     |
+| <a href="#getnodeid"><code>getNodeId</code></a>             | Gets the ID name of a node given its index.     |
+| <a href="#setnodeid"><code>setNodeId</code></a>             | Changes the ID name of a node.                  |
+| <a href="#getnodetype"><code>getNodeType</code></a>         | Retrieves a node's type given its index.        |
+| <a href="#getnodevalue"><code>getNodeValue</code></a>       | Retrieves a property value for a node.          |
+| <a href="#setnodevalue"><code>setNodeValue</code></a>       | Sets a property value for a node.               |
+| <a href="#setjunctiondata"><code>setJunctionData</code></a> | Sets a group of properties for a junction node. |
+| <a href="#settankdata"><code>setTankData</code></a>         | Sets a group of properties for a tank node.     |
+| <a href="#getcoordinates"><code>getCoordinates</code></a>   | Gets the (x,y) coordinates of a node.           |
+| <a href="#setcoordinates"><code>setCoordinates</code></a>   | Sets the (x,y) coordinates of a node.           |
+
+---
 
 #### addNode
 
@@ -27,19 +29,19 @@ addNode(id: string, nodeType: NodeType): number;
 
 **Parameters**
 
-| Parameter | Type                  | Description                                                                                      |
-| --------- | --------------------- | ------------------------------------------------------------------------------------------------ |
-| id        | <code>string</code>   | the ID name of the node to be added.                                                             |
-| nodeType  | <code>NodeType</code> | the type of node being added (see <a href="Enumerated-Types#NodeType"><code>NodeType</code></a>) |
+| Parameter | Type                  | Description                                                                                         |
+| --------- | --------------------- | --------------------------------------------------------------------------------------------------- |
+| id        | <code>string</code>   | the ID name of the node to be added.                                                                |
+| nodeType  | <code>NodeType</code> | the type of node being added (see <a href="../enumerated-types#nodetype"><code>NodeType</code></a>) |
 
 **Returns**
 
 <code>Number</code>
 the index of the newly added node
 
-When a new node is created all of its properties (see <a href="Enumerated-Types#NodeProperty"><code>NodeProperty</code></a>) are set to 0.
+When a new node is created all of its properties (see <a href="../enumerated-types#nodeproperty"><code>NodeProperty</code></a>) are set to 0.
 
-##
+---
 
 #### deleteNode
 
@@ -58,7 +60,7 @@ deleteNode(index: number, actionCode: ActionCodeType): void;
 
 If actionCode is <code>ActionCodeType.Unconditional</code> then the node, its incident links and all simple and rule-based controls that contain them are deleted. If set to <code>ActionCodeType.Conditional</code> then the node is not deleted if it or its incident links appear in any controls and error code 261 is returned.
 
-##
+---
 
 #### getNodeIndex
 
@@ -79,7 +81,7 @@ getNodeIndex(id: string): number;
 <code>Number</code>
 the node's index (starting from 1).
 
-##
+---
 
 #### getNodeId
 
@@ -100,7 +102,7 @@ getNodeId(index: number): string;
 <code>String</code>
 the node's ID name.
 
-##
+---
 
 #### setNodeId
 
@@ -117,7 +119,7 @@ setNodeId(index: number, newid: string): void;
 | index     | <code>number</code> | a node's index (starting from 1). |
 | newid     | <code>string</code> | the new ID name for the node.     |
 
-##
+---
 
 #### getNodeType
 
@@ -136,9 +138,9 @@ getNodeType(index: number): NodeType;
 **Returns**
 
 <code>NodeType</code>
-the node's type (see <a href="Enumerated-Types#NodeType"><code>NodeType</code></a>).
+the node's type (see <a href="../enumerated-types#nodetype"><code>NodeType</code></a>).
 
-##
+---
 
 #### getNodeValue
 
@@ -150,10 +152,10 @@ getNodeValue(index: number, property: NodeProperty): number;
 
 **Parameters**
 
-| Parameter | Type                      | Description                                                                                           |
-| --------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| index     | <code>number</code>       | a node's index.                                                                                       |
-| property  | <code>NodeProperty</code> | the property to retrieve (see <a href="Enumerated-Types#NodeProperty"><code>NodeProperty</code></a>). |
+| Parameter | Type                      | Description                                                                                              |
+| --------- | ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| index     | <code>number</code>       | a node's index.                                                                                          |
+| property  | <code>NodeProperty</code> | the property to retrieve (see <a href="../enumerated-types#nodeproperty"><code>NodeProperty</code></a>). |
 
 **Returns**
 
@@ -162,7 +164,7 @@ the current value of the property.
 
 Values are returned in units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### setNodeValue
 
@@ -174,15 +176,15 @@ setNodeValue(index: number, property: NodeProperty, value: number): void;
 
 **Parameters**
 
-| Parameter | Type                      | Description                                                                                      |
-| --------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
-| index     | <code>number</code>       | a node's index (starting from 1).                                                                |
-| property  | <code>NodeProperty</code> | the property to set (see <a href="Enumerated-Types#NodeProperty"><code>NodeProperty</code></a>). |
-| value     | <code>number</code>       | the new value for the property.                                                                  |
+| Parameter | Type                      | Description                                                                                         |
+| --------- | ------------------------- | --------------------------------------------------------------------------------------------------- |
+| index     | <code>number</code>       | a node's index (starting from 1).                                                                   |
+| property  | <code>NodeProperty</code> | the property to set (see <a href="../enumerated-types#nodeproperty"><code>NodeProperty</code></a>). |
+| value     | <code>number</code>       | the new value for the property.                                                                     |
 
 Values are in units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### setJunctionData
 
@@ -203,7 +205,7 @@ setJunctionData(index: number, elev: number, dmnd: number, dmndpat: string): voi
 
 These properties have units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### setTankData
 
@@ -228,7 +230,7 @@ setTankData(index: number, elev: number, initlvl: number, minlvl: number, maxlvl
 
 These properties have units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### getCoordinates
 
@@ -263,7 +265,7 @@ y: number;
 | x        | <code>number</code> | the node's X-coordinate value. |
 | y        | <code>number</code> | the node's Y-coordinate value. |
 
-##
+---
 
 #### setCoordinates
 

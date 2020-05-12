@@ -1,27 +1,29 @@
-## Project Class - Network Link Functions
+# Network Link Functions
 
 These functions are used for working with network links.
 
-| Function                                                                              | Description                                                        |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| <a href="Network-Link-Functions#addLink"><code>addLink</code></a>                     | Adds a new link to a project.                                      |
-| <a href="Network-Link-Functions#deleteLink"><code>deleteLink</code></a>               | Deletes a link from the project.                                   |
-| <a href="Network-Link-Functions#getLinkIndex"><code>getLinkIndex</code></a>           | Gets the index of a link given its ID name.                        |
-| <a href="Network-Link-Functions#getLinkId"><code>getLinkId</code></a>                 | Gets the ID name of a link given its index.                        |
-| <a href="Network-Link-Functions#setLinkId"><code>setLinkId</code></a>                 | Changes the ID name of a link.                                     |
-| <a href="Network-Link-Functions#getLinkType"><code>getLinkType</code></a>             | Retrieves a link's type.                                           |
-| <a href="Network-Link-Functions#setLinkType"><code>setLinkType</code></a>             | Changes a link's type.                                             |
-| <a href="Network-Link-Functions#getLinkNodes"><code>getLinkNodes</code></a>           | Gets the indexes of a link's start- and end-nodes.                 |
-| <a href="Network-Link-Functions#setLinkNodes"><code>setLinkNodes</code></a>           | Sets the indexes of a link's start- and end-nodes.                 |
-| <a href="Network-Link-Functions#getLinkValue"><code>getLinkValue</code></a>           | Retrieves a property value for a link.                             |
-| <a href="Network-Link-Functions#setLinkValue"><code>setLinkValue</code></a>           | Sets a property value for a link.                                  |
-| <a href="Network-Link-Functions#setPipeData"><code>setPipeData</code></a>             | Sets a group of properties for a pipe link.                        |
-| <a href="Network-Link-Functions#getPumpType"><code>getPumpType</code></a>             | Retrieves the type of head curve used by a pump.                   |
-| <a href="Network-Link-Functions#getHeadCurveIndex"><code>getHeadCurveIndex</code></a> | Retrieves the curve assigned to a pump's head curve.               |
-| <a href="Network-Link-Functions#setHeadCurveIndex"><code>setHeadCurveIndex</code></a> | Assigns a curve to a pump's head curve.                            |
-| <a href="Network-Link-Functions#getVertexCount"><code>getVertexCount</code></a>       | Retrieves the number of internal vertex points assigned to a link. |
-| <a href="Network-Link-Functions#getVertex"><code>getVertex</code></a>                 | Retrieves the coordinate's of a vertex point assigned to a link.   |
-| <a href="Network-Link-Functions#setVertices"><code>setVertices</code></a>             | Assigns a set of internal vertex points to a link.                 |
+| Function                                                        | Description                                                        |
+| --------------------------------------------------------------- | ------------------------------------------------------------------ |
+| <a href="#addlink"><code>addLink</code></a>                     | Adds a new link to a project.                                      |
+| <a href="#deletelink"><code>deleteLink</code></a>               | Deletes a link from the project.                                   |
+| <a href="#getlinkindex"><code>getLinkIndex</code></a>           | Gets the index of a link given its ID name.                        |
+| <a href="#getlinkid"><code>getLinkId</code></a>                 | Gets the ID name of a link given its index.                        |
+| <a href="#setlinkid"><code>setLinkId</code></a>                 | Changes the ID name of a link.                                     |
+| <a href="#getlinktype"><code>getLinkType</code></a>             | Retrieves a link's type.                                           |
+| <a href="#setlinktype"><code>setLinkType</code></a>             | Changes a link's type.                                             |
+| <a href="#getlinknodes"><code>getLinkNodes</code></a>           | Gets the indexes of a link's start- and end-nodes.                 |
+| <a href="#setlinknodes"><code>setLinkNodes</code></a>           | Sets the indexes of a link's start- and end-nodes.                 |
+| <a href="#getlinkvalue"><code>getLinkValue</code></a>           | Retrieves a property value for a link.                             |
+| <a href="#setlinkvalue"><code>setLinkValue</code></a>           | Sets a property value for a link.                                  |
+| <a href="#setpipedata"><code>setPipeData</code></a>             | Sets a group of properties for a pipe link.                        |
+| <a href="#getpumptype"><code>getPumpType</code></a>             | Retrieves the type of head curve used by a pump.                   |
+| <a href="#getheadcurveindex"><code>getHeadCurveIndex</code></a> | Retrieves the curve assigned to a pump's head curve.               |
+| <a href="#setheadcurveindex"><code>setHeadCurveIndex</code></a> | Assigns a curve to a pump's head curve.                            |
+| <a href="#getvertexcount"><code>getVertexCount</code></a>       | Retrieves the number of internal vertex points assigned to a link. |
+| <a href="#getvertex"><code>getVertex</code></a>                 | Retrieves the coordinate's of a vertex point assigned to a link.   |
+| <a href="#setvertices"><code>setVertices</code></a>             | Assigns a set of internal vertex points to a link.                 |
+
+---
 
 #### addLink
 
@@ -33,19 +35,19 @@ addLink(id: string, linkType: LinkType, fromNode: string, toNode: string): numbe
 
 **Parameters**
 
-| Parameter | Type                  | Description                                                                                      |
-| --------- | --------------------- | ------------------------------------------------------------------------------------------------ |
-| id        | <code>string</code>   | the ID name of the link to be added.                                                             |
-| linkType  | <code>LinkType</code> | The type of link being added (see <a href="Enumerated-Types#LinkType"><code>LinkType</code></a>) |
-| fromNode  | <code>string</code>   | The ID name of the link's starting node.                                                         |
-| toNode    | <code>string</code>   | The ID name of the link's ending node.                                                           |
+| Parameter | Type                  | Description                                                                                         |
+| --------- | --------------------- | --------------------------------------------------------------------------------------------------- |
+| id        | <code>string</code>   | the ID name of the link to be added.                                                                |
+| linkType  | <code>LinkType</code> | The type of link being added (see <a href="../enumerated-types#linktype"><code>LinkType</code></a>) |
+| fromNode  | <code>string</code>   | The ID name of the link's starting node.                                                            |
+| toNode    | <code>string</code>   | The ID name of the link's ending node.                                                              |
 
 **Returns**
 
 <code>Number</code>
 the index of the newly added link.
 
-A new pipe is assigned a diameter of 10 inches (254 mm) and a length of 330 feet (~ 100 meters). Its roughness coefficient depends on the head loss formula in effect (see <a href="Enumerated-Types#HeadLossType"><code>HeadLossType</code></a>) as follows:
+A new pipe is assigned a diameter of 10 inches (254 mm) and a length of 330 feet (~ 100 meters). Its roughness coefficient depends on the head loss formula in effect (see <a href="../enumerated-types#headlosstype"><code>HeadLossType</code></a>) as follows:
 
 - Hazen-Williams formula: 130
 - Darcy-Weisbach formula: 0.5 millifeet (0.15 mm)
@@ -57,9 +59,9 @@ A new pump has a status of <code>LinkStatusType.Open</code>, a speed setting of 
 
 A new valve has a diameter of 10 inches (254 mm) and all other properties set to 0.
 
-See <a href="Enumerated-Types#LinkProperty"><code>LinkProperty</code></a>.
+See <a href="../enumerated-types#linkproperty"><code>LinkProperty</code></a>.
 
-##
+---
 
 #### deleteLink
 
@@ -78,7 +80,7 @@ deleteLink(index: number, actionCode: ActionCodeType): void;
 
 If actionCode is <code>ActionCodeType.Unconditional</code> then the link and all simple and rule-based controls that contain it are deleted. If set to <code>ActionCodeType.Conditional</code> then the link is not deleted if it appears in any control and error 261 is returned.
 
-##
+---
 
 #### getLinkIndex
 
@@ -99,7 +101,7 @@ getLinkIndex(id: string): number;
 <code>Number</code>
 the link's index (starting from 1).
 
-##
+---
 
 #### getLinkId
 
@@ -120,7 +122,7 @@ getLinkId(index: number): string;
 <code>string</code>
 The link's ID name.
 
-##
+---
 
 #### setLinkId
 
@@ -137,7 +139,7 @@ setLinkId(index: number, newid: string): void;
 | index     | <code>number</code> | a link's index (starting from 1). |
 | newid     | <code>string</code> | the new ID name for the link.     |
 
-##
+---
 
 #### getLinkType
 
@@ -156,9 +158,9 @@ getLinkType(index: number): LinkType;
 **Returns**
 
 <code>LinkType</code>
-the link's type (see <a href="Enumerated-Types#LinkType"><code>LinkType</code></a>).
+the link's type (see <a href="../enumerated-types#linktype"><code>LinkType</code></a>).
 
-##
+---
 
 #### setLinkType
 
@@ -170,11 +172,11 @@ setLinkType(index: number, linkType: LinkType, actionCode: ActionCodeType): numb
 
 **Parameters**
 
-| Parameter  | Type                        | Description                                                                                             |
-| ---------- | --------------------------- | ------------------------------------------------------------------------------------------------------- |
-| index      | <code>number</code>         | the link's index                                                                                        |
-| linkType   | <code>LinkType</code>       | the new type to change the link to (see <a href="Enumerated-Types#LinkType"><code>LinkType</code></a>). |
-| actionCode | <code>ActionCodeType</code> | the action taken if any controls contain the link.                                                      |
+| Parameter  | Type                        | Description                                                                                                |
+| ---------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| index      | <code>number</code>         | the link's index                                                                                           |
+| linkType   | <code>LinkType</code>       | the new type to change the link to (see <a href="../enumerated-types#linktype"><code>LinkType</code></a>). |
+| actionCode | <code>ActionCodeType</code> | the action taken if any controls contain the link.                                                         |
 
 **Returns**
 
@@ -183,7 +185,7 @@ the link's new index after the type change.
 
 If actionCode is <code>ActionCodeType.Unconditional</code> then all simple and rule-based controls that contain the link are deleted when the link's type is changed. If set to <code>ActionCodeType.Conditional</code> then the type change is cancelled if the link appears in any control and error 261 is returned.
 
-##
+---
 
 #### getLinkNodes
 
@@ -218,7 +220,7 @@ node2: number;
 | node1    | <code>number</code> | the index of the link's start node (starting from 1). |
 | node2    | <code>number</code> | the index of the link's end node (starting from 1).   |
 
-##
+---
 
 #### setLinkNodes
 
@@ -236,7 +238,7 @@ setLinkNodes(index: number, node1: number, node2: number): void;
 | node1     | <code>number</code> | The index of the link's start node (starting from 1). |
 | node2     | <code>number</code> | The index of the link's end node (starting from 1).   |
 
-##
+---
 
 #### getLinkValue
 
@@ -248,10 +250,10 @@ getLinkValue(index: number, property: LinkProperty): number;
 
 **Parameters**
 
-| Parameter | Type                      | Description                                                                                           |
-| --------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| index     | <code>number</code>       | a link's index (starting from 1).                                                                     |
-| property  | <code>LinkProperty</code> | the property to retrieve (see <a href="Enumerated-Types#LinkProperty"><code>LinkProperty</code></a>). |
+| Parameter | Type                      | Description                                                                                              |
+| --------- | ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| index     | <code>number</code>       | a link's index (starting from 1).                                                                        |
+| property  | <code>LinkProperty</code> | the property to retrieve (see <a href="../enumerated-types#linkproperty"><code>LinkProperty</code></a>). |
 
 **Returns**
 
@@ -260,7 +262,7 @@ the current value of the property.
 
 Values are returned in units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### setLinkValue
 
@@ -272,15 +274,15 @@ setLinkValue(index: number, property: number, value: number): void;
 
 **Parameters**
 
-| Parameter | Type                | Description                                                                                      |
-| --------- | ------------------- | ------------------------------------------------------------------------------------------------ |
-| index     | <code>number</code> | a link's index.                                                                                  |
-| property  | <code>number</code> | the property to set (see <a href="Enumerated-Types#LinkProperty"><code>LinkProperty</code></a>). |
-| value     | <code>number</code> | the new value for the property.                                                                  |
+| Parameter | Type                | Description                                                                                         |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------- |
+| index     | <code>number</code> | a link's index.                                                                                     |
+| property  | <code>number</code> | the property to set (see <a href="../enumerated-types#linkproperty"><code>LinkProperty</code></a>). |
+| value     | <code>number</code> | the new value for the property.                                                                     |
 
 Values are in units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### setPipeData
 
@@ -302,7 +304,7 @@ setPipeData(index: number, length: number, diam: number, rough: number, mloss: n
 
 These properties have units that depend on the units used for flow rate (see Measurement Units).
 
-##
+---
 
 #### getPumpType
 
@@ -321,9 +323,9 @@ getPumpType(index: number): PumpType;
 **Returns**
 
 <code>PumpType</code>
-the type of head curve used by the pump (see <a href="Enumerated-Types#PumpType"><code>PumpType</code></a>).
+the type of head curve used by the pump (see <a href="../enumerated-types#pumptype"><code>PumpType</code></a>).
 
-##
+---
 
 #### getHeadCurveIndex
 
@@ -344,7 +346,7 @@ getHeadCurveIndex(linkIndex: number): number;
 <code>Number</code>
 the index of the curve assigned to the pump's head curve.
 
-##
+---
 
 #### setHeadCurveIndex
 
@@ -361,7 +363,7 @@ setHeadCurveIndex(linkIndex: number, curveIndex: number): void;
 | linkIndex  | <code>number</code> | the index of a pump link (starting from 1).                   |
 | curveIndex | <code>number</code> | the index of a curve to be assigned as the pump's head curve. |
 
-##
+---
 
 #### getVertexCount
 
@@ -382,7 +384,7 @@ getVertexCount(index: number): number;
 <code>Number</code>
 the number of vertex points that describe the link's shape.
 
-##
+---
 
 #### getVertex
 
@@ -418,7 +420,7 @@ y: number;
 | x        | <code>number</code> | the vertex's X-coordinate value. |
 | y        | <code>number</code> | the vertex's Y-coordinate value. |
 
-##
+---
 
 #### setVertices
 

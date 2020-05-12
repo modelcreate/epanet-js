@@ -7,3 +7,13 @@
 .md-tabs {
   background-color: transparent;
 }
+
+/* Fix for links in API tables - Don't line break code links within tables */
+.md-content table code {
+  word-break: normal;
+}
+
+/* Pull heading closer to the logo */
+.md-header-nav__title {
+  padding-left: 0.3rem;
+}

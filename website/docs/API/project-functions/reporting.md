@@ -1,18 +1,20 @@
-## Project Class - Reporting Functions
+# Reporting Functions
 
 These functions are used to report simulation results.
 
-| Function                                                                       | Description                                                               |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| <a href="Reporting-Functions#writeLine"><code>writeLine</code></a>             | Writes a line of text to a project's report file.                         |
-| <a href="Reporting-Functions#report"><code>report</code></a>                   | Writes simulation results in a tabular format to a project's report file. |
-| <a href="Reporting-Functions#copyReport"><code>copyReport</code></a>           | Copies the current contents of a project's report file to another file.   |
-| <a href="Reporting-Functions#clearReport"><code>clearReport</code></a>         | Clears the contents of a project's report file.                           |
-| <a href="Reporting-Functions#resetReport"><code>resetReport</code></a>         | Resets a project's report options to their default values.                |
-| <a href="Reporting-Functions#setReport"><code>setReport</code></a>             | Processes a reporting format command.                                     |
-| <a href="Reporting-Functions#setStatusReport"><code>setStatusReport</code></a> | Sets the level of hydraulic status reporting.                             |
-| <a href="Reporting-Functions#getStatistic"><code>getStatistic</code></a>       | Retrieves a particular simulation statistic.                              |
-| <a href="Reporting-Functions#getResultIndex"><code>getResultIndex</code></a>   | Retrieves the order in which a node or link appears in an output file.    |
+| Function                                                    | Description                                                               |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------- |
+| <a href="#writeline"><code>writeLine</code></a>             | Writes a line of text to a project's report file.                         |
+| <a href="#report"><code>report</code></a>                   | Writes simulation results in a tabular format to a project's report file. |
+| <a href="#copyreport"><code>copyReport</code></a>           | Copies the current contents of a project's report file to another file.   |
+| <a href="#clearreport"><code>clearReport</code></a>         | Clears the contents of a project's report file.                           |
+| <a href="#resetreport"><code>resetReport</code></a>         | Resets a project's report options to their default values.                |
+| <a href="#setreport"><code>setReport</code></a>             | Processes a reporting format command.                                     |
+| <a href="#setstatusreport"><code>setStatusReport</code></a> | Sets the level of hydraulic status reporting.                             |
+| <a href="#getstatistic"><code>getStatistic</code></a>       | Retrieves a particular simulation statistic.                              |
+| <a href="#getresultindex"><code>getResultIndex</code></a>   | Retrieves the order in which a node or link appears in an output file.    |
+
+---
 
 #### writeLine
 
@@ -28,7 +30,7 @@ writeLine(line: string): void;
 | --------- | --------------------- | ----------------------- |
 | line      | <code> String </code> | a text string to write. |
 
-##
+---
 
 #### report
 
@@ -38,11 +40,11 @@ Writes simulation results in a tabular format to a project's report file.
 report(): void;
 ```
 
-Either a full hydraulic analysis or full hydraulic and water quality analysis must have been run, with results saved to file, before `report` is called. In the former case, <a href="Hydraulic-Analysis-Functions#saveH"><code>saveH</code></a> must also be called first to transfer results from the project's intermediate hydraulics file to its output file.
+Either a full hydraulic analysis or full hydraulic and water quality analysis must have been run, with results saved to file, before `report` is called. In the former case, <a href="../hydraulic-analysis#saveh"><code>saveH</code></a> must also be called first to transfer results from the project's intermediate hydraulics file to its output file.
 
 The format of the report is controlled by commands issued with <a href="#setreport"><code>setreport</code></a>.
 
-##
+---
 
 #### copyReport
 
@@ -60,7 +62,7 @@ copyReport(filename: string): void;
 
 This function allows toolkit clients to retrieve the contents of a project's report file while the project is still open.
 
-##
+---
 
 #### clearReport
 
@@ -70,7 +72,7 @@ Clears the contents of a project's report file.
 clearReport(): void;
 ```
 
-##
+---
 
 #### resetReport
 
@@ -91,7 +93,7 @@ After calling this function the default reporting options are in effect. These a
 - node variables reported are elevation, head, pressure, and quality
 - link variables reported are flow, velocity, and head loss.
 
-##
+---
 
 #### setReport
 
@@ -111,7 +113,7 @@ Acceptable report formatting commands are described in the [REPORT] section of t
 
 Formatted results of a simulation can be written to a project's report file using the <a href="#report"><code>report</code></a> function.
 
-##
+---
 
 #### setStatusReport
 
@@ -123,9 +125,9 @@ setStatusReport(level: StatusReport): void;
 
 **Parameters**
 
-| Parameter | Type                       | Description                                                                                                |
-| --------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| level     | <code>StatusReport </code> | a status reporting level code (see <a href="Enumerated-Types#StatusReport"><code>StatusReport</code></a>). |
+| Parameter | Type                       | Description                                                                                                   |
+| --------- | -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| level     | <code>StatusReport </code> | a status reporting level code (see <a href="../enumerated-types#statusreport"><code>StatusReport</code></a>). |
 
 Status reporting writes changes in the hydraulics status of network elements to a project's report file as a hydraulic simulation unfolds. There are three levels of reporting: <code>StatusReport.NoReport</code> (no status reporting), <code>StatusReport.NormalReport</code> (normal reporting) <code>StatusReport.FullReport</code> (full status reporting).
 
@@ -133,7 +135,7 @@ The full status report contains information at each trial of the solution to the
 
 If many hydraulic analyses will be run in the application it is recommended that status reporting be turned off (level = <code>StatusReport.NoReport</code>).
 
-##
+---
 
 #### getStatistic
 
@@ -145,16 +147,16 @@ getStatistic(type: AnalysisStatistic): number;
 
 **Parameters**
 
-| Parameter | Type                           | Description                                                                                                              |
-| --------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| type      | <code>AnalysisStatistic</code> | the type of statistic to retrieve (see <a href="Enumerated-Types#AnalysisStatistic"><code>AnalysisStatistic</code></a>). |
+| Parameter | Type                           | Description                                                                                                                 |
+| --------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| type      | <code>AnalysisStatistic</code> | the type of statistic to retrieve (see <a href="../enumerated-types#analysisstatistic"><code>AnalysisStatistic</code></a>). |
 
 **Returns**
 
 <code>Number</code>
 the value of the statistic.
 
-##
+---
 
 #### getResultIndex
 

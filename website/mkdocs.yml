@@ -7,9 +7,10 @@ site_url: https://squidfunk.github.io/mkdocs-material/
 # Repository
 repo_name: epanet-js
 repo_url: https://github.com/modelcreate/epanet-js
+edit_uri: blob/master/website/docs/
 
 # Copyright
-copyright: Copyright &copy; 2019 - 2020 Luke Butler
+copyright: Luke Butler - Matrado
 
 # Configuration
 theme:
@@ -17,14 +18,14 @@ theme:
   custom_dir: "theme/"
   language: en
   palette:
-    primary: indigo
-    accent: indigo
+    primary: epanet
+    accent: blue
   font:
     text: Roboto
     code: Roboto Mono
   icon:
-    logo: material/water
-    repo: fontawesome/brands/github
+    logo: "epanetjs-logo"
+  favicon: assets/favicon.png
   features:
     - tabs
 #    - instant
@@ -33,18 +34,18 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github-alt
-      link: https://github.com/squidfunk
+      link: https://github.com/modelcreate/epanet-js
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/squidfunk
+      link: https://twitter.com/lukepbutler_
     - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/squidfunk
+      link: https://www.linkedin.com/in/lukepbutler/
 
 extra_css:
   - stylesheets/colours.css
 
 # Google Analytics
 google_analytics:
-  - UA-XXXXXXXX-X
+  - UA-65873036-7
   - auto
 
 # Extensions
@@ -58,21 +59,35 @@ markdown_extensions:
 plugins:
   - search # necessary for search to work
   - awesome-pages
-#nav:
-#  - Home: index.md
-#  - Learn More:
-#      - About epanet-js: About/index.md
-#  - Getting Started:
-#      - About epanet-js: Guide/index.md
-#  - Showcase:
-#      - About epanet-js: Guide/index.md
-#  - API:
-#      - API: API/index.md
-#      - Another File:
-#          - test: API/doc3.md
-#          - test: API/doc3.md
-#      - Another File 3:
-#          - test: API/doc3.md
-#          - test: API/doc3.md
-#  - Blog:
-#      - About epanet-js: Guide/index.md
+nav:
+  - Home: index.md
+  - Learn More:
+      - Getting Started: introduction/index.md
+      - What is Water Modelling: introduction/water-modelling.md
+      - Library Development: introduction/development.md
+      - Examples: introduction/examples.md
+      - Showcase: introduction/showcase.md
+  - API:
+      - Overview: api/index.md
+
+      - Workspace Class: api/workspace.md
+      - Project Class: api/project.md
+      - Project Class (Methods):
+          - Project: api/project-functions/project.md
+          - Hydraulic Analysis: api/project-functions/hydraulic-analysis.md
+          - Water Quality: api/project-functions/water-quality.md
+          - Reporting: api/project-functions/reporting.md
+          - Analysis Options: api/project-functions/analysis-options.md
+          - Network Node: api/project-functions/network-node.md
+          - Nodal Demand: api/project-functions/nodal-demand.md
+          - Network Link: api/project-functions/network-link.md
+          - Time Pattern: api/project-functions/time-pattern.md
+          - Data Curve: api/project-functions/data-curve.md
+          - Simple Control: api/project-functions/simple-control.md
+          - Rule Based Control: api/project-functions/rule-based-control.md
+          - Enumerated Types: api/project-functions/enumerated-types.md
+  - Blog:
+      - List All Articles: blog/index.md
+      - 2020:
+          - Item 1: blog/2020/20200205.md
+          - Item 2: blog/2020/20200306.md

@@ -15,7 +15,7 @@ const model = new Project(ws)
 
 If you are not familiar with the OWA-EPANET Toolkit API or EPANET it is worthwhile reading the [OWA-EPANET Toolkit API documentation](http://wateranalytics.org/EPANET/) and [OWA-EPANET wiki](https://github.com/openwateranalytics/epanet/wiki).
 
-## Classes
+** List of Classes **
 
 | Class                                    | Description                                              |
 | ---------------------------------------- | -------------------------------------------------------- |
