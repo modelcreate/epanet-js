@@ -1,10 +1,11 @@
 ---
-title: Blog extra information
+title: This is the latest blog
 description: Nullam urna elit, malesuada eget finibus ut, ac tortor.
 more_info: Test
+img_src: /assets/images/blog/2020.png
 ---
 
-# Test Blog 2
+# Test Blog 3
 
 Information here
 

@@ -131,9 +131,9 @@
 <!-- Render item list -->
 <section class="blog-items">
   {% for nav_item in nav %} {% if nav_item.active %} {% for nav_item in
-  nav_item.children|reverse %} {% if nav_item.children %} {% for blog in
-  nav_item.children|reverse %} {% include "partials/blog-item.html" %} {% endfor
-  %} {% endif %}{% endfor %} {% endif %} {% endfor %}
+  nav_item.children %} {% if nav_item.children %} {% for blog in
+  nav_item.children %} {% include "partials/blog-item.html" %} {% endfor %} {%
+  endif %}{% endfor %} {% endif %} {% endfor %}
 </section>
 
 <!-- Render item list -->

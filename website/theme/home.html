@@ -6,13 +6,14 @@
 <!-- Additional styles for landing page -->
 <style>
   .stripes-container {
-    height: 100vh;
+    min-height: 550px;
+    height: calc(100% - 48px);
     top: 0;
     right: 0;
     left: 0;
     z-index: -1;
     position: absolute;
-    overflow: initial;
+    overflow: hidden;
   }
 
   body {
@@ -51,8 +52,8 @@
     position: relative;
     z-index: 5;
     overflow: hidden;
-    width: 436px;
-    height: 353px;
+    width: 650px;
+    height: 350px;
     display: block;
     -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
       0 18px 36px -18px rgba(0, 0, 0, 0.3),
@@ -72,7 +73,7 @@
     margin: 0 0.8rem;
     color: var(--md-primary-bg-color);
     display: grid;
-    grid-template-rows: 0.55fr 0.45fr;
+    grid-template-rows: 0.5fr 0.5fr;
     grid-gap: 0 30px;
     gap: 0 30px;
     margin: 70px 0 0;
@@ -112,23 +113,84 @@
 
   /* Invert primary button */
   .tx-hero .md-button--primary {
-    background-color: var(--md-primary-bg-color);
-    color: hsla(280deg, 37%, 48%, 1);
-    border-color: var(--md-primary-bg-color);
+    transition: all 0.15s ease;
+    color: #fff;
+    background-color: #894da8;
+    border-radius: 5px;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    border: none;
+  }
+
+  .tx-hero .md-button--github {
+    transition: all 0.15s ease;
+    background-color: hsl(0, 0%, 93%);
+    color: hsl(0, 0%, 0%);
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   }
 
   /* Invert hover and focus button states */
   .tx-hero .md-button:hover,
   .tx-hero .md-button:focus {
-    background-color: var(--md-accent-fg-color);
-    color: var(--md-default-bg-color);
-    border-color: var(--md-accent-fg-color);
+    background-color: #693a82;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .tx-hero .md-button--github:hover,
+  .tx-hero .md-button--github:focus {
+    background-color: #e0e0e0;
+    color: #000;
+  }
+
+  .tx-hero__content {
+    margin-left: 2em;
   }
 
   #three-benefits {
     margin: 0 auto;
     padding: 0 20px;
     width: 100%;
+  }
+
+  /* https://gist.github.com/jarthod/8719db9fef8deb937f4f */
+  .browser-mockup {
+    border-top: 1.5em solid rgba(70, 70, 70);
+    box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+    position: relative;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: "";
+    top: -1em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    box-shadow: 0 0 0 1px #f44, 1.1em 0 0 1px #9b3, 2.3em 0 0 1px #fb5;
+  }
+
+  .browser-mockup.with-url:after {
+    display: block;
+    position: absolute;
+    content: "";
+    top: -1.1em;
+    left: 6em;
+    width: calc(100% - 8em);
+    height: 0.7em;
+    border-radius: 6px;
+    background-color: #ffffffa3;
+  }
+
+  .browser-mockup > * {
+    display: block;
   }
 
   /* [mobile portrait -]: Adjust headline */
@@ -141,7 +203,7 @@
 
   @media screen and (min-width: 670px) {
     .tx-hero {
-      grid-template-columns: 0.55fr 0.45fr;
+      grid-template-columns: 0.5fr 0.5fr;
       grid-template-rows: auto;
       grid-gap: 0 40px;
       gap: 0 40px;
@@ -169,7 +231,7 @@
         39px 62.5px 125px -25px rgba(50, 50, 93, 0.5),
         23.4px 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
 
-      transform: scale(1.3) translateX(50px) translateY(0) perspective(3190px)
+      transform: scale(1) translateX(20px) translateY(0) perspective(3190px)
         rotateY(-29deg) rotateX(4deg) rotate(1deg);
     }
   }
@@ -181,10 +243,6 @@
       display: none;
     }
 
-    /* Increase bottom spacing and set dimensions */
-    .tx-hero__content {
-    }
-
     /* Swap with teaser and set dimensions */
   }
 
@@ -193,6 +251,11 @@
     /* Hide navigation */
     .md-sidebar--primary {
       display: none;
+    }
+
+    /* Increase bottom spacing and set dimensions */
+    .tx-hero__content {
+      margin-left: 0em;
     }
 
     /* Ensure the image aligns with the repository information */
@@ -234,7 +297,7 @@
         <a
           href="{{ config.repo_url }}"
           title="{{ lang.t('source.link.title') }}"
-          class="md-button"
+          class="md-button md-button--github"
         >
           Go to GitHub
         </a>
@@ -242,7 +305,9 @@
       <!-- Hero image -->
       <div class="tx-hero__image">
         <div class="tx-hero__demoscreen">
-          Info
+          <div class="browser-mockup with-url">
+            <img src="/assets/images/example.jpg" />
+          </div>
         </div>
       </div>
     </div>

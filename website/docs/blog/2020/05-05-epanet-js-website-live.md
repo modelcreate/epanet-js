@@ -1,10 +1,11 @@
 ---
-title: This is the latest blog
+title: Blog extra information
 description: Nullam urna elit, malesuada eget finibus ut, ac tortor.
 more_info: Test
+img_src: /assets/images/blog/maik-jonietz-_yMciiStJyY-unsplash.jpg
 ---
 
-# Test Blog 3
+# Test Blog 2
 
 Information here
 

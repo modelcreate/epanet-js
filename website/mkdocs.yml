@@ -25,6 +25,7 @@ theme:
     code: Roboto Mono
   icon:
     logo: "epanetjs-logo"
+    repo: fontawesome/brands/github
   favicon: assets/favicon.png
   features:
     - tabs
@@ -89,5 +90,5 @@ nav:
   - Blog:
       - List All Articles: blog/index.md
       - 2020:
-          - Item 1: blog/2020/20200205.md
-          - Item 2: blog/2020/20200306.md
+          - epanet-js Progress Report - April 2020: blog/2020/05-06-epanet-js-progress-report-2020.md
+          - epanet-js Website is now Live: blog/2020/05-05-epanet-js-website-live.md

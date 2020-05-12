@@ -7,10 +7,7 @@
       title="{{ blog.title | striptags }}"
       class=""
     >
-      <img
-        class="blog-image"
-        src="https://source.unsplash.com/800x450/?nature,water?sig={{seed}}"
-      />
+      <img class="blog-image" src="{{ blog.meta.img_src }}" />
     </a>
   </div>
   <div class="blog-card-content">
