@@ -1,6 +1,5 @@
 ---
 template: blog.html
-title: Blog
 more_info: Test
 ---
 

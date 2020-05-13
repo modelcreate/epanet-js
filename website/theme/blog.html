@@ -29,6 +29,7 @@
 
   .blog-card-content .blog-card-date {
     padding-top: 15px;
+    font-size: 16px;
     margin-top: auto;
     text-align: right;
     font-weight: 100;
@@ -117,6 +118,10 @@
       margin-bottom: 0;
       padding-left: 2em;
     }
+    .blog-card:nth-child(1) .blog-card-content p {
+      font-size: 18px;
+      font-weight: 100;
+    }
     .blog-card:nth-child(1):hover .blog-image {
       transform: scale(1.02);
     }
@@ -126,8 +131,7 @@
   }
 </style>
 
-<h1>EPANET in JavaScript</h1>
-
+<h1>The Water Modelling Blog</h1>
 <!-- Render item list -->
 <section class="blog-items">
   {% for nav_item in nav %} {% if nav_item.active %} {% for nav_item in

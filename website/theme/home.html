@@ -5,7 +5,7 @@
 
 <!-- Additional styles for landing page -->
 <style>
-  .stripes-container {
+  .gradient-container {
     min-height: 550px;
     height: calc(100% - 48px);
     top: 0;
@@ -50,7 +50,7 @@
     background: #e8e8e8;
     border-radius: 8px;
     position: relative;
-    z-index: 5;
+    z-index: 1;
     overflow: hidden;
     width: 100%;
     min-height: 200x;
@@ -103,8 +103,13 @@
   }
 
   .tx-hero .tx-hero__tagline {
-    font-size: 1rem;
-    max-width: 540px;
+    font-size: 0.9rem;
+    max-width: 500px;
+    font-weight: 400;
+    margin-top: 0rem;
+  }
+  .first_tagline {
+    margin-bottom: 0.5em;
   }
 
   /* Adjust spacing of buttons and invert them */
@@ -118,7 +123,7 @@
   .tx-hero .md-button--primary {
     transition: all 0.15s ease;
     color: #fff;
-    background-color: #894da8;
+    background-color: #8e4bb1;
     border-radius: 5px;
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
       0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -153,11 +158,6 @@
     margin-left: 2em;
   }
 
-  #three-benefits {
-    margin: 0 auto;
-    padding: 0 20px;
-    width: 100%;
-  }
 
   /* https://gist.github.com/jarthod/8719db9fef8deb937f4f */
   .browser-mockup {
@@ -271,13 +271,6 @@
 
 <!-- Hero for landing page -->
 <header class="tx-container">
-  <!-- <div class="stripes">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div> -->
   <div class="md-grid md-typeset">
     <div class="tx-hero">
       <!-- Hero content -->
@@ -288,9 +281,12 @@
             in the browser using JavaScript
           </p>
         </h1>
-        <p class="tx-hero__tagline">
-          Use the Open Water Analytics EPANET toolkit compiled to Javascript,
-          either in the browser or Node.
+        <p class="tx-hero__tagline first_tagline">
+          epanet-js is a javascript library for engineers, developers and academics to simulate water
+           networks.
+          </p>
+           <p class="tx-hero__tagline">Run and share hydraulic analyses, or create custom frontend and server-side applications using
+           the OWA EPANET engine.
         </p>
         <a
           href="{{ page.next_page.url | url }}"
@@ -311,28 +307,14 @@
       <div class="tx-hero__image">
         <div class="tx-hero__demoscreen">
           <div class="browser-mockup with-url">
-            <img src="/assets/images/example.jpg" />
+            <img src="/assets/images/example.jpg" alt="Example application of epanet-js"/>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
-<!--
-<section id="three-benefits" class="md-grid">
-  {% set icon = config.theme.icon.logo or "material/library" %}
 
-  <div>{% include ".icons/material/github.svg" %}</div>
-  <h2>Benefit One</h2>
-  <p>Long text talking about why this is good</p>
-  <div>{% include ".icons/material/github.svg" %}</div>
-  <h2>Benefit Two</h2>
-  <p>Long text talking about why this is good</p>
-  <div>{% include ".icons/material/rocket.svg" %}</div>
-  <h2>Benefit One</h2>
-  <p>Long text talking about why this is good</p>
-</section>
--->
 {% endblock %}
 
 <!-- Content -->

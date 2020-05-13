@@ -1,6 +1,3 @@
----
-title: Workspace Class
----
 
 # Workspace Class
 

@@ -1,6 +1,5 @@
 ---
 template: home.html
-title: Home
 ---
 
 # Custom Theme

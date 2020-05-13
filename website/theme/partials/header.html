@@ -1,8 +1,6 @@
 <!-- Additional styles for landing page -->
 <style>
-  /* Stripe Layout Test */
-
-  .stripes-container {
+  .gradient-container {
     height: 49px;
     top: 0;
     right: 0;
@@ -12,11 +10,11 @@
     overflow: hidden;
   }
 
-  .stripes-container-offset {
+  .gradient-container-offset {
     display: none;
   }
 
-  .stripes {
+  .gradients {
     top: 0;
     grid: repeat(5, 200px) / repeat(10, 1fr);
     -webkit-transform-origin: 0;
@@ -30,17 +28,17 @@
     );
   }
 
-  .stripes::after {
+  .gradients::after {
     content: "";
     position: absolute;
     top: 0;
-    left: 0; /*changed this */
-    z-index: -1; /*Added this*/
+    left: 0; 
+    z-index: -1; 
     width: 100vw;
     height: 100%;
   }
 
-  .stripes {
+  .gradients {
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -49,16 +47,16 @@
     transform: skewY(-12deg);
   }
 
-  .stripes-container-offset .stripes {
+  .gradient-container-offset .gradients {
     top: -48px;
   }
 
-  .stripes {
+  .gradients {
     display: grid;
     grid: repeat(5, 200px) / repeat(10, 1fr);
   }
 
-  .stripes :nth-child(1) {
+  .gradients :nth-child(1) {
     grid-area: 3 / 7 / 4/ 1;
     background: linear-gradient(
       100grad,
@@ -68,7 +66,7 @@
     );
   }
 
-  .stripes :nth-child(2) {
+  .gradients :nth-child(2) {
     grid-area: 2 / span 7 /5 / -1;
     background: linear-gradient(
       100grad,
@@ -78,12 +76,12 @@
     );
   }
 
-  .stripes :nth-child(3) {
+  .gradients :nth-child(3) {
     grid-area: 4/1/6/8;
     background: linear-gradient(100grad, #fff 50%, hsla(0, 0%, 100%, 0.05));
   }
 
-  .stripes :nth-child(4) {
+  .gradients :nth-child(4) {
     grid-area: 4 / span 8 / auto/-1;
     background: linear-gradient(
       100grad,
@@ -92,7 +90,7 @@
     );
   }
 
-  .stripes :nth-child(5) {
+  .gradients :nth-child(5) {
     grid-area: 3/1/6/5;
     background: linear-gradient(
       100grad,
@@ -102,7 +100,7 @@
   }
 
   @media screen and (min-width: 76.25em) {
-    .stripes-container-offset {
+    .gradient-container-offset {
       display: initial;
       position: absolute;
       z-index: 0;
@@ -111,8 +109,8 @@
   }
 </style>
 
-<div class="stripes-container">
-  <div class="stripes">
+<div class="gradient-container">
+  <div class="gradients">
     <span></span>
     <span></span>
     <span></span>
@@ -171,8 +169,8 @@
     {% endif %}
   </nav>
 </header>
-<div class="stripes-container stripes-container-offset">
-  <div class="stripes">
+<div class="gradient-container gradient-container-offset">
+  <div class="gradients">
     <span></span>
     <span></span>
     <span></span>

@@ -19,5 +19,5 @@ If you are not familiar with the OWA-EPANET Toolkit API or EPANET it is worthwhi
 
 | Class                                    | Description                                              |
 | ---------------------------------------- | -------------------------------------------------------- |
-| [Workspace](#project-functions)          | These functions are used to manage a project             |
-| [Project](#hydraulic-analysis-functions) | These functions are used to perform a hydraulic analysis |
+| [Workspace](./workspace)          | A virtual file system where you can store and read files that are consumed by the tool kit            |
+| [Project](./project) | A single instance of the EN_Project wrapper object and a singleton with all 122 toolkit methods |

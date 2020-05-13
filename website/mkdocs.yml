@@ -88,7 +88,7 @@ nav:
           - Rule Based Control: api/project-functions/rule-based-control.md
           - Enumerated Types: api/project-functions/enumerated-types.md
   - Blog:
-      - List All Articles: blog/index.md
+      - List all articles: blog/index.md
       - 2020:
-          - epanet-js Progress Report - April 2020: blog/2020/05-06-epanet-js-progress-report-2020.md
-          - epanet-js Website is now Live: blog/2020/05-05-epanet-js-website-live.md
+          - epanet-js Progress Report - May 2020: blog/2020/05-18-epanet-js-progress-report-2020.md
+          - Using MkDocs to build the epanet-js website: blog/2020/05-17-using-mkdocs-build-epanet-js-website.md
