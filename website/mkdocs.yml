@@ -1,8 +1,10 @@
 # Project information
 site_name: epanet-js
-site_description: A Material Design theme for MkDocs
+site_description: >-
+  epanet-js is a javascript library for engineers, developers and academics to simulate water networks
+  using the Open Water Analytics EPANET engine.
 site_author: Luke Butler
-site_url: https://squidfunk.github.io/mkdocs-material/
+site_url: https://epanetjs.com/
 
 # Repository
 repo_name: epanet-js
@@ -60,6 +62,9 @@ markdown_extensions:
 plugins:
   - search # necessary for search to work
   - awesome-pages
+  - minify:
+      minify_html: true
+
 nav:
   - Home: index.md
   - Learn More:
