@@ -1,0 +1,94 @@
+# Project information
+site_name: epanet-js
+site_description: A Material Design theme for MkDocs
+site_author: Luke Butler
+site_url: https://squidfunk.github.io/mkdocs-material/
+
+# Repository
+repo_name: epanet-js
+repo_url: https://github.com/modelcreate/epanet-js
+edit_uri: blob/master/website/docs/
+
+# Copyright
+copyright: Luke Butler - Matrado
+
+# Configuration
+theme:
+  name: material
+  custom_dir: "theme/"
+  language: en
+  palette:
+    primary: epanet
+    accent: blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: "epanetjs-logo"
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.png
+  features:
+    - tabs
+#    - instant
+
+# Extras
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/modelcreate/epanet-js
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/lukepbutler_
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/lukepbutler/
+
+extra_css:
+  - stylesheets/colours.css
+
+# Google Analytics
+google_analytics:
+  - UA-65873036-7
+  - auto
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+
+plugins:
+  - search # necessary for search to work
+  - awesome-pages
+nav:
+  - Home: index.md
+  - Learn More:
+      - Getting Started: introduction/index.md
+      - What is Water Modelling: introduction/water-modelling.md
+      - Library Development: introduction/development.md
+      - Examples: introduction/examples.md
+      - Showcase: introduction/showcase.md
+  - API:
+      - Overview: api/index.md
+
+      - Workspace Class: api/workspace.md
+      - Project Class: api/project.md
+      - Project Class (Methods):
+          - Project: api/project-functions/project.md
+          - Hydraulic Analysis: api/project-functions/hydraulic-analysis.md
+          - Water Quality: api/project-functions/water-quality.md
+          - Reporting: api/project-functions/reporting.md
+          - Analysis Options: api/project-functions/analysis-options.md
+          - Network Node: api/project-functions/network-node.md
+          - Nodal Demand: api/project-functions/nodal-demand.md
+          - Network Link: api/project-functions/network-link.md
+          - Time Pattern: api/project-functions/time-pattern.md
+          - Data Curve: api/project-functions/data-curve.md
+          - Simple Control: api/project-functions/simple-control.md
+          - Rule Based Control: api/project-functions/rule-based-control.md
+          - Enumerated Types: api/project-functions/enumerated-types.md
+  - Blog:
+      - List all articles: blog/index.md
+      - 2020:
+          - epanet-js Progress Report - May 2020: blog/2020/05-18-epanet-js-progress-report-2020.md
+          - Using MkDocs to build the epanet-js website: blog/2020/05-17-using-mkdocs-build-epanet-js-website.md
