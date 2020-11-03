@@ -7,7 +7,7 @@ enum NodeResultTypes {
 
 enum LinkResultTypes {
   Flow,
-  Velcoity,
+  Velocity,
   Headloss,
   AvgWaterQuality,
   Status,
@@ -21,7 +21,7 @@ const idBytes = 32;
 export interface LinkResults {
   id: string;
   flow: number[];
-  velcoity: number[];
+  velocity: number[];
   headloss: number[];
   avgWaterQuality: number[];
   status: number[];
@@ -162,7 +162,7 @@ const getLinkResults = (
   const linkResults = {
     id: id,
     flow: [],
-    velcoity: [],
+    velocity: [],
     headloss: [],
     avgWaterQuality: [],
     status: [],
@@ -173,7 +173,7 @@ const getLinkResults = (
 
   const result: LinkResults = [
     'flow',
-    'velcoity',
+    'velocity',
     'headloss',
     'avgWaterQuality',
     'status',
