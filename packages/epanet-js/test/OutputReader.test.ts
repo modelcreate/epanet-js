@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Project, Workspace, readBinary, LinkTypes } from '../src';
+import { Project, Workspace, readBinary, NodeTypes, LinkTypes } from '../src';
 
 describe('OutputReader', () => {
   describe('readBinary', () => {
@@ -30,6 +30,31 @@ describe('OutputReader', () => {
       expect(results.links[results.links.length - 1].type).toEqual(
         LinkTypes.Pump
       );
+    });
+
+    test('get type for junction', () => {
+      const bin = getBinaryResults();
+
+      const { results } = readBinary(bin);
+
+      expect(results.nodes[0].type).toEqual(NodeTypes.Junction);
+      expect(results.nodes[8].type).toEqual(NodeTypes.Junction);
+    });
+
+    test('get type for reservoirs', () => {
+      const bin = getBinaryResults();
+
+      const { results } = readBinary(bin);
+
+      expect(results.nodes[9].type).toEqual(NodeTypes.Reservoir);
+    });
+
+    test('get type for tanks', () => {
+      const bin = getBinaryResults();
+
+      const { results } = readBinary(bin);
+
+      expect(results.nodes[10].type).toEqual(NodeTypes.Tank);
     });
   });
 
