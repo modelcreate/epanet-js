@@ -16,9 +16,22 @@ enum LinkResultTypes {
   Friction,
 }
 
+export enum LinkTypes {
+  PipeWithCV,
+  Pipe,
+  Pump,
+  PRV,
+  PSV,
+  PBV,
+  FCV,
+  TCV,
+  GPV,
+}
+
 const idBytes = 32;
 
 export interface LinkResults {
+  type: LinkTypes;
   id: string;
   flow: number[];
   velocity: number[];
@@ -68,6 +81,8 @@ export function readBinary(results: Uint8Array): EpanetResults {
 
   const offsetNodeIds = 884;
   const offsetLinkIds = offsetNodeIds + idBytes * prolog.nodeCount;
+  const offsetLinkTypes =
+    offsetNodeIds + 32 * prolog.nodeCount + 40 * prolog.linkCount;
   const offsetResults =
     offsetNodeIds +
     36 * prolog.nodeCount +
@@ -78,6 +93,7 @@ export function readBinary(results: Uint8Array): EpanetResults {
 
   const nodeIds = getIds(offsetNodeIds, prolog.nodeCount, view1);
   const linkIds = getIds(offsetLinkIds, prolog.linkCount, view1);
+  const linkTypes = getLinkTypes(offsetLinkTypes, prolog.linkCount, view1);
 
   const nodes: NodeResults[] = [...Array(prolog.nodeCount)].map((_, i) => {
     return getNodeResults(prolog, offsetResults, i, view1, nodeIds[i]);
@@ -88,7 +104,8 @@ export function readBinary(results: Uint8Array): EpanetResults {
       offsetResults,
       i,
       view1,
-      linkIds[i]
+      linkIds[i],
+      linkTypes[i]
     );
   });
 
@@ -102,7 +119,11 @@ export function readBinary(results: Uint8Array): EpanetResults {
   return data;
 }
 
-const getIds = (offset: number, count: number, dataView: DataView) => {
+const getIds = (
+  offset: number,
+  count: number,
+  dataView: DataView
+): string[] => {
   const ids: string[] = [];
 
   for (let i = 0; i < count; i++) {
@@ -116,12 +137,28 @@ const getIds = (offset: number, count: number, dataView: DataView) => {
   return ids;
 };
 
+const getLinkTypes = (
+  offset: number,
+  count: number,
+  dataView: DataView
+): LinkTypes[] => {
+  const types: LinkTypes[] = [];
+
+  for (let i = 0; i < count; i++) {
+    const position = offset + 4 * i;
+    const type = dataView.getInt32(position, true);
+    types.push(type);
+  }
+
+  return types;
+};
+
 const getNodeResults = (
   prolog: EpanetProlog,
   offsetResults: number,
   nodeIndex: number,
   dataView: DataView,
-  id: string = ''
+  id: string
 ): NodeResults => {
   const nodeResults = {
     id,
@@ -157,10 +194,12 @@ const getLinkResults = (
   offsetResults: number,
   linkIndex: number,
   dataView: DataView,
-  id: string
+  id: string,
+  type: LinkTypes
 ): LinkResults => {
   const linkResults = {
     id: id,
+    type,
     flow: [],
     velocity: [],
     headloss: [],
@@ -217,7 +256,7 @@ const getResultByteOffSet = (
   return answer;
 };
 
-const stringFrom = (arrayBuffer: ArrayBuffer) => {
+const stringFrom = (arrayBuffer: ArrayBuffer): string => {
   const array = new Uint8Array(arrayBuffer);
   const arrayNumber = Array.from(array).filter(o => o > 0);
   return String.fromCharCode.apply(null, arrayNumber);
