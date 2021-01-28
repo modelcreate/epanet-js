@@ -1,3 +1,5 @@
+import { NodeType } from '../index';
+
 enum NodeResultTypes {
   Demand,
   Head,
@@ -14,12 +16,6 @@ enum LinkResultTypes {
   Setting,
   ReactionRate,
   Friction,
-}
-
-export enum NodeTypes {
-  Junction,
-  Reservoir,
-  Tank,
 }
 
 export enum LinkTypes {
@@ -51,7 +47,7 @@ export interface LinkResults {
 
 export interface NodeResults {
   id: string;
-  type: NodeTypes;
+  type: NodeType;
   demand: number[];
   head: number[];
   pressure: number[];
@@ -164,8 +160,8 @@ const getNodeTypes = (
   nodeCount: number,
   resAndTankCount: number,
   dataView: DataView
-): NodeTypes[] => {
-  const types: NodeTypes[] = [];
+): NodeType[] => {
+  const types: NodeType[] = [];
   const [resAndTankIndexes, resAndTankAreas] = getResAndTanksData(
     offset,
     resAndTankCount,
@@ -174,16 +170,16 @@ const getNodeTypes = (
 
   forEachIndex(nodeCount, index => {
     if (!resAndTankIndexes.includes(index)) {
-      types.push(NodeTypes.Junction);
+      types.push(NodeType.Junction);
       return;
     }
 
     if (resAndTankAreas[resAndTankIndexes.indexOf(index)] === 0.0) {
-      types.push(NodeTypes.Reservoir);
+      types.push(NodeType.Reservoir);
       return;
     }
 
-    types.push(NodeTypes.Tank);
+    types.push(NodeType.Tank);
   });
 
   return types;
@@ -229,7 +225,7 @@ const getNodeResults = (
   nodeIndex: number,
   dataView: DataView,
   id: string,
-  type: NodeTypes
+  type: NodeType
 ): NodeResults => {
   const nodeResults = {
     id,

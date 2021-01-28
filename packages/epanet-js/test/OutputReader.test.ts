@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Project, Workspace, readBinary, NodeTypes, LinkTypes } from '../src';
+import { Project, Workspace, readBinary, NodeType, LinkTypes } from '../src';
 
 describe('OutputReader', () => {
   describe('readBinary', () => {
@@ -37,8 +37,8 @@ describe('OutputReader', () => {
 
       const { results } = readBinary(bin);
 
-      expect(results.nodes[0].type).toEqual(NodeTypes.Junction);
-      expect(results.nodes[8].type).toEqual(NodeTypes.Junction);
+      expect(results.nodes[0].type).toEqual(NodeType.Junction);
+      expect(results.nodes[8].type).toEqual(NodeType.Junction);
     });
 
     test('get type for reservoirs', () => {
@@ -46,7 +46,7 @@ describe('OutputReader', () => {
 
       const { results } = readBinary(bin);
 
-      expect(results.nodes[9].type).toEqual(NodeTypes.Reservoir);
+      expect(results.nodes[9].type).toEqual(NodeType.Reservoir);
     });
 
     test('get type for tanks', () => {
@@ -54,7 +54,7 @@ describe('OutputReader', () => {
 
       const { results } = readBinary(bin);
 
-      expect(results.nodes[10].type).toEqual(NodeTypes.Tank);
+      expect(results.nodes[10].type).toEqual(NodeType.Tank);
     });
   });
 
