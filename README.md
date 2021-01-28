@@ -142,6 +142,7 @@ You must first build epanet-engine before you can lint, test or build epanet-js.
 
 ```sh
 cd packages/epanet-js
+yarn install
 yarn run lint
 yarn run test
 yarn run build
