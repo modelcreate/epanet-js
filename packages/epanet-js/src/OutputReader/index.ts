@@ -1,4 +1,4 @@
-import { NodeType } from '../index';
+import { LinkType, NodeType } from '../index';
 
 enum NodeResultTypes {
   Demand,
@@ -18,23 +18,11 @@ enum LinkResultTypes {
   Friction,
 }
 
-export enum LinkTypes {
-  PipeWithCV,
-  Pipe,
-  Pump,
-  PRV,
-  PSV,
-  PBV,
-  FCV,
-  TCV,
-  GPV,
-}
-
 const idBytes = 32;
 
 export interface LinkResults {
   id: string;
-  type: LinkTypes;
+  type: LinkType;
   flow: number[];
   velocity: number[];
   headloss: number[];
@@ -207,8 +195,8 @@ const getLinkTypes = (
   offset: number,
   count: number,
   dataView: DataView
-): LinkTypes[] => {
-  const types: LinkTypes[] = [];
+): LinkType[] => {
+  const types: LinkType[] = [];
 
   forEachIndex(count, index => {
     const position = offset + 4 * index;
@@ -263,7 +251,7 @@ const getLinkResults = (
   linkIndex: number,
   dataView: DataView,
   id: string,
-  type: LinkTypes
+  type: LinkType
 ): LinkResults => {
   const linkResults = {
     id: id,

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Project, Workspace, readBinary, NodeType, LinkTypes } from '../src';
+import { Project, Workspace, readBinary, NodeType, LinkType } from '../src';
 
 describe('OutputReader', () => {
   describe('readBinary', () => {
@@ -26,9 +26,9 @@ describe('OutputReader', () => {
 
       const { results } = readBinary(bin);
 
-      expect(results.links[0].type).toEqual(LinkTypes.Pipe);
+      expect(results.links[0].type).toEqual(LinkType.Pipe);
       expect(results.links[results.links.length - 1].type).toEqual(
-        LinkTypes.Pump
+        LinkType.Pump
       );
     });
 
