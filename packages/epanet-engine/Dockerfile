@@ -5,5 +5,5 @@ RUN apt-get update && \
     mkdir -p /opt/epanet/build && \
     git clone --depth 1 --branch v2.2 https://github.com/OpenWaterAnalytics/EPANET /opt/epanet/src
 RUN cd /opt/epanet/build && \
-    emconfigure cmake ../src  && \
+    emcmake cmake ../src  && \
     emmake cmake --build . --config Release
