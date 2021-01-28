@@ -1,4 +1,4 @@
-FROM trzeci/emscripten
+FROM trzeci/emscripten:1.39.4
 
 RUN apt-get update && \
     apt-get install -qqy git && \
