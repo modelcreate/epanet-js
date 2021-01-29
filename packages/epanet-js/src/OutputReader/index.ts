@@ -263,7 +263,7 @@ const getLinkResults = (
     status: [],
     setting: [],
     reactionRate: [],
-    friction: []
+    friction: [],
   };
 
   const result: LinkResults = [
