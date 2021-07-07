@@ -13,7 +13,11 @@ class ProjectFunctions {
   }
 
   getTitle(this: Project) {
-    const memory = this._allocateMemory('char', 'char', 'char');
+    const memory = this._allocateMemory(
+      'char-title',
+      'char-title',
+      'char-title'
+    );
     this._checkError(this._EN.gettitle(...memory));
     return {
       line1: this._getValue(memory[0], 'char'),

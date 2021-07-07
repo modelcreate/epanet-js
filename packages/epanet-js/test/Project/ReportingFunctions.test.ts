@@ -8,10 +8,9 @@ const ws = new Workspace();
 
 describe('Epanet Network Node Functions', () => {
   describe('Impliment Methods', () => {
-    ws.writeFile('net1.inp', net1);
-    const model = new Project(ws);
-
     test('clear report', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
       model.open('net1.inp', 'net1.rpt', 'out.bin');
       model.solveH();
       const rpt = ws.readFile('net1.rpt');
@@ -24,6 +23,8 @@ describe('Epanet Network Node Functions', () => {
     });
 
     test('write line', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
       model.open('net1.inp', 'net2.rpt', 'out2.bin');
       model.solveH();
 

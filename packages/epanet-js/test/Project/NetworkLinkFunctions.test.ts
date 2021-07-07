@@ -16,18 +16,19 @@ const ws = new Workspace();
 describe('Epanet Network Node Functions', () => {
   describe('Error Catching', () => {
     test('throw if invalid id', () => {
+      const model = new Project(ws);
       function catchError() {
-        const model = new Project(ws);
         model.init('report.rpt', 'out.bin', 0, 0);
         model.getLinkIndex('LinkThatDoesntExist');
       }
 
       expect(catchError).toThrow('204: function call contains undefined link');
+      model.close();
     });
     test('throw if unable to delete', () => {
+      const model = new Project(ws);
       function catchError() {
         ws.writeFile('net1.inp', net1);
-        const model = new Project(ws);
         model.open('net1.inp', 'report.rpt', 'out.bin');
 
         expect(model.getCount(CountType.LinkCount)).toEqual(13);
@@ -38,6 +39,7 @@ describe('Epanet Network Node Functions', () => {
       expect(catchError).toThrow(
         '261: function call contains attempt to delete a node or link contained in a control'
       );
+      model.close();
     });
   });
   describe('Impliment Methods', () => {
