@@ -2,6 +2,12 @@
 
 set -e
 
+# Useful debug flags for emcc
+#    -s ASSERTIONS=1 \
+#    -s SAFE_HEAP=1 \
+#    -s STACK_OVERFLOW_CHECK=1 \
+#    -s DEMANGLE_SUPPORT=1 \
+# -fsanitize=address
 
 echo "============================================="
 echo "Compiling wasm bindings"

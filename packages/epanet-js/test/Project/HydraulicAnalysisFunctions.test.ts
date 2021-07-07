@@ -21,11 +21,12 @@ describe('Epanet Network Node Functions', () => {
       const epanetMagicNumber = new DataView(bin.buffer).getInt32(0, true);
 
       expect(epanetMagicNumber).toEqual(516114521);
+      model.close();
     });
     test('step by step hydraulic run', () => {
-      ws.writeFile('net1.inp', net1);
+      ws.writeFile('net2.inp', net1);
       const model = new Project(ws);
-      model.open('net1.inp', 'report.rpt', 'out.bin');
+      model.open('net2.inp', 'report2.rpt', 'out2.bin');
 
       model.openH();
       model.initH(InitHydOption.SaveAndInit);
@@ -39,7 +40,7 @@ describe('Epanet Network Node Functions', () => {
       model.saveH();
       model.closeH();
 
-      const bin = ws.readFile('out.bin', 'binary');
+      const bin = ws.readFile('out2.bin', 'binary');
       const epanetMagicNumber = new DataView(bin.buffer).getInt32(0, true);
 
       expect(epanetMagicNumber).toEqual(516114521);

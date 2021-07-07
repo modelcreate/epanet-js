@@ -69,7 +69,9 @@ class Project
   // TODO: There is probably a better way to do this then overloading however
   //       first attempts to use ...operator in arguments worked, I couldn't
   //       figure out how to then have a set length tuple which we need to
-  //       spread over the C function with memory address
+  //       spread over the C function with memory address.
+  //       Limit inputs to specific strings, at the moment anything can be inputted
+  //       into this function and you will get 8 bytes of memory
 
   /** @internal **/
   _allocateMemory(v1: string): [number];
@@ -109,7 +111,24 @@ class Project
     }
     const types = Array.prototype.slice.call(arguments);
     return types.reduce((acc, t) => {
-      const memsize = t === 'char' ? 1 : t === 'int' ? 4 : 8;
+      let memsize;
+      switch (t) {
+        case 'char':
+          memsize = 32; //MAXID in EPANET
+          break;
+
+        case 'char-title':
+          memsize = 80; //TITLELEN in EPANET
+          break;
+
+        case 'int':
+          memsize = 4;
+          break;
+
+        default:
+          memsize = 8; //Double
+          break;
+      }
       const pointer = this._instance._malloc(memsize);
       return acc.concat(pointer);
     }, [] as number[]);
