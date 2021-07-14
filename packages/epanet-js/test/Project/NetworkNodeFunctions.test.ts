@@ -11,6 +11,10 @@ import {
 import fs from 'fs';
 
 const net1 = fs.readFileSync(__dirname + '/../data/net1.inp', 'utf8');
+const tankTestInp = fs.readFileSync(
+  __dirname + '/../data/tankTest.inp',
+  'utf8'
+);
 
 const ws = new Workspace();
 
@@ -75,6 +79,26 @@ describe('Epanet Network Node Functions', () => {
       const nodeType = model.getNodeType(node1Id);
 
       expect(nodeType).toEqual(NodeType.Reservoir);
+    });
+    test('get node type for tank and res from existing network', () => {
+      ws.writeFile('tankTestInp.inp', tankTestInp);
+      const model = new Project(ws);
+
+      model.open('tankTestInp.inp', 'tankTestInp.rpt', 'tankTestInp.bin');
+
+      const junctionIndexLookup = model.getNodeIndex('J1');
+      const junctionType = model.getNodeType(junctionIndexLookup);
+      expect(junctionType).toEqual(NodeType.Junction);
+
+      const resIndexLookup = model.getNodeIndex('R1');
+      const resType = model.getNodeType(resIndexLookup);
+      expect(resType).toEqual(NodeType.Reservoir);
+
+      const tankIndexLookup = model.getNodeIndex('T1');
+      const tankType = model.getNodeType(tankIndexLookup);
+      expect(tankType).toEqual(NodeType.Tank);
+
+      model.close();
     });
     test('set node id and get index', () => {
       const model = new Project(ws);
