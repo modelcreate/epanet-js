@@ -94,9 +94,14 @@ describe('Epanet Network Node Functions', () => {
       const resType = model.getNodeType(resIndexLookup);
       expect(resType).toEqual(NodeType.Reservoir);
 
-      const tankIndexLookup = model.getNodeIndex('T1');
-      const tankType = model.getNodeType(tankIndexLookup);
-      expect(tankType).toEqual(NodeType.Tank);
+      // T1 has a flat curve which turns the tank into a res
+      const tank1IndexLookup = model.getNodeIndex('T1');
+      const tank1Type = model.getNodeType(tank1IndexLookup);
+      expect(tank1Type).toEqual(NodeType.Reservoir);
+
+      const tank2IndexLookup = model.getNodeIndex('T2');
+      const tank2Type = model.getNodeType(tank2IndexLookup);
+      expect(tank2Type).toEqual(NodeType.Tank);
 
       model.close();
     });
