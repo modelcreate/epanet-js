@@ -11,6 +11,10 @@ import {
 import fs from 'fs';
 
 const net1 = fs.readFileSync(__dirname + '/../data/net1.inp', 'utf8');
+const tankTestInp = fs.readFileSync(
+  __dirname + '/../data/tankTest.inp',
+  'utf8'
+);
 
 const ws = new Workspace();
 
@@ -75,6 +79,31 @@ describe('Epanet Network Node Functions', () => {
       const nodeType = model.getNodeType(node1Id);
 
       expect(nodeType).toEqual(NodeType.Reservoir);
+    });
+    test('get node type for tank and res from existing network', () => {
+      ws.writeFile('tankTestInp.inp', tankTestInp);
+      const model = new Project(ws);
+
+      model.open('tankTestInp.inp', 'tankTestInp.rpt', 'tankTestInp.bin');
+
+      const junctionIndexLookup = model.getNodeIndex('J1');
+      const junctionType = model.getNodeType(junctionIndexLookup);
+      expect(junctionType).toEqual(NodeType.Junction);
+
+      const resIndexLookup = model.getNodeIndex('R1');
+      const resType = model.getNodeType(resIndexLookup);
+      expect(resType).toEqual(NodeType.Reservoir);
+
+      // T1 has a flat curve which turns the tank into a res
+      const tank1IndexLookup = model.getNodeIndex('T1');
+      const tank1Type = model.getNodeType(tank1IndexLookup);
+      expect(tank1Type).toEqual(NodeType.Reservoir);
+
+      const tank2IndexLookup = model.getNodeIndex('T2');
+      const tank2Type = model.getNodeType(tank2IndexLookup);
+      expect(tank2Type).toEqual(NodeType.Tank);
+
+      model.close();
     });
     test('set node id and get index', () => {
       const model = new Project(ws);

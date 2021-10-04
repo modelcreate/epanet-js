@@ -21,7 +21,7 @@ class Workspace {
   }
 
   getError(code: number) {
-    const title1Ptr = this._instance._malloc(1);
+    const title1Ptr = this._instance._malloc(256); //EN_MAXMSG
     this._instance.geterror(code, title1Ptr);
     const errMessage = this._instance.UTF8ToString(title1Ptr);
     this._instance._free(title1Ptr);
