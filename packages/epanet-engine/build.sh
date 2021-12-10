@@ -17,7 +17,7 @@ echo "============================================="
   mkdir -p build
 
   # Compile C/C++ code
-  emcc -O0 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
+  emcc -O3 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
     src/epanet_wrapper.cpp \
@@ -34,7 +34,6 @@ echo "============================================="
 		--llvm-lto 3 \
 		--memory-init-file 0 \
     --closure 0
-
     #-s MODULARIZE=1 \
 
 		cat src/wrapper/cjs-prefix.js build/epanetEngine.js src/wrapper/cjs-postfix.js >> index.js
