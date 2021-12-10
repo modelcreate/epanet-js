@@ -1,5 +1,5 @@
 {
-  "version": "0.6.2",
+  "version": "0.6.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "doc": "tsdx build && yarn api-extractor run --local --verbose && mv ./temp/epanet-js.api.json ./input/ && yarn api-documenter markdown"
   },
   "dependencies": {
-    "@model-create/epanet-engine": "0.4.0"
+    "@model-create/epanet-engine": "0.6.3"
   },
   "peerDependencies": {},
   "husky": {
