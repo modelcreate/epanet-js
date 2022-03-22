@@ -139,15 +139,15 @@ describe('Epanet Network Node Functions', () => {
 
       // This is failing, see issue https://github.com/modelcreate/epanet-js/issues/23
 
-      //const elevation = model.getNodeValue(tankId, NodeProperty.Elevation);
+      const elevation = model.getNodeValue(tankId, NodeProperty.Elevation);
       const minLevel = model.getNodeValue(tankId, NodeProperty.MinLevel);
       const maxLevel = model.getNodeValue(tankId, NodeProperty.MaxLevel);
       const tankDiam = model.getNodeValue(tankId, NodeProperty.TankDiam);
       const minVolume = model.getNodeValue(tankId, NodeProperty.MinVolume);
 
-      //expect(elevation).toEqual(10);
+      expect(elevation).toEqual(10);
       expect(minLevel).toEqual(0);
-      expect(maxLevel).toEqual(5);
+      expect(maxLevel).toBeCloseTo(5, 5);
       expect(tankDiam).toEqual(3.2);
       expect(minVolume).toEqual(1);
     });
