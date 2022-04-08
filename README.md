@@ -105,7 +105,12 @@ The following apps were created using the epanet-js engine, please let us know a
 ### Qatium
 Qatium is an open and collaborative water management platform, allowing users to run operational scenarios using their hydraulic models.
 
+![qatium_demo](https://user-images.githubusercontent.com/6113153/162494373-5705c9ea-2ded-49d8-8996-c94fa646fe33.gif)
 
+
+### Watermain Shutdown
+
+![watermain_shutdown](https://user-images.githubusercontent.com/6113153/162494849-c4b965ca-9f69-4d9b-92b4-26d3788b061b.gif)
 
 ### Model View
 
