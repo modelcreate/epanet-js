@@ -100,21 +100,60 @@ Versions of the `epanet-engine` compile against the dev branch of owa-epanet are
 
 ## Featured Apps
 
-The following apps were created using the epanet-js engine, please let us know any apps you've made.
+<img src="https://user-images.githubusercontent.com/6113153/162494373-5705c9ea-2ded-49d8-8996-c94fa646fe33.gif" alt="placeholder"  align="right"/>
 
 ### Qatium
-Qatium is an open and collaborative water management platform, allowing users to run operational scenarios using their hydraulic models.
+Qatium is an open and collaborative water management platform, allowing users to run operational scenarios and near-real time simulations using their hydraulic models in the browser.
 
-![qatium_demo](https://user-images.githubusercontent.com/6113153/162494373-5705c9ea-2ded-49d8-8996-c94fa646fe33.gif)
+With an intuitive interface, Qatium provides access to operational hydraulic modelling to those focused on running a water distribution network.
+ 
+
+**Website**: [Qatium](https://qatium.com/)
+
+<br clear="right"/>
+
+##
+
+<img src="https://user-images.githubusercontent.com/6113153/162494849-c4b965ca-9f69-4d9b-92b4-26d3788b061b.gif" alt="placeholder"  align="right"/>
 
 
 ### Watermain Shutdown
 
-![watermain_shutdown](https://user-images.githubusercontent.com/6113153/162494849-c4b965ca-9f69-4d9b-92b4-26d3788b061b.gif)
+
+Investigate the impact of shutdowns within a water network. Select a pipe, find the isolation valves, the customers impacted, and any alternative supplies, all with one click.
+
+Epanet-js is used to confirm the impact on the network and ensuring alternative supplies are adequate.
+
+Only key information is displayed. Is there low or high pressure, and are there water quality issues to be aware of, such as velocity increases or flow reversals.
+
+**Website**: [Watermain Shutdown](https://shutdown.modelcreate.com/)
+
+<br clear="right"/>
+
+##
+
+
+<a href="https://calibrate.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-calibrate/master/img/app.png" alt="Model View" height="175" align="right"/></a>
+
+### Model Calibrate
+
+Extract subsections of your InfoWorks WS Pro models and run them in your browser. As you make calibration changes such as modifying roughness or restriction valves the application runs an epanet model and compares the simulated results to those observered in the field.
+
+**Website**: [Model Calibrate](https://calibrate.modelcreate.com/)
+
+**Source Code**: [GitHub](https://github.com/modelcreate/model-calibrate)
+
+
+<br clear="right"/>
+
+##
+
+
+<a href="https://view.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-view/master/ModelViewPreview.gif" alt="Model View" height="175" align="right"/></a>
 
 ### Model View
 
-<a href="https://view.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-view/master/ModelViewPreview.gif" alt="Model View" height="175" align="center"/></a>
+
 
 Display models created in EPANET directly in the browser. No data leaves your computer; all data rendered and processed locally using the epanet-js library.
 
@@ -122,16 +161,7 @@ Display models created in EPANET directly in the browser. No data leaves your co
 
 **Source Code**: [GitHub](https://github.com/modelcreate/model-view)
 
-
-### Model Calibrate
-
-<a href="https://calibrate.modelcreate.com/"><img src="https://raw.githubusercontent.com/modelcreate/model-calibrate/master/img/app.png" alt="Model View" height="175" align="center"/></a>
-
-
-Extract subsections of your InfoWorks WS Pro models and run them in your browser. As you make calibration changes such as modifying roughness or restriction valves the application runs an epanet model and compares the simulated results to those observered in the field.
-
-**Website**: [Model Calibrate](https://calibrate.modelcreate.com/)
-
+<br clear="right"/>
 
 ## Build
 
