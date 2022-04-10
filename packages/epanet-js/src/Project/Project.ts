@@ -21,9 +21,7 @@ interface MemoryTypes {
   char: string;
 }
 
-/**
- * @public
- */
+
 class Project
   implements
     ProjectFunctions,
@@ -37,11 +35,11 @@ class Project
     DataCurveFunctions,
     SimpleControlFunctions,
     RuleBasedControlFunctions {
-  /** @internal **/
+
   _ws: Workspace;
-  /** @internal **/
+
   _instance: EmscriptenModule;
-  /** @internal **/
+
   _EN: EpanetProject;
   constructor(ws: Workspace) {
     this._ws = ws;
@@ -49,7 +47,7 @@ class Project
     this._EN = new this._ws._instance.Epanet();
   }
 
-  /** @internal **/
+
   _getValue<T extends keyof MemoryTypes>(
     pointer: number,
     type: T
@@ -73,20 +71,16 @@ class Project
   //       Limit inputs to specific strings, at the moment anything can be inputted
   //       into this function and you will get 8 bytes of memory
 
-  /** @internal **/
+
   _allocateMemory(v1: string): [number];
-  /** @internal **/
   _allocateMemory(v1: string, v2: string): [number, number];
-  /** @internal **/
   _allocateMemory(v1: string, v2: string, v3: string): [number, number, number];
-  /** @internal **/
   _allocateMemory(
     v1: string,
     v2: string,
     v3: string,
     v4: string
   ): [number, number, number, number];
-  /** @internal **/
   _allocateMemory(
     v1: string,
     v2: string,
@@ -94,7 +88,6 @@ class Project
     v4: string,
     v5: string
   ): [number, number, number, number, number];
-  /** @internal **/
   _allocateMemory(
     v1: string,
     v2: string,
@@ -104,7 +97,6 @@ class Project
     v6: string,
     v7: string
   ): [number, number, number, number, number, number, number];
-  /** @internal **/
   _allocateMemory(v1: any): any {
     if (typeof v1 != 'string') {
       throw new Error('Method _allocateMemory expected string');
@@ -134,7 +126,7 @@ class Project
     }, [] as number[]);
   }
 
-  /** @internal **/
+
   _allocateMemoryForArray(arr: number[]): number {
     const data = new Float32Array(arr);
 
@@ -153,7 +145,7 @@ class Project
     return dataPtr;
   }
 
-  /** @internal **/
+
   _checkError(errorCode: number) {
     if (errorCode === 0) {
       return;
