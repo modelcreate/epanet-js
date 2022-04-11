@@ -21,7 +21,6 @@ interface MemoryTypes {
   char: string;
 }
 
-
 class Project
   implements
     ProjectFunctions,
@@ -35,7 +34,6 @@ class Project
     DataCurveFunctions,
     SimpleControlFunctions,
     RuleBasedControlFunctions {
-
   _ws: Workspace;
 
   _instance: EmscriptenModule;
@@ -46,7 +44,6 @@ class Project
     this._instance = ws._instance;
     this._EN = new this._ws._instance.Epanet();
   }
-
 
   _getValue<T extends keyof MemoryTypes>(
     pointer: number,
@@ -70,7 +67,6 @@ class Project
   //       spread over the C function with memory address.
   //       Limit inputs to specific strings, at the moment anything can be inputted
   //       into this function and you will get 8 bytes of memory
-
 
   _allocateMemory(v1: string): [number];
   _allocateMemory(v1: string, v2: string): [number, number];
@@ -126,7 +122,6 @@ class Project
     }, [] as number[]);
   }
 
-
   _allocateMemoryForArray(arr: number[]): number {
     const data = new Float32Array(arr);
 
@@ -144,7 +139,6 @@ class Project
 
     return dataPtr;
   }
-
 
   _checkError(errorCode: number) {
     if (errorCode === 0) {

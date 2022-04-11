@@ -1,7 +1,6 @@
 import { epanetEngine } from '@model-create/epanet-engine';
 
 class Workspace {
-
   _instance: EmscriptenModule;
 
   _FS: EmscriptenFileSysten;
