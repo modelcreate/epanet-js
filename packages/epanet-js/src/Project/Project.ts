@@ -251,7 +251,7 @@ class Project
   getPatternIndex = TimePatternFunctions.prototype.getPatternIndex;
   getPatternId = TimePatternFunctions.prototype.getPatternId;
   setPatternId = TimePatternFunctions.prototype.setPatternId;
-  getPatternLenth = TimePatternFunctions.prototype.getPatternLenth;
+  getPatternLength = TimePatternFunctions.prototype.getPatternLength;
   getPatternValue = TimePatternFunctions.prototype.getPatternValue;
   setPatternValue = TimePatternFunctions.prototype.setPatternValue;
   getAveragePatternValue =

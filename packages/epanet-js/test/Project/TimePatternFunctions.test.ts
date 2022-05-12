@@ -13,7 +13,7 @@ describe('Epanet Time Pattern Functions', () => {
 
       model.setPattern(patIndex, [2, 2, 3, 4, 5]);
 
-      const patLength = model.getPatternLenth(patIndex);
+      const patLength = model.getPatternLength(patIndex);
       expect(patLength).toEqual(5);
 
       const patValue = model.getPatternValue(patIndex, 5);
