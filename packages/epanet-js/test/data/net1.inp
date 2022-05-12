@@ -162,7 +162,7 @@ wall reactions are included.
 
 [VERTICES]
 ;Link            	X-Coord         	Y-Coord
-
+10 20 20
 [LABELS]
 ;X-Coord           Y-Coord          Label & Anchor Node
  6.99             73.63            "Source"                 
