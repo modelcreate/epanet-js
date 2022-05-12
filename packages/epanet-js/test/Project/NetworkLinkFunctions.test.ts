@@ -125,5 +125,37 @@ describe('Epanet Network Node Functions', () => {
       //const updatedModelType = model.getLinkType(1);
       //expect(updatedModelType).toEqual(LinkType.PRV);
     });
+    test('test getting existing vertex', () => {
+      ws.writeFile('net1.inp', net1);
+      const model = new Project(ws);
+      model.open('net1.inp', 'report.rpt', 'out.bin');
+
+      const pipeIndex = model.getLinkIndex('10');
+
+      const vertexCount = model.getVertexCount(pipeIndex);
+      expect(vertexCount).toEqual(1);
+
+      const vertexCheck = model.getVertex(pipeIndex, 1);
+      expect(vertexCheck).toEqual({ x: 20, y: 20 });
+    });
+    test('create link with vertex', () => {
+      const model = new Project(ws);
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      model.addNode('Node1', NodeType.Junction);
+      model.addNode('Node2', NodeType.Junction);
+      const pipeIndex = model.addLink('A', LinkType.CVPipe, 'Node1', 'Node2');
+
+      const x = [1, 2, 3];
+      const y = [2, 4, 6];
+
+      model.setVertices(pipeIndex, x, y);
+
+      const vertexCount = model.getVertexCount(pipeIndex);
+      expect(vertexCount).toEqual(3);
+
+      const vertexCheck = model.getVertex(pipeIndex, 1);
+      expect(vertexCheck).toEqual({ x: 1, y: 2 });
+    });
   });
 });

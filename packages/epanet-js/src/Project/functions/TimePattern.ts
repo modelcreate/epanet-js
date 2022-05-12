@@ -25,7 +25,7 @@ class TimePatternFunctions {
     this._checkError(this._EN.setpatternid(index, id));
   }
 
-  getPatternLenth(this: Project, index: number) {
+  getPatternLength(this: Project, index: number) {
     const memory = this._allocateMemory('int');
     this._checkError(this._EN.getpatternlen(index, ...memory));
     return this._getValue(memory[0], 'int');

@@ -123,19 +123,11 @@ class Project
   }
 
   _allocateMemoryForArray(arr: number[]): number {
-    const data = new Float32Array(arr);
-
-    // Get data byte size, allocate memory on Emscripten heap, and get pointer
-    const nDataBytes = data.length * data.BYTES_PER_ELEMENT;
+    const typedArray = new Float64Array(arr);
+    const nDataBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
     const dataPtr = this._instance._malloc(nDataBytes);
-    const dataHeap = new Uint8Array(
-      this._instance.HEAPU8.buffer,
-      dataPtr,
-      nDataBytes
-    );
-    dataHeap.set(new Uint8Array(data.buffer));
 
-    //return dataHeap.byteOffset?
+    this._instance.HEAP8.set(new Uint8Array(typedArray.buffer), dataPtr);
 
     return dataPtr;
   }
@@ -259,7 +251,7 @@ class Project
   getPatternIndex = TimePatternFunctions.prototype.getPatternIndex;
   getPatternId = TimePatternFunctions.prototype.getPatternId;
   setPatternId = TimePatternFunctions.prototype.setPatternId;
-  getPatternLenth = TimePatternFunctions.prototype.getPatternLenth;
+  getPatternLength = TimePatternFunctions.prototype.getPatternLength;
   getPatternValue = TimePatternFunctions.prototype.getPatternValue;
   setPatternValue = TimePatternFunctions.prototype.setPatternValue;
   getAveragePatternValue =
