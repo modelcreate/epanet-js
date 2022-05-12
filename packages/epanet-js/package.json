@@ -1,5 +1,5 @@
 {
-  "version": "0.6.3",
+  "version": "0.7.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@model-create/epanet-engine": "0.6.3"
+    "@model-create/epanet-engine": "0.7.0"
   },
   "peerDependencies": {},
   "husky": {
