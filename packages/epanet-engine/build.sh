@@ -30,10 +30,14 @@ echo "============================================="
 		-s ALLOW_MEMORY_GROWTH="1" \
     -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
-		-s WASM=0 \
+		-s WASM=1 \
+		-s SINGLE_FILE=1 \
+    -s WASM_ASYNC_COMPILATION=0 \
 		--llvm-lto 3 \
 		--memory-init-file 0 \
     --closure 0
+
+		#-s BINARYEN_ASYNC_COMPILATION=0 \
     #-s MODULARIZE=1 \
 
 		cat src/wrapper/cjs-prefix.js build/epanetEngine.js src/wrapper/cjs-postfix.js >> index.js
