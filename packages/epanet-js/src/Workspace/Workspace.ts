@@ -5,7 +5,8 @@ class Workspace {
 
   _FS: EmscriptenFileSysten;
   constructor() {
-    this._instance = epanetEngine;
+    //@ts-ignore
+    this._instance = epanetEngine();
     this._FS = this._instance.FS;
   }
 

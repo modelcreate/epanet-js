@@ -17,7 +17,7 @@ echo "============================================="
   mkdir -p build
 
   # Compile C/C++ code
-  emcc -O3 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
+  emcc -O0 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
     src/epanet_wrapper.cpp \
@@ -32,7 +32,8 @@ echo "============================================="
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
 		-s WASM=1 \
 		-s SINGLE_FILE=1 \
-    -s WASM_ASYNC_COMPILATION=0 \
+    -s WASM_ASYNC_COMPILATION=1 \
+    -s MODULARIZE=1 \
 		--llvm-lto 3 \
 		--memory-init-file 0 \
     --closure 0
