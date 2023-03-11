@@ -1,5 +1,6 @@
 #include <emscripten/bind.h>
 #include "epanet2_2.h"
+#include "extension.h"
 #include <stdio.h>
 
 using namespace emscripten;
@@ -986,6 +987,15 @@ public:
   {
     return EN_setrulepriority(ph, index, priority);
   }
+
+
+  // Unofficial Functions
+  int UNOFFICIAL_isnodeincontrol(int index, intptr_t value)
+  {
+    double *ptr1 = reinterpret_cast<double *>(value);
+    return EN_UNOFFICIAL_isnodeincontrol(ph, index, ptr1);
+  }
+
 };
 
 EMSCRIPTEN_BINDINGS(my_module)
@@ -1127,5 +1137,8 @@ EMSCRIPTEN_BINDINGS(my_module)
       .function("setpremisestatus", &Epanet::setpremisestatus)
       .function("setpremisevalue", &Epanet::setpremisevalue)
       .function("setrulepriority", &Epanet::setrulepriority)
-      .function("setthenaction", &Epanet::setthenaction);
+      .function("setthenaction", &Epanet::setthenaction)
+      // Unofficial Functions
+      .function("UNOFFICIAL_isnodeincontrol", &Epanet::UNOFFICIAL_isnodeincontrol);
+
 }

@@ -10,3 +10,4 @@ export { default as TimePatternFunctions } from './TimePattern';
 export { default as DataCurveFunctions } from './DataCurve';
 export { default as SimpleControlFunctions } from './SimpleControl';
 export { default as RuleBasedControlFunctions } from './RuleBasedControl';
+export { default as UnofficialFunctions } from './Unofficial';

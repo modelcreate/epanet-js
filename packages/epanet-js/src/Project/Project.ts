@@ -12,6 +12,7 @@ import {
   DataCurveFunctions,
   SimpleControlFunctions,
   RuleBasedControlFunctions,
+  UnofficialFunctions,
 } from './functions';
 
 interface MemoryTypes {
@@ -291,6 +292,10 @@ class Project
   getElseAction = RuleBasedControlFunctions.prototype.getElseAction;
   setElseAction = RuleBasedControlFunctions.prototype.setElseAction;
   setRulePriority = RuleBasedControlFunctions.prototype.setRulePriority;
+
+  // Unoffical Functions
+  UNOFFICIAL_isnodeincontrol =
+    UnofficialFunctions.prototype.UNOFFICIAL_isnodeincontrol;
 }
 
 export default Project;

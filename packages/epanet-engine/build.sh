@@ -28,7 +28,7 @@ echo "============================================="
 	    -s FORCE_FILESYSTEM="1" \
 	    -s INLINING_LIMIT="1" \
 		-s ALLOW_MEMORY_GROWTH="1" \
-    -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
+    -s ERROR_ON_UNDEFINED_SYMBOLS=1 \
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
 		-s WASM=0 \
 		--llvm-lto 3 \

@@ -484,6 +484,9 @@ interface EpanetProject {
     setting: number
   ): number;
   setrulepriority(index: number, priority: number): number;
+
+  // Unofficial Functions
+  UNOFFICIAL_isnodeincontrol(index: number, value: number): number;
 }
 
 // By default Emscripten emits a single global Module.  Users setting -s
