@@ -97,29 +97,30 @@ class Project
     if (typeof v1 != 'string') {
       throw new Error('Method _allocateMemory expected string');
     }
-    const types = Array.prototype.slice.call(arguments);
-    return types.reduce((acc, t) => {
-      let memsize;
+    const memory = [];
+    for (let index = 0; index < arguments.length; index++) {
+      const t = arguments[index];
+
+      var memsize;
       switch (t) {
         case 'char':
-          memsize = 32; //MAXID in EPANET
+          memsize = 32;
           break;
-
         case 'char-title':
-          memsize = 80; //TITLELEN in EPANET
+          memsize = 80;
           break;
-
         case 'int':
           memsize = 4;
           break;
-
         default:
-          memsize = 8; //Double
+          memsize = 8;
           break;
       }
-      const pointer = this._instance._malloc(memsize);
-      return acc.concat(pointer);
-    }, [] as number[]);
+      var pointer = this._instance._malloc(memsize);
+      memory.push(pointer);
+    }
+
+    return memory;
   }
 
   _allocateMemoryForArray(arr: number[]): number {

@@ -17,7 +17,7 @@ echo "============================================="
   mkdir -p build
 
   # Compile C/C++ code
-  emcc -O0 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
+  emcc -O3 -o ./build/epanetEngine.js /opt/epanet/build/lib/libepanet2.a \
     -I /opt/epanet/src/include \
     test.c \
     src/epanet_wrapper.cpp \
@@ -26,17 +26,18 @@ echo "============================================="
     -s NO_EXIT_RUNTIME="1" \
 	    -s DEAD_FUNCTIONS="[]" \
 	    -s FORCE_FILESYSTEM="1" \
-	    -s INLINING_LIMIT="1" \
 		-s ALLOW_MEMORY_GROWTH="1" \
     -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 	    -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue", "UTF8ToString", "intArrayToString","FS"]' \
 		-s WASM=1 \
 		-s SINGLE_FILE=1 \
-    -s WASM_ASYNC_COMPILATION=1 \
-    -s MODULARIZE=1 \
-		--llvm-lto 3 \
+    -msimd128 \
+    -s WASM_ASYNC_COMPILATION=0 \
 		--memory-init-file 0 \
     --closure 0
+    #-s MODULARIZE=1 \
+
+    # -msimd128 Enable SIMD  https://jott.live/markdown/wasm_vector_addition
 
 		#-s BINARYEN_ASYNC_COMPILATION=0 \
     #-s MODULARIZE=1 \

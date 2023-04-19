@@ -1,6 +1,6 @@
 {
   "name": "@model-create/epanet-engine",
-  "version": "0.7.1-alpha.1",
+  "version": "0.7.1-alpha.3",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.es6.js",
