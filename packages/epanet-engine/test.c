@@ -89,9 +89,11 @@ int netbuilder()
 }
 
 EMSCRIPTEN_KEEPALIVE
-int getversion2(int *i)
+int getversion()
 {
-  return EN_getversion(i);
+  int i;
+  EN_getversion(*i);
+  return i;
 }
 
 void writeConsole(char *s)
