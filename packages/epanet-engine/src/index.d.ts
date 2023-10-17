@@ -153,6 +153,8 @@ interface EpanetProjectConstructable {
 interface EpanetProject {
   // Generated methods
 
+  getnodeindex2(id: string, index: number): number;
+
   //Project Functions
   open(inputFile: string, reportFile: string, outputFile: string): number;
   close(): number;

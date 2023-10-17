@@ -47,6 +47,8 @@
     "optional": "cpp",
     "string_view": "cpp",
     "system_error": "cpp",
-    "initializer_list": "cpp"
+    "initializer_list": "cpp",
+    "__locale": "cpp",
+    "variant": "c"
   }
 }

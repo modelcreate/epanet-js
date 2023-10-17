@@ -32,6 +32,32 @@ public:
     EN_deleteproject(ph);
   }
 
+  // temp speed tests
+
+  int getnodeindex2(const std::string& id, intptr_t index)
+  {
+    int *ptr1 = reinterpret_cast<int *>(index);
+    //return EN_getnodeindex(ph, const_cast<char*>(id.c_str()), 0);
+    EN_Project ph2;
+    EN_createproject(&ph2);
+
+    return EN_getnodeindex(ph2, "J1", ptr1);
+  }
+
+    int getnodeindex(std::string id, intptr_t index)
+  {
+    int errcode;
+    int *ptr1 = reinterpret_cast<int *>(index);
+    char *idChar = new char[id.length() + 1];
+
+    strcpy(idChar, id.c_str());
+
+    errcode = EN_getnodeindex(ph, idChar, ptr1);
+
+    delete[] idChar;
+    return errcode;
+  }
+
   // Project Functions
 
   int open(std::string inputFile, std::string reportFile, std::string outputFile)
@@ -408,19 +434,7 @@ public:
   {
     return EN_deletenode(ph, index, actionCode);
   }
-  int getnodeindex(std::string id, intptr_t index)
-  {
-    int errcode;
-    int *ptr1 = reinterpret_cast<int *>(index);
-    char *idChar = new char[id.length() + 1];
 
-    strcpy(idChar, id.c_str());
-
-    errcode = EN_getnodeindex(ph, idChar, ptr1);
-
-    delete[] idChar;
-    return errcode;
-  }
   int getnodeid(int index, intptr_t out_id)
   {
     char *ptr1 = reinterpret_cast<char *>(out_id);
@@ -995,6 +1009,7 @@ EMSCRIPTEN_BINDINGS(my_module)
 
   class_<Epanet>("Epanet")
       .constructor<>()
+      .function("getnodeindex2", &Epanet::getnodeindex2, allow_raw_pointers())
       .function("open", &Epanet::open)
       .function("close", &Epanet::close)
       .function("runproject", &Epanet::runproject)

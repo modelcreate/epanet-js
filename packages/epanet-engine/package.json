@@ -8,6 +8,7 @@
   "scripts": {
     "build:dockerimage": "docker build -t mydockerimage .",
     "build:emscripten": "docker run --rm -v \"$(pwd):/src\" mydockerimage ./build.sh",
+    "build:emscripten_WASM": "docker run --rm -v \"$(pwd):/src\" mydockerimage ./wasm_build.sh",
     "build:app": "cp index.html dist/index.html",
     "build:typings": "cp src/index.d.ts dist/index.d.ts",
     "build": "yarn run build:emscripten && yarn run build:app && yarn run build:typings",

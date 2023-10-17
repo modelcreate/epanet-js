@@ -12,9 +12,15 @@ class NetworkNodeFunctions {
     this._checkError(this._EN.deletenode(index, actionCode));
   }
 
+  getNodeIndex2(this: Project, id: string) {
+    const memory = this._allocateMemory('int');
+    this._EN.getnodeindex2(id, memory[0]);
+    return this._getValue(memory[0], 'int');
+  }
+
   getNodeIndex(this: Project, id: string) {
     const memory = this._allocateMemory('int');
-    this._checkError(this._EN.getnodeindex(id, ...memory));
+    this._EN.getnodeindex(id, memory[0]);
     return this._getValue(memory[0], 'int');
   }
 

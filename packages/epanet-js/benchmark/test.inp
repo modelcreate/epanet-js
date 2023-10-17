@@ -1,0 +1,23 @@
+[TITLE]
+Minimal EPANET Example
+
+[JUNCTIONS]
+;ID             Elev   Demand   Pattern
+ J1             100     10      ;
+
+[RESERVOIRS]
+;ID             Head   Pattern
+ R1             150     ;
+
+[PIPES]
+;ID             Node1  Node2   Length   Diameter   Roughness   MinorLoss   Status
+ P1             R1     J1      1000     12        100         0           OPEN
+
+[COORDINATES]
+;Node           X-Coord            Y-Coord
+ R1             1                  1
+ J1             2                  1
+
+[TAGS]
+
+[END]

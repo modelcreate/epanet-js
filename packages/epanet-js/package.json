@@ -19,7 +19,8 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@model-create/epanet-engine": "0.7.0"
+    "@model-create/epanet-engine": "0.7.0",
+    "benchmark": "^2.1.4"
   },
   "peerDependencies": {},
   "husky": {

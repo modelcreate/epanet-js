@@ -39,10 +39,16 @@ class Project
   _instance: EmscriptenModule;
 
   _EN: EpanetProject;
+  _sharedMemory: number[];
   constructor(ws: Workspace) {
     this._ws = ws;
     this._instance = ws._instance;
     this._EN = new this._ws._instance.Epanet();
+    this._sharedMemory = Array(7)
+      .fill(0)
+      .map(() => {
+        return this._instance._malloc(80);
+      });
   }
 
   _getValue<T extends keyof MemoryTypes>(
@@ -57,7 +63,7 @@ class Project
       const size = type === 'int' ? 'i32' : type === 'long' ? 'i64' : 'double';
       value = this._instance.getValue(pointer, size);
     }
-    this._instance._free(pointer);
+    //this._instance._free(pointer);
     return value;
   }
 
@@ -97,6 +103,9 @@ class Project
     if (typeof v1 != 'string') {
       throw new Error('Method _allocateMemory expected string');
     }
+    //return this._sharedMemory.slice(0, arguments.length);
+    return this._sharedMemory;
+
     const types = Array.prototype.slice.call(arguments);
     return types.reduce((acc, t) => {
       let memsize;
@@ -144,6 +153,8 @@ class Project
   }
 
   // Implementing function classes
+
+  getNodeIndex2 = NetworkNodeFunctions.prototype.getNodeIndex2;
 
   // Project Functions
   open = ProjectFunctions.prototype.open;

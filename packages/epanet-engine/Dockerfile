@@ -1,4 +1,4 @@
-FROM trzeci/emscripten:1.39.4
+FROM emscripten/emsdk:3.1.15
 
 RUN apt-get update && \
     apt-get install -qqy git && \

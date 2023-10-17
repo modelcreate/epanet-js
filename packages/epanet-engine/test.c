@@ -2,6 +2,63 @@
 #include "epanet2_2.h"
 
 #include "stdio.h"
+#include <stdlib.h>
+
+
+
+
+EMSCRIPTEN_KEEPALIVE
+EN_Project create_project() {
+    EN_Project ph = NULL; // EN_Project is already a pointer type.
+    int errcode = EN_createproject(&ph);
+    if (errcode != 0) {
+        // If there was an error, the memory (if allocated) should ideally be freed by the library. 
+        // However, if you suspect a leak, you may need to handle it or check library docs.
+        return NULL;
+    }
+    return ph;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int loadinp(EN_Project ph) {
+    int errcode = EN_open(ph, "test.inp", "test.rpt", "test.out");
+    return errcode;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int getNodeIndex(EN_Project ph, char *id) {
+    int index;
+    EN_getnodeindex(ph, id, &index);
+    return index;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void free_project(EN_Project ph) {
+    free(ph);
+}
+
+
+
+
+//EMSCRIPTEN_KEEPALIVE
+//int loadinp()
+//{
+//  int errcode;  
+//  EN_createproject(&ph);
+//  errcode = EN_open(ph, "test.inp", "test.rpt", "test.out");
+//
+//
+//  return errcode;
+//}
+//
+//EMSCRIPTEN_KEEPALIVE
+//int getNodeIndex()
+//{
+//  int index;
+//  EN_getnodeindex(ph, "J1", &index);
+//  return index;
+//}
+
 
 EMSCRIPTEN_KEEPALIVE
 int test()
