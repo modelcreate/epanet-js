@@ -49,6 +49,10 @@ wall reactions are included.
 
 [DEMANDS]
 ;Junction        	Demand      	Pattern         	Category
+11  10  1
+11  20  1
+11  30  1
+
 
 [STATUS]
 ;ID              	Status/Setting
