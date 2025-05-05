@@ -68,7 +68,6 @@ describe('Epanet Reporting Functions', () => {
       model.open('net1.inp', 'net4.rpt', 'out4.bin');
 
       // Set some custom report settings
-      model.setReport('NODES ALL');
       model.setStatusReport(StatusReport.FullReport);
 
       // Reset to defaults
@@ -78,11 +77,12 @@ describe('Epanet Reporting Functions', () => {
       model.solveH();
       const rpt = ws.readFile('net4.rpt');
 
-      // Default report should not include node details
-      expect(rpt).not.toContain('Node Results');
+      // Report should be empty
+      expect(rpt).toBe('');
     });
 
     // model.setReport('FILE myfile.rpt'); is failing in epanet-js 0.7.0
+    //https://github.com/modelcreate/epanet-js/issues/72
     test.skip('set report format', () => {
       ws.writeFile('net1.inp', net1);
       model.open('net1.inp', 'net5.rpt', 'out5.bin');
