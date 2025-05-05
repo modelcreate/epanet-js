@@ -41,6 +41,22 @@ describe('Data Curve Functions', () => {
       expect(model.getCurveType(curveIndex)).toBe(CurveType.GenericCurve);
     });
 
+    test('should throw error when x and y arrays have different lengths', () => {
+      // Add a new curve
+      model.addCurve('PUMP1');
+      const curveIndex = model.getCurveIndex('PUMP1');
+
+      // Attempt to set curve with mismatched array lengths
+      const xValues = [0, 1000, 2000];
+      const yValues = [100, 80]; // Different length than xValues
+
+      expect(() => {
+        model.setCurve(curveIndex, xValues, yValues);
+      }).toThrow(
+        'X and Y vertex arrays must have the same length - X length: 3, Y length 2'
+      );
+    });
+
     test('should set curve values', () => {
       // Add a new curve
       model.addCurve('PUMP1');

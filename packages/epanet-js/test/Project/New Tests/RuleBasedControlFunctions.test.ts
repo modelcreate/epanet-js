@@ -118,6 +118,92 @@ describe('Epanet Rule-Based Control Functions', () => {
       // Verify rule was deleted
       expect(() => model.getRule(1)).toThrow();
     });
+
+    test('set premise index and status', () => {
+      // Add a rule
+      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      model.addRule(rule);
+
+      // Get initial premise
+      const initialPremise = model.getPremise(1, 1);
+      expect(initialPremise.object).toBe(RuleObject.Node);
+      expect(initialPremise.objIndex).toBe(model.getNodeIndex('2'));
+
+      // Change the premise index to a different node
+      const newNodeIndex = model.getNodeIndex('23');
+      model.setPremiseIndex(1, 1, newNodeIndex);
+
+      // Verify the change
+      const updatedPremise = model.getPremise(1, 1);
+      expect(updatedPremise.objIndex).toBe(newNodeIndex);
+
+      // Set premise status
+      model.setPremiseStatus(1, 1, RuleStatus.IsOpen);
+      const statusUpdatedPremise = model.getPremise(1, 1);
+      expect(statusUpdatedPremise.status).toBe(RuleStatus.IsOpen);
+    });
+
+    test('set premise value', () => {
+      // Add a rule
+      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      model.addRule(rule);
+
+      // Get initial premise value
+      const initialPremise = model.getPremise(1, 1);
+      expect(initialPremise.value).toBe(100);
+
+      // Change the premise value
+      const newValue = 150;
+      model.setPremiseValue(1, 1, newValue);
+
+      // Verify the change
+      const updatedPremise = model.getPremise(1, 1);
+      expect(updatedPremise.value).toBe(newValue);
+    });
+
+    test('set else action', () => {
+      // Add a rule with ELSE clause
+      const rule =
+        'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN\nELSE LINK 9 STATUS = CLOSED';
+      model.addRule(rule);
+
+      // Get initial else action
+      const initialElseAction = model.getElseAction(1, 1);
+      expect(initialElseAction.status).toBe(RuleStatus.IsClosed);
+
+      // Change the else action
+      const linkIndex = model.getLinkIndex('9');
+      model.setElseAction(1, 1, linkIndex, RuleStatus.IsOpen, 0.0);
+
+      // Verify the change
+      const updatedElseAction = model.getElseAction(1, 1);
+      expect(updatedElseAction.status).toBe(RuleStatus.IsOpen);
+    });
+
+    test('set rule priority', () => {
+      // Add two rules
+      const rule1 = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule2 =
+        'RULE 2\nIF NODE 2 LEVEL > 130\nTHEN LINK 9 STATUS = CLOSED';
+      model.addRule(rule1);
+      model.addRule(rule2);
+
+      // Get initial priorities
+      const initialRule1 = model.getRule(1);
+      const initialRule2 = model.getRule(2);
+      expect(initialRule1.priority).toBe(0);
+      expect(initialRule2.priority).toBe(0);
+
+      // Set new priorities
+      model.setRulePriority(1, 1);
+      model.setRulePriority(2, 2);
+
+      // Verify the changes
+      const updatedRule1 = model.getRule(1);
+      const updatedRule2 = model.getRule(2);
+      expect(updatedRule1.priority).toBe(1);
+      expect(updatedRule2.priority).toBe(2);
+    });
   });
 
   describe('Rule Behavior', () => {

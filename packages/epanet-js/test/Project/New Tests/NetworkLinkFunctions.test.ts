@@ -209,6 +209,66 @@ describe('Network Link Functions', () => {
       expect(setting).toBeDefined();
     });
 
+    test('should set and get head curve index for pump', () => {
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      // Create nodes and pump
+      model.addNode('Node1', NodeType.Junction);
+      model.addNode('Node2', NodeType.Junction);
+      const pumpIndex = model.addLink('P1', LinkType.Pump, 'Node1', 'Node2');
+
+      // Create a curve for the pump
+      model.addCurve('PUMP_CURVE');
+      const curveIndex = model.getCurveIndex('PUMP_CURVE');
+      model.setCurve(curveIndex, [0, 1000], [100, 80]);
+
+      // Set and verify head curve index
+      model.setHeadCurveIndex(pumpIndex, curveIndex);
+      expect(model.getHeadCurveIndex(pumpIndex)).toEqual(curveIndex);
+    });
+
+    test('should throw error when setting vertices with mismatched arrays', () => {
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      // Create nodes and link
+      model.addNode('Node1', NodeType.Junction);
+      model.addNode('Node2', NodeType.Junction);
+      const pipeIndex = model.addLink('A', LinkType.CVPipe, 'Node1', 'Node2');
+
+      // Attempt to set vertices with mismatched arrays
+      const x = [1, 2, 3];
+      const y = [2, 4]; // Different length than x
+
+      expect(() => {
+        model.setVertices(pipeIndex, x, y);
+      }).toThrow(
+        'X and Y vertex arrays must have the same length - X length: 3, Y length 2'
+      );
+    });
+
+    test('should set and get link ID', () => {
+      model.init('report.rpt', 'out.bin', 0, 0);
+
+      // Create nodes and link
+      model.addNode('Node1', NodeType.Junction);
+      model.addNode('Node2', NodeType.Junction);
+      const linkIndex = model.addLink(
+        'OriginalID',
+        LinkType.Pipe,
+        'Node1',
+        'Node2'
+      );
+
+      // Verify original ID
+      expect(model.getLinkId(linkIndex)).toEqual('OriginalID');
+
+      // Change link ID
+      model.setLinkId(linkIndex, 'NewID');
+
+      // Verify new ID
+      expect(model.getLinkId(linkIndex)).toEqual('NewID');
+    });
+
     test('should handle pipe properties from net1.inp', () => {
       ws.writeFile('net1.inp', net1);
       model.open('net1.inp', 'report.rpt', 'out.bin');

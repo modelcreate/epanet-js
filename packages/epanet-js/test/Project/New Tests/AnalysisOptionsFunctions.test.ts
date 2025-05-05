@@ -84,6 +84,28 @@ describe('Analysis Options Functions', () => {
       const traceQualityInfo = model.getQualityInfo();
       expect(traceQualityInfo.qualType).toBe(QualityType.Trace);
     });
+
+    test('should get quality type', () => {
+      // Test default quality type
+      const defaultQualityType = model.getQualityType();
+      expect(defaultQualityType.qualType).toBe(QualityType.None);
+      expect(defaultQualityType.traceNode).toBe(0);
+
+      // Create junction J-1 for trace quality test
+      model.addNode('J-1', NodeType.Junction);
+
+      // Test setting and getting chemical quality type
+      model.setQualityType(QualityType.Chem, 'Chlorine', 'mg/L', '');
+      const chemQualityType = model.getQualityType();
+      expect(chemQualityType.qualType).toBe(QualityType.Chem);
+      expect(chemQualityType.traceNode).toBe(0);
+
+      // Test setting and getting trace quality type
+      model.setQualityType(QualityType.Trace, '', '', 'J-1');
+      const traceQualityType = model.getQualityType();
+      expect(traceQualityType.qualType).toBe(QualityType.Trace);
+      expect(traceQualityType.traceNode).toBe(1); // Node index should be 1 since it's the first node added
+    });
   });
 
   describe('Time Parameters', () => {
