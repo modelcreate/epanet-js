@@ -19,6 +19,8 @@ class Workspace {
     return returnValue;
   }
 
+  loadModule() {}
+
   getError(code: number) {
     const title1Ptr = this._instance._malloc(256); //EN_MAXMSG
     this._instance.geterror(code, title1Ptr);
