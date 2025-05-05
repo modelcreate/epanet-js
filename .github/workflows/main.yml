@@ -11,7 +11,7 @@ jobs:
 
       - name: Cache emscripten build
         id: cache-emscripten-build
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: "packages/epanet-engine/dist"
           key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
@@ -29,7 +29,7 @@ jobs:
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
