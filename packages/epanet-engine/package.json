@@ -1,22 +1,18 @@
 {
   "name": "@model-create/epanet-engine",
-  "version": "0.7.0",
-  "description": "",
+  "version": "0.8.0-alpha.1",
+  "type": "module",
+  "description": "EPANET WASM engine",
   "main": "dist/index.js",
-  "module": "dist/index.es6.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build:dockerimage": "docker build -t mydockerimage .",
-    "build:emscripten": "docker run --rm -v \"$(pwd):/src\" -w /src mydockerimage ./build.sh",
-    "build:app": "cp index.html dist/index.html",
-    "build:typings": "cp src/index.d.ts dist/index.d.ts",
-    "build": "yarn run build:emscripten && yarn run build:app && yarn run build:typings",
-    "serve": "http-server -c0 dist"
+    "build:dockerimage": "docker build -t epanet-js-engine .",
+    "build:dockerimage-arm64": "docker build --build-arg EMSDK_TAG_SUFFIX='-arm64' -t epanet-js-engine .",
+    "build:emscripten": "docker run --rm -v \"$(pwd):/src\" epanet-js-engine ./build.sh",
+    "build:types": "node type-gen/create-types.js",
+    "build": "npm run build:dockerimage-arm64 && npm run build:emscripten && npm run build:types && cp type-gen/epanet2_2.d.ts dist/index.d.ts"
   },
   "keywords": [],
-  "devDependencies": {
-    "http-server": "*"
-  },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
