@@ -1,4 +1,4 @@
-import { Project, Workspace } from '../../../src';
+import { Project, Workspace } from "../../src";
 import {
   NodeProperty,
   LinkProperty,
@@ -6,13 +6,13 @@ import {
   RuleVariable,
   RuleOperator,
   RuleStatus,
-} from '../../../src/enum';
+} from "../../src/enum";
 
-import fs from 'fs';
+import fs from "fs";
 
-const net1 = fs.readFileSync(__dirname + '/../../data/net1.inp', 'utf8');
+const net1 = fs.readFileSync(__dirname + "/../data/net1.inp", "utf8");
 
-describe('Epanet Rule-Based Control Functions', () => {
+describe("Epanet Rule-Based Control Functions", () => {
   let ws: Workspace;
   let model: Project;
 
@@ -20,19 +20,19 @@ describe('Epanet Rule-Based Control Functions', () => {
     ws = new Workspace();
     await ws.loadModule();
     model = new Project(ws);
-    ws.writeFile('net1.inp', net1);
-    model.open('net1.inp', 'report.rpt', 'out.bin');
+    ws.writeFile("net1.inp", net1);
+    model.open("net1.inp", "report.rpt", "out.bin");
   });
 
-  describe('Rule Management', () => {
-    test('add and get rules', () => {
+  describe("Rule Management", () => {
+    test("add and get rules", () => {
       // Add three rules
       const rule1 =
-        'RULE 1 \n IF NODE 2 LEVEL < 100 \n THEN LINK 9 STATUS = OPEN';
+        "RULE 1 \n IF NODE 2 LEVEL < 100 \n THEN LINK 9 STATUS = OPEN";
       const rule2 =
-        'RULE 2\nIF SYSTEM TIME = 4\nTHEN LINK 9 STATUS = CLOSED\nAND LINK 31 STATUS = CLOSED';
+        "RULE 2\nIF SYSTEM TIME = 4\nTHEN LINK 9 STATUS = CLOSED\nAND LINK 31 STATUS = CLOSED";
       const rule3 =
-        'RULE 3\nIF NODE 23 PRESSURE ABOVE 140\nAND NODE 2 LEVEL > 120\nTHEN LINK 113 STATUS = CLOSED\nELSE LINK 22 STATUS = CLOSED';
+        "RULE 3\nIF NODE 23 PRESSURE ABOVE 140\nAND NODE 2 LEVEL > 120\nTHEN LINK 113 STATUS = CLOSED\nELSE LINK 22 STATUS = CLOSED";
 
       model.addRule(rule1);
       model.addRule(rule2);
@@ -48,14 +48,14 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(rule3Info.premiseCount).toBeGreaterThan(0);
 
       // Verify rule IDs
-      expect(model.getRuleId(1)).toBe('1');
-      expect(model.getRuleId(2)).toBe('2');
-      expect(model.getRuleId(3)).toBe('3');
+      expect(model.getRuleId(1)).toBe("1");
+      expect(model.getRuleId(2)).toBe("2");
+      expect(model.getRuleId(3)).toBe("3");
     });
 
-    test('get and set rule premises', () => {
+    test("get and set rule premises", () => {
       // Add a rule
-      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule = "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN";
       model.addRule(rule);
 
       // Get premise details
@@ -66,7 +66,7 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(premise.value).toBe(100);
 
       // Modify premise
-      const nodeIndex = model.getNodeIndex('2');
+      const nodeIndex = model.getNodeIndex("2");
       model.setPremise(
         1,
         1,
@@ -76,7 +76,7 @@ describe('Epanet Rule-Based Control Functions', () => {
         RuleVariable.Level,
         RuleOperator.LessThan,
         RuleStatus.IsClosed,
-        90
+        90,
       );
 
       // Verify changes
@@ -84,10 +84,10 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(updatedPremise.value).toBe(90);
     });
 
-    test('get and set rule actions', () => {
+    test("get and set rule actions", () => {
       // Add a rule with THEN and ELSE actions
       const rule =
-        'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN\nELSE LINK 9 STATUS = CLOSED';
+        "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN\nELSE LINK 9 STATUS = CLOSED";
       model.addRule(rule);
 
       // Get THEN action
@@ -99,7 +99,7 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(elseAction.status).toBe(RuleStatus.IsClosed);
 
       // Modify THEN action
-      const linkIndex = model.getLinkIndex('9');
+      const linkIndex = model.getLinkIndex("9");
       model.setThenAction(1, 1, linkIndex, RuleStatus.IsClosed, 0.0);
 
       // Verify changes
@@ -107,9 +107,9 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(updatedThenAction.status).toBe(RuleStatus.IsClosed);
     });
 
-    test('delete rule', () => {
+    test("delete rule", () => {
       // Add a rule
-      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule = "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN";
       model.addRule(rule);
 
       // Delete the rule
@@ -119,18 +119,18 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(() => model.getRule(1)).toThrow();
     });
 
-    test('set premise index and status', () => {
+    test("set premise index and status", () => {
       // Add a rule
-      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule = "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN";
       model.addRule(rule);
 
       // Get initial premise
       const initialPremise = model.getPremise(1, 1);
       expect(initialPremise.object).toBe(RuleObject.Node);
-      expect(initialPremise.objIndex).toBe(model.getNodeIndex('2'));
+      expect(initialPremise.objIndex).toBe(model.getNodeIndex("2"));
 
       // Change the premise index to a different node
-      const newNodeIndex = model.getNodeIndex('23');
+      const newNodeIndex = model.getNodeIndex("23");
       model.setPremiseIndex(1, 1, newNodeIndex);
 
       // Verify the change
@@ -143,9 +143,9 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(statusUpdatedPremise.status).toBe(RuleStatus.IsOpen);
     });
 
-    test('set premise value', () => {
+    test("set premise value", () => {
       // Add a rule
-      const rule = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule = "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN";
       model.addRule(rule);
 
       // Get initial premise value
@@ -161,10 +161,10 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(updatedPremise.value).toBe(newValue);
     });
 
-    test('set else action', () => {
+    test("set else action", () => {
       // Add a rule with ELSE clause
       const rule =
-        'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN\nELSE LINK 9 STATUS = CLOSED';
+        "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN\nELSE LINK 9 STATUS = CLOSED";
       model.addRule(rule);
 
       // Get initial else action
@@ -172,7 +172,7 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(initialElseAction.status).toBe(RuleStatus.IsClosed);
 
       // Change the else action
-      const linkIndex = model.getLinkIndex('9');
+      const linkIndex = model.getLinkIndex("9");
       model.setElseAction(1, 1, linkIndex, RuleStatus.IsOpen, 0.0);
 
       // Verify the change
@@ -180,11 +180,11 @@ describe('Epanet Rule-Based Control Functions', () => {
       expect(updatedElseAction.status).toBe(RuleStatus.IsOpen);
     });
 
-    test('set rule priority', () => {
+    test("set rule priority", () => {
       // Add two rules
-      const rule1 = 'RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN';
+      const rule1 = "RULE 1\nIF NODE 2 LEVEL < 100\nTHEN LINK 9 STATUS = OPEN";
       const rule2 =
-        'RULE 2\nIF NODE 2 LEVEL > 130\nTHEN LINK 9 STATUS = CLOSED';
+        "RULE 2\nIF NODE 2 LEVEL > 130\nTHEN LINK 9 STATUS = CLOSED";
       model.addRule(rule1);
       model.addRule(rule2);
 
@@ -206,14 +206,14 @@ describe('Epanet Rule-Based Control Functions', () => {
     });
   });
 
-  describe('Rule Behavior', () => {
-    test('rule affects simulation results', () => {
+  describe("Rule Behavior", () => {
+    test("rule affects simulation results", () => {
       // Add a rule to control tank level
 
       const rule1 =
-        'RULE 1 \n IF NODE 2 LEVEL < 100 \n THEN LINK 9 STATUS = OPEN';
+        "RULE 1 \n IF NODE 2 LEVEL < 100 \n THEN LINK 9 STATUS = OPEN";
       const rule2 =
-        'RULE 2 \n IF NODE 2 LEVEL > 130 \n THEN LINK 9 STATUS = CLOSED';
+        "RULE 2 \n IF NODE 2 LEVEL > 130 \n THEN LINK 9 STATUS = CLOSED";
 
       model.addRule(rule1);
       model.addRule(rule2);
@@ -236,8 +236,8 @@ describe('Epanet Rule-Based Control Functions', () => {
         stepCount++;
 
         // Get current tank level and link status
-        const tankIndex = model.getNodeIndex('2');
-        const linkIndex = model.getLinkIndex('9');
+        const tankIndex = model.getNodeIndex("2");
+        const linkIndex = model.getLinkIndex("9");
         const tankLevel = model.getNodeValue(tankIndex, NodeProperty.Pressure);
         const linkStatus = model.getLinkValue(linkIndex, LinkProperty.Status);
 
@@ -247,7 +247,7 @@ describe('Epanet Rule-Based Control Functions', () => {
 
         // Verify tank level stays within control bounds
         expect(tankLevel / psiPerFeet).toBeGreaterThanOrEqual(109.9);
-        expect(tankLevel / psiPerFeet).toBeLessThanOrEqual(130.3);
+        expect(tankLevel / psiPerFeet).toBeLessThanOrEqual(130.2);
       } while (tStep > 0);
 
       // Close hydraulic analysis

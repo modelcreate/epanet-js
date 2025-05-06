@@ -1,29 +1,29 @@
-import { Project, Workspace } from '../../../src';
+import { Project, Workspace } from "../../src";
 import {
   FlowUnits,
   NodeType,
   Option,
   QualityType,
   TimeParameter,
-} from '../../../src/enum';
+} from "../../src/enum";
 
 const ws = new Workspace();
-ws.loadModule();
+await ws.loadModule();
 
-describe('Analysis Options Functions', () => {
+describe("Analysis Options Functions", () => {
   let model: Project;
 
   beforeEach(() => {
     model = new Project(ws);
-    model.init('report.rpt', 'out.bin', 0, 0);
+    model.init("report.rpt", "out.bin", 0, 0);
   });
 
   afterEach(() => {
     model.close();
   });
 
-  describe('Flow Units', () => {
-    test('should get and set flow units', () => {
+  describe("Flow Units", () => {
+    test("should get and set flow units", () => {
       // Test default flow units
       expect(model.getFlowUnits()).toBe(FlowUnits.CFS);
 
@@ -36,8 +36,8 @@ describe('Analysis Options Functions', () => {
     });
   });
 
-  describe('Options', () => {
-    test('should get and set analysis options', () => {
+  describe("Options", () => {
+    test("should get and set analysis options", () => {
       // Test default values
       expect(model.getOption(Option.Trials)).toBe(200);
       expect(model.getOption(Option.Accuracy)).toBe(0.001);
@@ -55,61 +55,61 @@ describe('Analysis Options Functions', () => {
     });
   });
 
-  describe('Quality Info and Type', () => {
-    test('should get and set quality info and type', () => {
+  describe("Quality Info and Type", () => {
+    test("should get and set quality info and type", () => {
       // Test default quality info
       const defaultQualityInfo = model.getQualityInfo();
       expect(defaultQualityInfo.qualType).toBe(QualityType.None);
-      expect(defaultQualityInfo.chemName).toBe('');
-      expect(defaultQualityInfo.chemUnits).toBe('');
+      expect(defaultQualityInfo.chemName).toBe("");
+      expect(defaultQualityInfo.chemUnits).toBe("");
       expect(defaultQualityInfo.traceNode).toBe(0);
 
       // Test setting chemical quality
-      model.setQualityType(QualityType.Chem, 'Chlorine', 'mg/L', '');
+      model.setQualityType(QualityType.Chem, "Chlorine", "mg/L", "");
       const chemQualityInfo = model.getQualityInfo();
       expect(chemQualityInfo.qualType).toBe(QualityType.Chem);
-      expect(chemQualityInfo.chemName).toBe('Chlorine');
-      expect(chemQualityInfo.chemUnits).toBe('mg/L');
+      expect(chemQualityInfo.chemName).toBe("Chlorine");
+      expect(chemQualityInfo.chemUnits).toBe("mg/L");
 
       // Test setting age quality
-      model.setQualityType(QualityType.Age, '', '', '');
+      model.setQualityType(QualityType.Age, "", "", "");
       const ageQualityInfo = model.getQualityInfo();
       expect(ageQualityInfo.qualType).toBe(QualityType.Age);
 
       // Create junction J-1 for trace quality test
-      model.addNode('J-1', NodeType.Junction);
+      model.addNode("J-1", NodeType.Junction);
 
       // Test setting trace quality
-      model.setQualityType(QualityType.Trace, '', '', 'J-1');
+      model.setQualityType(QualityType.Trace, "", "", "J-1");
       const traceQualityInfo = model.getQualityInfo();
       expect(traceQualityInfo.qualType).toBe(QualityType.Trace);
     });
 
-    test('should get quality type', () => {
+    test("should get quality type", () => {
       // Test default quality type
       const defaultQualityType = model.getQualityType();
       expect(defaultQualityType.qualType).toBe(QualityType.None);
       expect(defaultQualityType.traceNode).toBe(0);
 
       // Create junction J-1 for trace quality test
-      model.addNode('J-1', NodeType.Junction);
+      model.addNode("J-1", NodeType.Junction);
 
       // Test setting and getting chemical quality type
-      model.setQualityType(QualityType.Chem, 'Chlorine', 'mg/L', '');
+      model.setQualityType(QualityType.Chem, "Chlorine", "mg/L", "");
       const chemQualityType = model.getQualityType();
       expect(chemQualityType.qualType).toBe(QualityType.Chem);
       expect(chemQualityType.traceNode).toBe(0);
 
       // Test setting and getting trace quality type
-      model.setQualityType(QualityType.Trace, '', '', 'J-1');
+      model.setQualityType(QualityType.Trace, "", "", "J-1");
       const traceQualityType = model.getQualityType();
       expect(traceQualityType.qualType).toBe(QualityType.Trace);
       expect(traceQualityType.traceNode).toBe(1); // Node index should be 1 since it's the first node added
     });
   });
 
-  describe('Time Parameters', () => {
-    test('should get and set time parameters', () => {
+  describe("Time Parameters", () => {
+    test("should get and set time parameters", () => {
       // Test default values
       expect(model.getTimeParameter(TimeParameter.Duration)).toBe(0);
       expect(model.getTimeParameter(TimeParameter.HydStep)).toBe(3600); // 1 hour in seconds

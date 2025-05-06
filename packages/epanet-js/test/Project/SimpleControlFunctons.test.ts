@@ -1,11 +1,11 @@
-import { Project, Workspace } from '../../../src';
-import { ControlType, NodeProperty, LinkProperty } from '../../../src/enum';
+import { Project, Workspace } from "../../src";
+import { ControlType, NodeProperty, LinkProperty } from "../../src/enum";
 
-import fs from 'fs';
+import fs from "fs";
 
-const net1 = fs.readFileSync(__dirname + '/../../data/net1.inp', 'utf8');
+const net1 = fs.readFileSync(__dirname + "/../data/net1.inp", "utf8");
 
-describe('Epanet Simple Control Functions', () => {
+describe("Epanet Simple Control Functions", () => {
   let ws: Workspace;
   let model: Project;
 
@@ -13,15 +13,15 @@ describe('Epanet Simple Control Functions', () => {
     ws = new Workspace();
     await ws.loadModule();
     model = new Project(ws);
-    ws.writeFile('net1.inp', net1);
-    model.open('net1.inp', 'report.rpt', 'out.bin');
+    ws.writeFile("net1.inp", net1);
+    model.open("net1.inp", "report.rpt", "out.bin");
   });
 
-  describe('Control Management', () => {
-    test('add control for tank level', () => {
+  describe("Control Management", () => {
+    test("add control for tank level", () => {
       // Get indices for the tank and link
-      const tankIndex = model.getNodeIndex('2');
-      const linkIndex = model.getLinkIndex('9');
+      const tankIndex = model.getNodeIndex("2");
+      const linkIndex = model.getLinkIndex("9");
 
       // Add a control to open the link when tank level is below 110
       const controlIndex = model.addControl(
@@ -29,7 +29,7 @@ describe('Epanet Simple Control Functions', () => {
         linkIndex,
         1.0, // Open setting
         tankIndex,
-        110.0 // Level
+        110.0, // Level
       );
 
       expect(controlIndex).toBeGreaterThan(0);
@@ -43,10 +43,10 @@ describe('Epanet Simple Control Functions', () => {
       expect(control.level).toEqual(110.0);
     });
 
-    test('add control for tank level with high level condition', () => {
+    test("add control for tank level with high level condition", () => {
       // Get indices for the tank and link
-      const tankIndex = model.getNodeIndex('2');
-      const linkIndex = model.getLinkIndex('9');
+      const tankIndex = model.getNodeIndex("2");
+      const linkIndex = model.getLinkIndex("9");
 
       // Add a control to close the link when tank level is above 140
       const controlIndex = model.addControl(
@@ -54,7 +54,7 @@ describe('Epanet Simple Control Functions', () => {
         linkIndex,
         0.0, // Closed setting
         tankIndex,
-        140.0 // Level
+        140.0, // Level
       );
 
       expect(controlIndex).toBeGreaterThan(0);
@@ -68,10 +68,10 @@ describe('Epanet Simple Control Functions', () => {
       expect(control.level).toEqual(140.0);
     });
 
-    test('delete control', () => {
+    test("delete control", () => {
       // Get indices for the tank and link
-      const tankIndex = model.getNodeIndex('2');
-      const linkIndex = model.getLinkIndex('9');
+      const tankIndex = model.getNodeIndex("2");
+      const linkIndex = model.getLinkIndex("9");
 
       // Add a control
       const controlIndex = model.addControl(
@@ -79,7 +79,7 @@ describe('Epanet Simple Control Functions', () => {
         linkIndex,
         1.0,
         tankIndex,
-        110.0
+        110.0,
       );
 
       // Delete the control
@@ -89,10 +89,10 @@ describe('Epanet Simple Control Functions', () => {
       expect(() => model.getControl(controlIndex)).toThrow();
     });
 
-    test('modify existing control', () => {
+    test("modify existing control", () => {
       // Get indices for the tank and link
-      const tankIndex = model.getNodeIndex('2');
-      const linkIndex = model.getLinkIndex('9');
+      const tankIndex = model.getNodeIndex("2");
+      const linkIndex = model.getLinkIndex("9");
 
       // Add a control
       const controlIndex = model.addControl(
@@ -100,7 +100,7 @@ describe('Epanet Simple Control Functions', () => {
         linkIndex,
         1.0,
         tankIndex,
-        110.0
+        110.0,
       );
 
       // Modify the control
@@ -110,7 +110,7 @@ describe('Epanet Simple Control Functions', () => {
         linkIndex,
         0.0,
         tankIndex,
-        140.0
+        140.0,
       );
 
       // Verify the control was modified
@@ -121,11 +121,11 @@ describe('Epanet Simple Control Functions', () => {
     });
   });
 
-  describe('Control Behavior', () => {
-    test('control affects simulation results step by step', () => {
+  describe("Control Behavior", () => {
+    test("control affects simulation results step by step", () => {
       // Get indices for the tank and link
-      const tankIndex = model.getNodeIndex('2');
-      const linkIndex = model.getLinkIndex('9');
+      const tankIndex = model.getNodeIndex("2");
+      const linkIndex = model.getLinkIndex("9");
 
       // Add controls for tank level
       model.addControl(ControlType.LowLevel, linkIndex, 1.0, tankIndex, 110.0);

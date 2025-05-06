@@ -4,8 +4,8 @@
   "scripts": {
     "build": "pnpm -r build",
     "build:engine": "pnpm --filter @model-create/epanet-engine build",
-    "build:js": "pnpm --filter @model-create/epanet-js build",
-    "test": "pnpm --filter @model-create/epanet-js test"
+    "build:js": "pnpm --filter epanet-js build",
+    "test": "pnpm --filter epanet-js test"
   },
   "license": "MIT"
 }

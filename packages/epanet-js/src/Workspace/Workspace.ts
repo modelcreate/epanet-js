@@ -1,36 +1,55 @@
-import { epanetEngine } from '@model-create/epanet-engine';
+import EpanetEngine from '@model-create/epanet-engine';
 
-class Workspace {
-  _instance: EmscriptenModule;
-
-  _FS: EmscriptenFileSysten;
+export class Workspace {
+  private _emscriptenModule: typeof EpanetEngine;
+  private _instance: Awaited<ReturnType<typeof EpanetEngine>> | undefined;
+  private _FS: Awaited<ReturnType<typeof EpanetEngine>>['FS'] | undefined;
   constructor() {
-    this._instance = epanetEngine;
-    this._FS = this._instance.FS;
+    this._emscriptenModule = EpanetEngine;
+  }
+
+  async loadModule(): Promise<void> {
+    const engine = await this._emscriptenModule();
+    this._instance = engine;
+    this._FS = engine.FS;
+  }
+
+  private checkEngineLoaded(): void {
+    if (!this._instance) {
+      throw new Error('EPANET engine not loaded. Call loadModule() first.');
+    }
+  }
+
+  get instance(): NonNullable<typeof this._instance> {
+    this.checkEngineLoaded();
+    return this._instance!;
+  }
+
+  private get FS(): NonNullable<typeof this._FS> {
+    this.checkEngineLoaded();
+    return this._FS!;
   }
 
   get version() {
-    const intPointer = this._instance._malloc(4);
-    this._instance.getversion(intPointer);
-    const returnValue = this._instance.getValue(intPointer, 'i32');
+    const intPointer = this.instance._malloc(4);
+    this.instance._EN_getversion(intPointer);
+    const returnValue = this.instance.getValue(intPointer, 'i32');
 
-    this._instance._free(intPointer);
+    this.instance._free(intPointer);
 
     return returnValue;
   }
 
-  loadModule() {}
-
   getError(code: number) {
-    const title1Ptr = this._instance._malloc(256); //EN_MAXMSG
-    this._instance.geterror(code, title1Ptr);
-    const errMessage = this._instance.UTF8ToString(title1Ptr);
-    this._instance._free(title1Ptr);
+    const title1Ptr = this.instance._malloc(256); //EN_MAXMSG
+    this.instance._EN_geterror(code, title1Ptr, 256);
+    const errMessage = this.instance.UTF8ToString(title1Ptr);
+    this.instance._free(title1Ptr);
     return errMessage;
   }
 
-  writeFile(path: string, data: string | ArrayBufferView) {
-    this._FS.writeFile(path, data);
+  writeFile(path: string, data: string | Uint8Array) {
+    this.FS.writeFile(path, data);
   }
 
   readFile(file: string): string;
@@ -39,14 +58,16 @@ class Workspace {
   readFile(file: any, encoding?: 'utf8' | 'binary'): any {
     if (!encoding || encoding === 'utf8') {
       encoding = 'utf8';
-      return this._FS.readFile(file, {
+      return this.FS.readFile(file, {
         encoding,
       }) as string;
     }
-    return this._FS.readFile(file, {
+    return this.FS.readFile(file, {
       encoding,
     }) as Uint8Array;
   }
-}
+
+} 
+
 
 export default Workspace;
