@@ -1,15 +1,12 @@
 {
   "private": true,
   "name": "epanet-js",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "build:docker": "yarn workspace @model-create/epanet-engine build:dockerimage",
-    "build:engine": "yarn workspace @model-create/epanet-engine build",
-    "lint": "yarn workspace epanet-js lint",
-    "test": "yarn workspace epanet-js test:CI",
-    "test:coverage": "yarn workspace epanet-js test --watchAll=false --coverage",
-    "build": "yarn workspace epanet-js build"
-  }
+    "build": "pnpm -r build",
+    "build:engine": "pnpm --filter @model-create/epanet-engine build",
+    "build:js": "pnpm --filter epanet-js build",
+    "test": "pnpm --filter epanet-js test",
+    "test:coverage-ci": "pnpm --filter epanet-js test:coverage-ci"
+  },
+  "license": "MIT"
 }

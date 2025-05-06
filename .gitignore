@@ -18,6 +18,19 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Coverage
+/packages/epanet-js/coverage
+packages/epanet-js/test-report.junit.xml
+
+# Networks
+/packages/epanet-engine/tests/networks
+/packages/epanet-js/test/benchmark/networks
+
+# Typegen
+/packages/epanet-engine/type-gen/epanet2_2.d.ts
+/packages/epanet-engine/type-gen/epanet2_2.h
+/packages/epanet-engine/type-gen/epanet2_enums.h
+
+/packages/epanet-engine/dist/*
+/packages/epanet-engine/build/*
+/packages/epanet-js/dist/*
