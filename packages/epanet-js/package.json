@@ -18,7 +18,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:coverage-ci": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml"
   },
   "dependencies": {
     "@model-create/epanet-engine": "workspace:*"

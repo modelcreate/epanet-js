@@ -10,7 +10,8 @@
     "build:dockerimage-arm64": "docker build --build-arg EMSDK_TAG_SUFFIX='-arm64' -t epanet-js-engine .",
     "build:emscripten": "docker run --rm -v \"$(pwd):/src\" epanet-js-engine ./build.sh",
     "build:types": "node type-gen/create-types.js",
-    "build": "npm run build:dockerimage-arm64 && npm run build:emscripten && npm run build:types && cp type-gen/epanet2_2.d.ts dist/index.d.ts"
+    "build": "npm run build:dockerimage && npm run build:emscripten && npm run build:types",
+    "build:arm64": "npm run build:dockerimage-arm64 && npm run build:emscripten && npm run build:types"
   },
   "keywords": [],
   "author": "",

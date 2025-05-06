@@ -20,6 +20,7 @@
 
 # Coverage
 /packages/epanet-js/coverage
+packages/epanet-js/test-report.junit.xml
 
 # Networks
 /packages/epanet-engine/tests/networks

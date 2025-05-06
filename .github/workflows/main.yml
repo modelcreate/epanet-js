@@ -9,47 +9,45 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Cache emscripten build
         id: cache-emscripten-build
         uses: actions/cache@v4
         with:
           path: "packages/epanet-engine/dist"
-          key: emscrip-${{ hashFiles('packages/epanet-engine/src/**')}}-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
+          key: emscrip-${{ hashFiles('packages/epanet-engine/Dockerfile')}}-${{ hashFiles('packages/epanet-engine/build.sh')}}
 
       - name: list files
         run: ls -LR  packages/epanet-engine
       - name: Build emscripten docker container
         if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
-        run: yarn build:docker
-      - name: Compile OWA-EPANET to JS
-        if: steps.cache-emscripten-build.outputs.cache-hit != 'true'
-        run: yarn build:engine
+        run: pnpm build:engine
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      - name: Get pnpm cache
+        id: pnpm-cache
+        run: echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: yarn install
+        run: pnpm install
       - name: Running tests
-        run: yarn test
+        run: pnpm test
 
       - name: Running test coverage
-        run: yarn test:coverage
+        run: pnpm test:coverage-ci
       - uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} #required
-          file: "packages/epanet-js/coverage/clover.xml"
-          fail_ci_if_error: true #optional (default = false)
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: "packages/epanet-js/test-report.junit.xml"
+          fail_ci_if_error: true
 
-      - name: Running linter
-        run: yarn lint
       - name: Running build
-        run: yarn build
+        run: pnpm build

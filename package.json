@@ -5,7 +5,8 @@
     "build": "pnpm -r build",
     "build:engine": "pnpm --filter @model-create/epanet-engine build",
     "build:js": "pnpm --filter epanet-js build",
-    "test": "pnpm --filter epanet-js test"
+    "test": "pnpm --filter epanet-js test",
+    "test:coverage-ci": "pnpm --filter epanet-js test:coverage-ci"
   },
   "license": "MIT"
 }

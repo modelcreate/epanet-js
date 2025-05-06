@@ -3,10 +3,17 @@ import path from 'path';
 
 // --- Configuration ---
 const HEADER_FILE_PATH = './type-gen/epanet2_2.h'; // Path to your header
-const OUTPUT_D_TS_PATH = './dist/index.d.ts'; // Where to write the .d.ts
+const TARGET_D_TS_PATH = path.join(path.dirname(import.meta.url.substring(7)), '../dist/index.d.ts'); // Where we want to write the .d.ts
+const TEMP_D_TS_PATH = path.join(process.cwd(), 'index.d.ts'); // Temporary location in current directory
 const POINTER_TYPE_NAME = 'Pointer'; // TS type alias for C pointers
 const KNOWN_POINTER_TYPES = ['char *', 'const char *', 'int *', 'float *', 'double *', 'EN_Project', 'void *']; // Add known pointer types (EN_Project is likely a typedef for a pointer)
 const MODULE_INTERFACE_NAME = 'EpanetModule';
+
+// Ensure output directory exists
+const outputDir = path.dirname(TEMP_D_TS_PATH);
+if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+}
 
 // --- Helper Functions ---
 
@@ -520,9 +527,22 @@ export default function EpanetModuleFactory(moduleOverrides?: object): Promise<$
 
 const finalTsContent = boilerplateTop + tsFunctionDefs + boilerplateBottom;
 
-fs.writeFileSync(OUTPUT_D_TS_PATH, finalTsContent);
+// First write to the current directory
+fs.writeFileSync(TEMP_D_TS_PATH, finalTsContent);
+console.log(`Successfully generated ${TEMP_D_TS_PATH} with ${functions.length} functions.`);
 
-console.log(`\nSuccessfully generated ${OUTPUT_D_TS_PATH} with ${functions.length} functions.`);
+// Try to move to the target location
+try {
+    const targetDir = path.dirname(TARGET_D_TS_PATH);
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
+    }
+    fs.renameSync(TEMP_D_TS_PATH, TARGET_D_TS_PATH);
+    console.log(`Successfully moved file to ${TARGET_D_TS_PATH}`);
+} catch (err) {
+    console.warn(`Warning: Could not move file to ${TARGET_D_TS_PATH}. The file remains at ${TEMP_D_TS_PATH}`);
+    console.warn(`Error details:`, err.message);
+}
 
 if (failures.length > 0) {
     console.warn(`\nEncountered ${failures.length} parsing issues:`);
