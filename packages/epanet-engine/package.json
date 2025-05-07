@@ -11,9 +11,13 @@
     "build:emscripten": "docker run --rm -v \"$(pwd):/src\" epanet-js-engine ./build.sh",
     "build:types": "node type-gen/create-types.js",
     "build": "npm run build:dockerimage && npm run build:emscripten && npm run build:types",
-    "build:arm64": "npm run build:dockerimage-arm64 && npm run build:emscripten && npm run build:types"
+    "build:arm64": "npm run build:dockerimage-arm64 && npm run build:emscripten && npm run build:types",
+    "prepublishOnly": "pnpm run build:arm64"
   },
   "keywords": [],
+  "files": [
+    "dist"
+  ],
   "author": "",
   "license": "MIT"
 }

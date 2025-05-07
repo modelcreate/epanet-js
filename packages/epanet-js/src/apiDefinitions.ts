@@ -96,13 +96,13 @@ export const apiDefinitions: Record<string, ApiFunctionDefinition> = {
     outputArgDefs: [],
   },
 
-  // --- Example Version-Gated Function ---
-  openX: {
-    wasmFunctionName: "_EN_openX",
-    inputArgDefs: [{ typeHint: "number" }], // nodeIndex
-    outputArgDefs: [{ name: "value", type: "double" }],
-    minVersion: 20300, // Requires EPANET 2.3.0+
-  },
+  //  // --- Example Version-Gated Function ---
+  //  openX: {
+  //    wasmFunctionName: "_EN_openX",
+  //    inputArgDefs: [{ typeHint: "number" }], // nodeIndex
+  //    outputArgDefs: [{ name: "value", type: "double" }],
+  //    minVersion: 20300, // Requires EPANET 2.3.0+
+  //  },
 
   // Node Functions
   deleteNode: {

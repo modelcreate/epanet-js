@@ -1,13 +1,20 @@
 {
+  "name": "epanet-js",
   "version": "0.8.0-alpha.1",
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/modelcreate/epanet-js.git"
@@ -19,7 +26,8 @@
     "test": "vitest",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
-    "test:coverage-ci": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml"
+    "test:coverage-ci": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@model-create/epanet-engine": "workspace:*"
@@ -32,7 +40,6 @@
     "trailingComma": "all",
     "printWidth": 80
   },
-  "name": "epanet-js",
   "description": "EPANET engine in javascript",
   "author": "Luke Butler",
   "devDependencies": {

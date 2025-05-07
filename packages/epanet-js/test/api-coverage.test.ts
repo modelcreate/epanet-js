@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import Project from "../src/Project/Project";
-import { EpanetProject } from "../src/types";
+import type { EpanetModule as EpanetProject } from "@model-create/epanet-engine";
 import { apiDefinitions } from "../src/apiDefinitions";
 
 import { Workspace } from "../src/Workspace/Workspace";
