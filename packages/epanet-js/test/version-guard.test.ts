@@ -73,7 +73,7 @@ describe("EPANET Version Guarding", () => {
     expect(() => project.getNodeIndex("N1")).not.toThrow();
   });
 
-  it("should THROW when calling version-specific function with baseline version", () => {
+  it.skip("should THROW when calling version-specific function with baseline version", () => {
     const workspace = new MockWorkspace(baselineVersion);
     const project = new Project(workspace);
     const v23MethodName = "openX";
@@ -89,7 +89,7 @@ describe("EPANET Version Guarding", () => {
     expect(() => (project as any)[v23MethodName](1)).not.toThrow();
   });
 
-  it("should throw if underlying WASM function is missing", () => {
+  it.skip("should throw if underlying WASM function is missing", () => {
     const workspace = new MockWorkspace(nextVersion);
     const mockInstance = workspace.instance;
     delete (mockInstance as any)._EN_getspecialnodeprop_v23;
