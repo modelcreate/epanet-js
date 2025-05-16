@@ -175,6 +175,12 @@ pnpm run test
 pnpm run build
 ```
 
+**Publishing epanet-js**
+
+`sh
+pnpm publish --recursive
+`
+
 ## API
 
 > [Find the full API on the epanet-js website](https://epanetjs.com/api/)
