@@ -34,8 +34,9 @@ echo "============================================="
      -s ASSERTIONS=0 \
    -s ALLOW_MEMORY_GROWTH=1 \
     -s SINGLE_FILE=1 \
+    -s ENVIRONMENT=web \
      -msimd128 \
-     --closure 1 \
+     --closure 0 \
     # -s SAFE_HEAP=0 \
     # -s INITIAL_MEMORY=1024MB \
      

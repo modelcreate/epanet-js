@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "epanet-js",
+  "name": "epanet-js-monorepo",
   "scripts": {
     "build": "pnpm -r build",
     "build:engine": "pnpm --filter @model-create/epanet-engine build",
