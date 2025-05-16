@@ -1,9 +1,9 @@
-import EpanetEngine from '@model-create/epanet-engine';
+import EpanetEngine from "@model-create/epanet-engine";
 
 export class Workspace {
   private _emscriptenModule: typeof EpanetEngine;
   private _instance: Awaited<ReturnType<typeof EpanetEngine>> | undefined;
-  private _FS: Awaited<ReturnType<typeof EpanetEngine>>['FS'] | undefined;
+  private _FS: Awaited<ReturnType<typeof EpanetEngine>>["FS"] | undefined;
   constructor() {
     this._emscriptenModule = EpanetEngine;
   }
@@ -16,8 +16,15 @@ export class Workspace {
 
   private checkEngineLoaded(): void {
     if (!this._instance) {
-      throw new Error('EPANET engine not loaded. Call loadModule() first.');
+      throw new Error("EPANET engine not loaded. Call loadModule() first.");
     }
+  }
+
+  get isLoaded(): boolean {
+    if (!this._instance) {
+      return false;
+    }
+    return true;
   }
 
   get instance(): NonNullable<typeof this._instance> {
@@ -33,7 +40,7 @@ export class Workspace {
   get version() {
     const intPointer = this.instance._malloc(4);
     this.instance._EN_getversion(intPointer);
-    const returnValue = this.instance.getValue(intPointer, 'i32');
+    const returnValue = this.instance.getValue(intPointer, "i32");
 
     this.instance._free(intPointer);
 
@@ -53,11 +60,11 @@ export class Workspace {
   }
 
   readFile(file: string): string;
-  readFile(file: string, encoding: 'utf8'): string;
-  readFile(file: string, encoding: 'binary'): Uint8Array;
-  readFile(file: any, encoding?: 'utf8' | 'binary'): any {
-    if (!encoding || encoding === 'utf8') {
-      encoding = 'utf8';
+  readFile(file: string, encoding: "utf8"): string;
+  readFile(file: string, encoding: "binary"): Uint8Array;
+  readFile(file: any, encoding?: "utf8" | "binary"): any {
+    if (!encoding || encoding === "utf8") {
+      encoding = "utf8";
       return this.FS.readFile(file, {
         encoding,
       }) as string;
@@ -66,8 +73,6 @@ export class Workspace {
       encoding,
     }) as Uint8Array;
   }
-
-} 
-
+}
 
 export default Workspace;

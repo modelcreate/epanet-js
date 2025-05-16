@@ -75,13 +75,17 @@ class MockWorkspace extends Workspace {
 describe("EPANET WASM Function Coverage and Project API", () => {
   let project: Project;
   let enInstance: EpanetProject;
-  let mockWorkspace: MockWorkspace;
+  //let mockWorkspace: MockWorkspace;
+  let ws: Workspace;
 
-  const baselineVersion = 20200;
+  //const baselineVersion = 20200;
 
   beforeAll(async () => {
-    mockWorkspace = new MockWorkspace(baselineVersion);
-    project = new Project(mockWorkspace);
+    ws = new Workspace();
+    await ws.loadModule();
+
+    //mockWorkspace = new MockWorkspace(baselineVersion);
+    project = new Project(ws);
     enInstance = (project as any)._EN;
   });
 

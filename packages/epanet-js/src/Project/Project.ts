@@ -41,7 +41,7 @@ interface FinalizerHeldValue {
 
 class Project {
   _ws: Workspace;
-  _EN: EpanetModule; // Use the combined type EpanetModule
+  _EN: EpanetModule | undefined; // Use the combined type EpanetModule
   private _projectHandle!: number; // Assert definite assignment
   private _epanetVersionInt: number = -1;
   private readonly _absoluteMinVersion = 20200;
@@ -412,6 +412,11 @@ class Project {
     x: number[];
     y: number[];
   } {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
     // Get the number of points in the curve
     const nPoints = this.getCurveLenth(index);
 
@@ -470,6 +475,11 @@ class Project {
     linkType: LinkType,
     actionCode: ActionCodeType,
   ): number {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
     // Allocate memory for the inout_index pointer
     const indexPtr = this._EN._malloc(4); // 4 bytes for int
 
@@ -500,11 +510,20 @@ class Project {
 
   constructor(ws: Workspace) {
     this._ws = ws;
-    // Assign the instance, assuming it includes EPANET functions and Emscripten helpers
-    this._EN = ws.instance as EpanetModule;
 
+    // Check if module is loaded using the new isLoaded property
+    if (this._ws.isLoaded) {
+      this._initializeProject();
+    } else {
+      this._EN = undefined;
+      this._createDummyMethods();
+    }
+  }
+
+  private _initializeProject(): void {
     // Create the project FIRST, as version check might now need it (or not)
     // But subsequent API calls definitely will. Assert assignment with !
+    this._EN = this._ws.instance as EpanetModule;
     this._projectHandle = this._createProject();
 
     this._epanetVersionInt = this._getAndVerifyEpanetVersion();
@@ -517,7 +536,40 @@ class Project {
     });
   }
 
+  private _createDummyMethods(): void {
+    // Create a dummy method that checks for module loading and initializes if needed
+    const dummyMethod = (methodName: string) => {
+      return (...args: any[]) => {
+        // Check if module is now loaded using the new isLoaded property
+        if (this._ws.isLoaded) {
+          this._EN = this._ws.instance as EpanetModule;
+          if (this._ws.isLoaded) {
+            // Module is now loaded, initialize the project
+            this._initializeProject();
+            // Call the real method with the original arguments
+            return (this as any)[methodName](...args);
+          }
+        }
+        throw new Error(
+          `EPANET engine not loaded. Call loadModule() on the Workspace first.`,
+        );
+      };
+    };
+
+    // Create dummy methods for all API methods
+    for (const methodName in apiDefinitions) {
+      if (Object.prototype.hasOwnProperty.call(apiDefinitions, methodName)) {
+        (this as any)[methodName] = dummyMethod(methodName);
+      }
+    }
+  }
+
   private _createProject(): number {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
     const funcName = "_EN_createproject"; // Ensure name matches export
     const createProjectFunc = this._EN[funcName] as Function | undefined;
     if (typeof createProjectFunc !== "function") {
@@ -554,7 +606,12 @@ class Project {
   }
 
   private _getAndVerifyEpanetVersion(): number {
-    // !! IMPORTANT: Assume EN_getversion does NOT take projectHandle !!
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
+
     const funcName = "_EN_getversion"; // Ensure name matches export
     const getVersionFunc = this._EN[funcName] as Function | undefined;
 
@@ -629,6 +686,12 @@ class Project {
     definition: ApiFunctionDefinition,
     methodName: string,
   ) {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
+    const EN = this._EN; // Create a local reference with non-null assertion
     const wasmFunctionName = definition.wasmFunctionName;
 
     return (...userArgs: any[]) => {
@@ -645,7 +708,7 @@ class Project {
       }
       // --- End Runtime Version Check ---
 
-      const wasmFunction = this._EN[wasmFunctionName] as Function | undefined;
+      const wasmFunction = EN[wasmFunctionName] as Function | undefined;
 
       if (typeof wasmFunction !== "function") {
         throw new Error(
@@ -694,13 +757,13 @@ class Project {
         definition.inputArgDefs?.forEach((inputDef, index) => {
           const arg = userArgs[index];
           if (inputDef.isStringPtr && typeof arg === "string") {
-            const utf8Length = this._EN.lengthBytesUTF8(arg) + 1; // Null terminator
-            const ptr = this._EN._malloc(utf8Length);
+            const utf8Length = EN.lengthBytesUTF8(arg) + 1; // Null terminator
+            const ptr = EN._malloc(utf8Length);
             if (ptr === 0)
               throw new Error(
                 `Malloc failed for input string arg ${index} in ${methodName}`,
               );
-            this._EN.stringToUTF8(arg, ptr, utf8Length);
+            EN.stringToUTF8(arg, ptr, utf8Length);
             inputStringPointers.push(ptr); // Remember to free this
             processedWasmArgs.push(ptr); // Add pointer to WASM args
           } else if (inputDef.typeHint === "double[]") {
@@ -742,7 +805,7 @@ class Project {
         }
 
         // Call the WASM function: apply(thisContext, [arg1, arg2, ...])
-        const errorCode = wasmFunction.apply(this._EN, processedWasmArgs);
+        const errorCode = wasmFunction.apply(EN, processedWasmArgs);
 
         // Check EPANET error code AFTER the call
         this._checkError(errorCode); // Throws on critical error
@@ -775,7 +838,7 @@ class Project {
         outputPointers.forEach((ptr) => {
           if (ptr !== 0)
             try {
-              this._EN._free(ptr);
+              EN._free(ptr);
             } catch (e) {
               /*ignore*/
             }
@@ -783,7 +846,7 @@ class Project {
         inputStringPointers.forEach((ptr) => {
           if (ptr !== 0)
             try {
-              this._EN._free(ptr);
+              EN._free(ptr);
             } catch (e) {
               /*ignore*/
             }
@@ -791,7 +854,7 @@ class Project {
         arrayPointers.forEach((ptr) => {
           if (ptr !== 0)
             try {
-              this._EN._free(ptr);
+              EN._free(ptr);
             } catch (e) {
               /*ignore*/
             }
@@ -801,13 +864,13 @@ class Project {
         // Cleanup input string pointers on success (output pointers freed by _getValue)
         inputStringPointers.forEach((ptr) => {
           if (ptr !== 0) {
-            this._EN._free(ptr);
+            EN._free(ptr);
           }
         });
         // Cleanup array pointers on success
         arrayPointers.forEach((ptr) => {
           if (ptr !== 0) {
-            this._EN._free(ptr);
+            EN._free(ptr);
           }
         });
       }
@@ -816,6 +879,12 @@ class Project {
 
   // --- Memory/Error Helpers ---
   private _allocateMemory(types: EpanetMemoryType[]): number[] {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
+    const EN = this._EN;
     return types.map((t) => {
       let memsize: number;
       switch (t) {
@@ -833,7 +902,7 @@ class Project {
           memsize = 8;
           break;
       }
-      const pointer = this._EN._malloc(memsize);
+      const pointer = EN._malloc(memsize);
       if (pointer === 0)
         throw new Error(`Failed to allocate ${memsize} bytes for type ${t}`);
       return pointer;
@@ -841,16 +910,22 @@ class Project {
   }
 
   private _allocateMemoryForArray(arr: number[]): number {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
+    const EN = this._EN;
     const typedArray = new Float64Array(arr);
     const nDataBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
-    const dataPtr = this._EN._malloc(nDataBytes);
+    const dataPtr = EN._malloc(nDataBytes);
     if (dataPtr === 0) {
       throw new Error(
         `Malloc failed allocating ${nDataBytes} bytes for array.`,
       );
     }
 
-    this._EN.HEAPF64.set(typedArray, dataPtr / typedArray.BYTES_PER_ELEMENT);
+    EN.HEAPF64.set(typedArray, dataPtr / typedArray.BYTES_PER_ELEMENT);
 
     return dataPtr;
   }
@@ -859,16 +934,22 @@ class Project {
     pointer: number,
     type: T,
   ): MemoryTypes[T] {
+    if (!this._EN) {
+      throw new Error(
+        "EPANET engine not loaded. Call loadModule() on the Workspace first.",
+      );
+    }
+    const EN = this._EN;
     let value: any;
     if (pointer === 0)
       throw new Error(`Attempted to read from null pointer for type ${type}`);
 
     try {
       if (type === "char" || type === "char-title") {
-        value = this._EN.UTF8ToString(pointer);
+        value = EN.UTF8ToString(pointer);
       } else {
         const emsType = type === "int" ? "i32" : "double";
-        value = this._EN.getValue(pointer, emsType);
+        value = EN.getValue(pointer, emsType);
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
@@ -880,7 +961,7 @@ class Project {
       // Add check to prevent freeing 0, though allocateMemory should prevent 0 pointers.
       if (pointer !== 0) {
         try {
-          this._EN._free(pointer);
+          EN._free(pointer);
         } catch (e) {
           console.error(`Error freeing pointer ${pointer}: ${e}`);
         }
