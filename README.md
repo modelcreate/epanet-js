@@ -178,6 +178,7 @@ pnpm run build
 **Publishing epanet-js**
 
 `sh
+pnpm publish --dry-run --recursive
 pnpm publish --recursive
 `
 

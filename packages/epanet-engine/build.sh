@@ -82,6 +82,9 @@ echo "============================================="
     #mv index.js dist
     #mv epanet_version.wasm dist
 
+    echo "Creating index.cjs from index.js with CommonJS export"
+    sed '$ s/export default Module;/module.exports = Module;/' dist/index.js > dist/index.cjs
+
 )
 echo "============================================="
 echo "Compiling wasm bindings done"
