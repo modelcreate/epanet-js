@@ -83,7 +83,7 @@ echo "============================================="
     #mv epanet_version.wasm dist
 
     echo "Creating index.cjs from index.js with CommonJS export"
-    sed '$ s/export default Module;/module.exports = Module;/' dist/index.js > dist/index.cjs
+    sed -e '$ s/export default Module;/module.exports = Module;/' -e 's/import\.meta\.url/__filename/' dist/index.js > dist/index.cjs
 
 )
 echo "============================================="
