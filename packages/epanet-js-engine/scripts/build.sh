@@ -55,6 +55,16 @@ done
 
 echo ""
 echo "======================================================="
+echo "Building EPANET+LSX (v2.3.5) with Lua scripting"
+echo "======================================================="
+
+mkdir -p "${PROJECT_DIR}/dist/v2.3.5-lsx"
+bash "$BUILD_EPANET" "--epanet-tag=v2.3.5" --enable-lsx
+copyFiles "v2.3.5-lsx"
+echo "  -> v2.3.5-lsx done."
+
+echo ""
+echo "======================================================="
 echo "Building EPANET+MSX LTS (${LTS_VERSION}) as single-file"
 echo "======================================================="
 

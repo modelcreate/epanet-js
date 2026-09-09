@@ -5,6 +5,7 @@ import type { EpanetEngineAPI as EpanetEngine232 } from "@epanet-js/epanet-engin
 import type { EpanetEngineAPI as EpanetEngine233 } from "@epanet-js/epanet-engine/v2.3.3";
 import type { EpanetEngineAPI as EpanetEngine234 } from "@epanet-js/epanet-engine/v2.3.4";
 import type { EpanetEngineAPI as EpanetEngine235 } from "@epanet-js/epanet-engine/v2.3.5";
+import type { EpanetEngineAPI as EpanetEngine235LSX } from "@epanet-js/epanet-engine/v2.3.5-lsx";
 import type { EpanetEngineAPI as EpanetEngineDev } from "@epanet-js/epanet-engine/dev";
 import type { EpanetEngineAPI as EpanetEngineMaster } from "@epanet-js/epanet-engine/master";
 import type { EpanetEngineAPI as EpanetEngine22MSX } from "@epanet-js/epanet-engine/v2.2-msx";
@@ -26,6 +27,7 @@ type EpanetEngine =
   EpanetEngine234 |
   EpanetEngine234 |
   EpanetEngine235 |
+  EpanetEngine235LSX |
   EpanetEngineDev |
   EpanetEngineMaster |
   EpanetEngine22MSX |

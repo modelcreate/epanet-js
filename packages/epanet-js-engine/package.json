@@ -94,6 +94,11 @@
             "require": "./dist/v2.3.5-msx/index.cjs",
             "types": "./dist/v2.3.5-msx/index.d.ts"
         },
+        "./v2.3.5-lsx": {
+            "import": "./dist/v2.3.5-lsx/index.mjs",
+            "require": "./dist/v2.3.5-lsx/index.cjs",
+            "types": "./dist/v2.3.5-lsx/index.d.ts"
+        },
         "./master": {
             "import": "./dist/master/index.mjs",
             "require": "./dist/master/index.cjs",

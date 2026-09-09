@@ -16,6 +16,12 @@ target_include_directories(epanet2 PUBLIC ${EPANET_SRC_DIR}
     ${EPANET_DIR}/src/util
 )
 
+if(INCLUDE_LSX)
+    target_include_directories(epanet2 PUBLIC
+        ${CMAKE_SOURCE_DIR}/build/EPANET-LSX/include
+    )
+endif()
+
 target_compile_definitions(epanet2 PRIVATE
     -DEN_API_FLOAT_TYPE=double
 )

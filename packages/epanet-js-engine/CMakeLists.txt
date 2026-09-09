@@ -9,6 +9,10 @@ set(CMAKE_EXECUTABLE_SUFFIX ".js")
 add_subdirectory(wasm/epanet)
 add_subdirectory(wasm/epanet-msx)
 
+if(INCLUDE_LSX)
+    add_subdirectory(wasm/epanet-lsx)
+endif()
+
 # Generate empty entrypoint required by CMake to produce a link step
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/entrypoint.c"
     "/* auto-generated empty entrypoint */\ntypedef int emscripten_entrypoint_dummy;\n")
@@ -21,6 +25,9 @@ add_executable(EpanetEngine
 if(INCLUDE_MSX)
     target_compile_definitions(EpanetEngine PRIVATE INCLUDE_MSX)
     target_link_libraries(EpanetEngine epanetmsx epanet2)
+elseif(INCLUDE_LSX)
+    target_compile_definitions(EpanetEngine PRIVATE INCLUDE_LSX)
+    target_link_libraries(EpanetEngine epanetlsx epanet2)
 else()
     target_link_libraries(EpanetEngine epanet2)
 endif()

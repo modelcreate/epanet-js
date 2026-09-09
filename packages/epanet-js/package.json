@@ -90,6 +90,11 @@
       "require": "./dist/engines/v2.3.5-msx/index.cjs",
       "types": "./dist/src/engines/v2.3.5-msx/index.d.ts"
     },
+    "./engines/v2.3.5-lsx": {
+      "import": "./dist/engines/v2.3.5-lsx/index.mjs",
+      "require": "./dist/engines/v2.3.5-lsx/index.cjs",
+      "types": "./dist/src/engines/v2.3.5-lsx/index.d.ts"
+    },
     "./engines/master": {
       "import": "./dist/engines/master/index.mjs",
       "require": "./dist/engines/master/index.cjs",

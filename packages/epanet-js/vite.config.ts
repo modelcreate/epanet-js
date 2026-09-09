@@ -17,7 +17,7 @@ const ENGINE_VERSIONS = [
   "v2.3.2", "v2.3.2-msx",
   "v2.3.3", "v2.3.3-msx",
   "v2.3.4", "v2.3.4-msx",
-  "v2.3.5", "v2.3.5-msx",
+  "v2.3.5", "v2.3.5-msx", "v2.3.5-lsx",
   "master", "master-msx",
   "dev", "dev-msx",
 ];
